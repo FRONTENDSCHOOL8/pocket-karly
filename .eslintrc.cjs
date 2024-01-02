@@ -20,7 +20,7 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugin: ['import'],
+  plugins: ['import'],
   rules: {
     'prefer-const': 'warn',
     'no-var': 'error',
@@ -42,5 +42,7 @@ module.exports = {
     'no-nested-ternary': 'error',
     'no-unneeded-ternary': 'error',
     'brace-style': 'error',
+    'max-depth': ['error', 2],
+    'no-unreachable': 'error',
   },
 };
