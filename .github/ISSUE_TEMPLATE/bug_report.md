@@ -2,7 +2,7 @@
 name: Bug report
 about: 버그 발생시 해당 내용과 도움을 요청할 사항을 입력하세요.
 title: "[BUG] "
-labels: bug
+labels: ''
 assignees: ''
 
 ---
