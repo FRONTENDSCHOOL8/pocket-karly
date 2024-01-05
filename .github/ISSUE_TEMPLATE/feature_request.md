@@ -1,13 +1,10 @@
 ---
 name: Feature request
 about: 해당 이슈 생성 템플릿을 사용하여 이슈를 생성해주세요.
-title: '[FEATURE]'
-labels: 'feature'
+title: '[Feature]'
+labels: ''
 assignees: ''
-
 ---
-
-
 
 ## 기능 설명
 
@@ -17,8 +14,8 @@ assignees: ''
 
 ## 세부 기능 요구사항 - TODO
 
-- [ ]  사항1
-- [ ]  사항2
+- [ ] 사항1
+- [ ] 사항2
 
 <br />
 
@@ -27,4 +24,5 @@ assignees: ''
 <br />
 
 ## 스크린샷
+
 필요시 첨부해주세요.
