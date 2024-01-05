@@ -1,12 +1,85 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.html",
-  ],
+  content: ['./index.html', './src/**/**/*.html'],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        black: '#000000',
+        secondary: '#bd76ff',
+        white: '#ffffff',
+        primary: '#5f0080',
+        content: '#333333',
+        gray: {
+          50: '#f9f9f9',
+          100: '#e1e1e1',
+          200: '#c4c4c4',
+          300: '#a6a6a6',
+          400: '#898989',
+          500: '#6b6b6b',
+          600: '#565656',
+          700: '#404040',
+          800: '#2b2b2b',
+          900: '#151515',
+        },
+        accent: { yellow: '#fa622f' },
+        blue: {
+          100: '#cce0ff',
+          200: '#99c2ff',
+          300: '#66a3ff',
+          400: '#3385ff',
+          500: '#0066ff',
+          600: '#0052cc',
+          700: '#003d99',
+          800: '#002966',
+          900: '#001433',
+        },
+        Info: { Error: '#f03f40' },
+      },
+      fontSize: {
+        sm: '12px',
+        base: '16px',
+        lg: '21.3px',
+        xl: '28.4px',
+        '2xl': '37.9px',
+        '3xl': '50.5px',
+        // Heading
+        'h-base': ['16px', { lineHeight: '140%', fontWeight: '700' }],
+        'h-lg': ['21.3px', { lineHeight: '140%', fontWeight: '700' }],
+        'h-xl': ['28.4px', { lineHeight: '140%', fontWeight: '700' }],
+        'h-2xl': ['37.9px', { lineHeight: '140%', fontWeight: '700' }],
+        'h-3xl': ['50.5px', { lineHeight: '140%', fontWeight: '700' }],
+        // Label
+        'l-sm': ['12px', { lineHeight: '150%', fontWeight: '600' }],
+        'l-base': ['16px', { lineHeight: '150%', fontWeight: '600' }],
+        'l-lg': ['21.3px', { lineHeight: '150%', fontWeight: '600' }],
+        'l-xl': ['28.4px', { lineHeight: '150%', fontWeight: '600' }],
+        'l-2xl': ['37.9px', { lineHeight: '150%', fontWeight: '600' }],
+        // Paragraph
+        'p-sm': ['12px', { lineHeight: '160%', fontWeight: '400' }],
+        'p-base': ['16px', { lineHeight: '160%', fontWeight: '400' }],
+        'p-lg': ['21.3px', { lineHeight: '160%', fontWeight: '400' }],
+        'p-xl': ['28.4px', { lineHeight: '160%', fontWeight: '400' }],
+      },
+      fontFamily: { pretendard: 'Pretendard' },
+      boxShadow: {
+        text: 'inset 1px 1px 0px 0px rgba(0,0,0,1)',
+        'Above/High': '0px -16px 48px 0px rgba(0,0,0,0.3)',
+        'Above/Medium': '0px -8px 36px 0px rgba(0,0,0,0.2)',
+        'Above/Low': '0px -4px 24px 0px rgba(0,0,0,0.1)',
+        'Below/High': '0px 16px 48px 0px rgba(0,0,0,0.3)',
+        'Below/Medium': '0px 8px 36px 0px rgba(0,0,0,0.2)',
+        'Below/Low': '0px 4px 24px 0px rgba(0,0,0,0.1)',
+      },
+      borderRadius: {
+        xs: '1px',
+        sm: '2px',
+        lg: '5px',
+        xl: '8px',
+        '2xl': '12px',
+        '3xl': '16px',
+        '4xl': '17px',
+      },
+    },
   },
   plugins: [],
-}
-
+};

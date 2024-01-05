@@ -18,6 +18,7 @@ docs-ssr
 .idea
 .DS_Store
 .eslintcache
+.env
 *.suo
 *.ntvs*
 *.njsproj
