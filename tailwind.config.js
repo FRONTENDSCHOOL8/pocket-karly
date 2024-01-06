@@ -79,6 +79,9 @@ export default {
         '3xl': '16px',
         '4xl': '17px',
       },
+      width: {
+        innerWrapper: '1050px',
+      },
     },
   },
   plugins: [],
