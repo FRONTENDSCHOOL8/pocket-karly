@@ -9,6 +9,7 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'),
         header: resolve(__dirname, 'src/pages/components/header.html'),
         // footer: resolve(__dirname, 'src/pages/components/footer.html'),
+        productBox: resolve(__dirname, 'src/pages/components/productBox.html'),
       },
     },
   },

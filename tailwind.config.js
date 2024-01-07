@@ -81,6 +81,14 @@ export default {
       },
       width: {
         innerWrapper: '1050px',
+        'productBox-width': '249px',
+      },
+      height: {
+        'productBox-height': '538px',
+      },
+      inset: {
+        'productBox-cart-top': '258px',
+        'productBox-cart-left': '189px',
       },
     },
   },
