@@ -4,3 +4,5 @@
 /* @import './custom-components.css'; */
 @import 'tailwindcss/utilities';
 /* @import './custom-utilities.css'; */
+
+@import 'footer.css';
