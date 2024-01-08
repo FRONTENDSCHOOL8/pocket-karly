@@ -20,6 +20,7 @@ export default {
           700: '#404040',
           800: '#2b2b2b',
           900: '#151515',
+          divider: '#d9d9d9',
         },
         accent: { yellow: '#fa622f' },
         blue: {
@@ -55,6 +56,7 @@ export default {
         'l-xl': ['28.4px', { lineHeight: '150%', fontWeight: '600' }],
         'l-2xl': ['37.9px', { lineHeight: '150%', fontWeight: '600' }],
         // Paragraph
+        'p-xsm': ['10px', { lineHeight: '160%', fontWeight: '400' }],
         'p-sm': ['12px', { lineHeight: '160%', fontWeight: '400' }],
         'p-base': ['16px', { lineHeight: '160%', fontWeight: '400' }],
         'p-lg': ['21.3px', { lineHeight: '160%', fontWeight: '400' }],
@@ -82,13 +84,26 @@ export default {
       width: {
         innerWrapper: '1050px',
         'productBox-width': '249px',
+        100: '400px',
+        61.75: '247px',
+        48.5: '194px',
       },
       height: {
         'productBox-height': '538px',
+        3.25: '13px',
+        13: '52px',
+        18: '72px',
       },
       inset: {
         'productBox-cart-top': '258px',
         'productBox-cart-left': '189px',
+        18: '72px',
+      },
+      spacing: {
+        3.25: '13px',
+        5.25: '21px',
+        7.25: '29px',
+        13.5: '54px',
       },
     },
   },
