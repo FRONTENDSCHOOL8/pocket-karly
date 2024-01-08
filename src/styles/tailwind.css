@@ -4,6 +4,7 @@
 /* @import './custom-components.css'; */
 @import 'tailwindcss/utilities';
 /* @import './custom-utilities.css'; */
+@import 'src/pages/register/register.css';
 @import 'button.css';
 @font-face {
   font-family: 'Pretendard-Regular';
