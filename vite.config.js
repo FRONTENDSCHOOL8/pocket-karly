@@ -10,6 +10,7 @@ export default defineConfig({
         header: resolve(__dirname, 'src/pages/components/header.html'),
         footer: resolve(__dirname, 'src/pages/components/footer.html'),
         popup: resolve(__dirname, 'src/pages/components/popup.html'),
+        register: resolve(__dirname, 'src/pages/register/index.html'),
         productBox: resolve(__dirname, 'src/pages/components/productBox.html'),
       },
     },

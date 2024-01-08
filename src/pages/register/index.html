@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="/src/styles/tailwind.css" /> -->
+
+    <title>회원가입 - 칼리</title>
+    <script type="module" src="/src/pages/register/register.js"></script>
+  </head>
+  <body>
+    <div class="register mx-auto w-innerWrapper pb-10 pt-20">
+      <div class="register__wrapper mx-auto w-[640px] flex-col">
+        <h2 class="pb-4 text-center text-l-lg">회원가입</h2>
+        <span
+          class="block pb-[10px] pr-1 text-right text-l-sm before:mr-0.5 before:p-1 before:align-super before:text-red-500 before:content-['*']"
+          >필수입력사항</span
+        >
+        <form action="/" class="border-t-2 border-t-black" method="post">
+          <div class="register__section">
+            <label for="username" class="register__label register__required"
+              >아이디</label
+            >
+            <input
+              class="register__input"
+              type="text"
+              id="username"
+              name="ID"
+              placeholder="아이디를 입력해주세요"
+              required
+            />
+            <button class="button--white__small w-[143px]" type="button">
+              중복확인
+            </button>
+          </div>
+          <div class="register__section">
+            <label for="password" class="register__label register__required"
+              >비밀번호</label
+            >
+            <input
+              class="register__input"
+              type="password"
+              id="password"
+              name="password"
+              placeholder="비밀번호를 입력해주세요"
+              required
+            />
+          </div>
+          <div class="register__section">
+            <label
+              for="password-repeat"
+              class="register__label register__required"
+              >비밀번호확인</label
+            >
+            <input
+              class="register__input"
+              type="password"
+              id="password-repeat"
+              name="password-repeat"
+              placeholder="비밀번호를 한번 더 입력해주세요"
+              required
+            />
+          </div>
+          <div class="register__section">
+            <label for="name" class="register__label register__required"
+              >이름</label
+            >
+            <input
+              class="register__input"
+              type="text"
+              id="name"
+              name="name"
+              placeholder="이름을 입력해 주세요"
+              required
+            />
+          </div>
+          <div class="register__section">
+            <label for="email" class="register__label register__required"
+              >이메일</label
+            >
+            <input
+              class="register__input"
+              type="email"
+              id="email"
+              name="email"
+              placeholder="예) marketkarly@karly.com"
+              required
+            />
+            <button class="button--white__small w-[143px]" type="button">
+              중복확인
+            </button>
+          </div>
+          <div class="register__section">
+            <label for="phone" class="register__label register__required"
+              >휴대폰</label
+            >
+            <input
+              class="register__input"
+              type="text"
+              id="phone"
+              name="phone"
+              placeholder="숫자만 입력해주세요."
+              required
+            />
+            <button type="button" class="button--white__small w-[143px]">
+              인증번호 받기
+            </button>
+          </div>
+
+          <div class="register__section">
+            <label class="register__label register__required">주소</label>
+            <div class="flex flex-col">
+              <button type="button" class="button--white__small w-[333px]">
+                주소검색
+              </button>
+              <span class="text-p-sm"
+                >배송지에 따라 상품 정보가 달라질 수 있습니다.
+              </span>
+            </div>
+          </div>
+
+          <div class="register__section items-center">
+            <label class="register__label">성별</label>
+            <div class="gender__wrapper flex h-6 w-[333px] justify-between">
+              <div class="radio__man inline-block">
+                <input
+                  class="sr-only"
+                  type="radio"
+                  name="gender"
+                  id="man"
+                  value="man"
+                />
+
+                <label
+                  class="flex cursor-pointer items-center gap-2 text-l-base"
+                  for="man"
+                  ><div class="h-6 w-6 overflow-hidden">
+                    <svg
+                      role="img"
+                      class="radio__icon"
+                      width="40"
+                      height="73"
+                      viewBox="8 8 40 73"
+                    >
+                      <!-- viewBox checked 8 41 40 73 -->
+                      <use href="/src/assets/svg/_sprite.svg#radio" />
+                    </svg>
+                  </div>
+                  남자
+                </label>
+              </div>
+              <div class="radio__woman inline-block">
+                <input
+                  class="sr-only"
+                  type="radio"
+                  name="gender"
+                  id="woman"
+                  value="woman"
+                />
+                <label
+                  class="flex cursor-pointer items-center gap-2 text-l-base"
+                  for="woman"
+                  ><div class="h-6 w-6 overflow-hidden">
+                    <svg
+                      role="img"
+                      class="radio__icon"
+                      width="40"
+                      height="73"
+                      viewBox="8 8 40 73"
+                    >
+                      <use href="/src/assets/svg/_sprite.svg#radio" />
+                    </svg>
+                  </div>
+                  여자
+                </label>
+              </div>
+              <div class="radio__unselected inline-block">
+                <input
+                  checked
+                  class="sr-only"
+                  type="radio"
+                  name="gender"
+                  id="unselected"
+                  value="unselected"
+                />
+                <label
+                  class="flex cursor-pointer items-center gap-2 text-l-base"
+                  for="unselected"
+                  ><div class="h-6 w-6 overflow-hidden">
+                    <svg
+                      role="img"
+                      class="radio__icon"
+                      width="40"
+                      height="73"
+                      viewBox="8 41 40 73"
+                    >
+                      <use href="/src/assets/svg/_sprite.svg#radio" />
+                    </svg>
+                  </div>
+                  선택안함</label
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="register__section">
+            <label class="register__label">생년월일</label>
+            <div class="birth__input register__input flex justify-center gap-1">
+              <input
+                class="h-10 w-[25%] px-4 text-center text-[14px] focus:outline-none"
+                type="text"
+                name="year"
+                id="year"
+                placeholder="YYYY"
+                required
+              />
+              <span
+                class="inline-block h-10 text-[14px] leading-10 text-gray-300 after:content-['/']"
+              ></span>
+              <input
+                class="h-10 w-[25%] px-4 text-center text-[14px] focus:outline-none"
+                type="text"
+                name="month"
+                id="month"
+                placeholder="MM"
+                required
+              />
+              <span
+                class="inline-block h-10 text-[14px] leading-10 text-gray-300 after:content-['/']"
+              ></span>
+              <input
+                class="h-10 w-[25%] px-4 text-center text-[14px] focus:outline-none"
+                type="text"
+                name="day"
+                id="day"
+                placeholder="DD"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="register__section">
+            <label class="register__label">추가입력 사항</label>
+            <div class="extra__wrapper flex w-[333px] justify-between">
+              <div class="flex items-center gap-2 text-l-base">
+                <input
+                  class="sr-only"
+                  type="radio"
+                  name="event"
+                  id="recommandId"
+                />
+                <label
+                  class="flex cursor-pointer items-center gap-2 text-l-base"
+                  for="recommandId"
+                  ><div class="h-6 w-6 overflow-hidden">
+                    <svg
+                      role="img"
+                      class="radio__icon"
+                      width="40"
+                      height="73"
+                      viewBox="8 8 40 73"
+                    >
+                      <use href="/src/assets/svg/_sprite.svg#radio" />
+                    </svg>
+                  </div>
+                  친구초대 추천인 아이디</label
+                >
+              </div>
+              <div class="flex items-center gap-2 text-l-base">
+                <input
+                  class="sr-only"
+                  type="radio"
+                  name="event"
+                  id="isMarketing"
+                />
+                <label
+                  class="flex cursor-pointer items-center gap-2 text-l-base"
+                  for="isMarketing"
+                  ><div class="h-6 w-6 overflow-hidden">
+                    <svg
+                      role="img"
+                      class="radio__icon"
+                      width="40"
+                      height="73"
+                      viewBox="8 8 40 73"
+                    >
+                      <use href="/src/assets/svg/_sprite.svg#radio" />
+                    </svg>
+                  </div>
+                  참여 이벤트명</label
+                >
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="register__agreement register__section border-b-[1px] border-t-[1px] border-b-gray-200 border-t-black"
+          >
+            <label class="register__label register__required"
+              >이용약관동의</label
+            >
+            <div>
+              <div class="register__agreement__list flex items-baseline">
+                <input
+                  class="sr-only"
+                  type="checkbox"
+                  name="agreeAll"
+                  id="agreeAll"
+                />
+                <div>
+                  <label
+                    class="flex cursor-pointer items-center gap-2 text-l-lg"
+                    for="agreeAll"
+                  >
+                    <div class="h-6 w-6 overflow-hidden">
+                      <svg
+                        role="img"
+                        class="check__icon"
+                        width="40"
+                        height="72"
+                        viewBox="8 8 40 72"
+                      >
+                        <use href="/src/assets/svg/_sprite.svg#check" />
+                      </svg>
+                    </div>
+                    전체 동의합니다.</label
+                  >
+                  <p class="pl-8 text-p-sm text-gray-400">
+                    선택항목에 동의하지 않은 경우도 회원가입 및 일반적인
+                    서비스를 이용할 수 있습니다.
+                  </p>
+                </div>
+              </div>
+              <div class="register__agreement__list flex justify-between">
+                <div>
+                  <input
+                    class="sr-only"
+                    type="checkbox"
+                    name="agree"
+                    id="agreeTerms"
+                  />
+                  <label
+                    class="flex cursor-pointer items-center gap-2 text-l-base"
+                    for="agreeTerms"
+                  >
+                    <div class="h-6 w-6 overflow-hidden">
+                      <svg
+                        role="img"
+                        class="check__icon"
+                        width="40"
+                        height="72"
+                        viewBox="8 8 40 72"
+                      >
+                        <use href="/src/assets/svg/_sprite.svg#check" />
+                      </svg>
+                    </div>
+                    이용약관 동의 (필수)</label
+                  >
+                </div>
+                <a class="register__a" href="#"
+                  >약관보기
+                  <svg
+                    aria-hidden="true"
+                    width="6"
+                    height="11"
+                    role="img"
+                    viewBox="0 0 6 11"
+                  >
+                    <use href="/src/assets/svg/_sprite.svg#arrow" />
+                  </svg>
+                </a>
+              </div>
+              <div class="register__agreement__list flex justify-between">
+                <div>
+                  <input
+                    class="sr-only"
+                    type="checkbox"
+                    name="agree"
+                    id="agreePersonal"
+                  />
+                  <label
+                    class="flex cursor-pointer items-center gap-2 text-l-base"
+                    for="agreePersonal"
+                  >
+                    <div class="h-6 w-6 overflow-hidden">
+                      <svg
+                        role="img"
+                        class="check__icon"
+                        width="40"
+                        height="72"
+                        viewBox="8 8 40 72"
+                      >
+                        <use href="/src/assets/svg/_sprite.svg#check" />
+                      </svg>
+                    </div>
+                    개인정보 수집 이용∙동의 (필수)
+                  </label>
+                </div>
+                <a class="register__a" href="#"
+                  >약관보기<svg
+                    aria-hidden="true"
+                    width="6"
+                    height="11"
+                    role="img"
+                    viewBox="0 0 6 11"
+                  >
+                    <use href="/src/assets/svg/_sprite.svg#arrow" />
+                  </svg>
+                </a>
+              </div>
+              <div class="register__agreement__list flex justify-between">
+                <div>
+                  <input
+                    class="sr-only"
+                    type="checkbox"
+                    name="agree"
+                    id="agreeEvent"
+                  />
+                  <label
+                    class="flex cursor-pointer items-center gap-2 text-l-base"
+                    for="agreeEvent"
+                  >
+                    <div class="h-6 w-6 overflow-hidden">
+                      <svg
+                        role="img"
+                        class="check__icon"
+                        width="40"
+                        height="72"
+                        viewBox="8 8 40 72"
+                      >
+                        <use href="/src/assets/svg/_sprite.svg#check" />
+                      </svg>
+                    </div>
+                    무료배송, 할인쿠폰 등 혜택/정보 수신 동의 (선택)</label
+                  >
+                </div>
+                <a class="register__a" href="#"
+                  >약관보기<svg
+                    aria-hidden="true"
+                    width="6"
+                    height="11"
+                    role="img"
+                    viewBox="0 0 6 11"
+                  >
+                    <use href="/src/assets/svg/_sprite.svg#arrow" />
+                  </svg>
+                </a>
+              </div>
+              <div class="register__agreement__list flex justify-between">
+                <div>
+                  <input
+                    class="sr-only"
+                    type="checkbox"
+                    name="agree"
+                    id="over14"
+                  />
+                  <label
+                    class="flex cursor-pointer items-center gap-2 text-l-base"
+                    for="over14"
+                  >
+                    <div class="h-6 w-6 overflow-hidden">
+                      <svg
+                        role="img"
+                        class="check__icon"
+                        width="40"
+                        height="72"
+                        viewBox="8 8 40 72"
+                      >
+                        <use href="/src/assets/svg/_sprite.svg#check" />
+                      </svg>
+                    </div>
+                    본인은 만 14세 이상입니다. (필수)</label
+                  >
+                </div>
+                <a class="register__a" href="#"
+                  >약관보기<svg
+                    aria-hidden="true"
+                    width="6"
+                    height="11"
+                    role="img"
+                    viewBox="0 0 6 11"
+                  >
+                    <use href="/src/assets/svg/_sprite.svg#arrow" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+          <button
+            type="submit"
+            class="button--purple__big mx-auto my-10 w-[340px]"
+          >
+            가입확인
+          </button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
