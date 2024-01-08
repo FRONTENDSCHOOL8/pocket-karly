@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/src/styles/tailwind.css" />
+    <script type="module" src="/main.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <dialog class="popup overflow-hidden rounded-2xl p-0">
+      <a href="#">
+        <img
+          src="/src/assets/images/popup.jpg"
+          alt="처음 만나는 뷰티 플랫폼 BEAUTY Kurly 지금 바로 만나보세요!"
+        />
+      </a>
+      <form method="dialog" class="grid grid-flow-col grid-cols-2">
+        <button
+          type="button"
+          value="cancel"
+          class="button__today--closed border-r border-gray-100 py-[30px] text-p-base text-content"
+        >
+          오늘 하루 안 보기
+        </button>
+        <button
+          type="button"
+          value="cancel"
+          class="button--closed py-[30px] text-p-base text-content"
+        >
+          닫기
+        </button>
+      </form>
+    </dialog>
+  </body>
+</html>
