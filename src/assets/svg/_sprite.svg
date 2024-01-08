@@ -63,6 +63,9 @@
                 <rect width="24" height="24" fill="white" transform="translate(8 40)"/>
             </clipPath>
         </defs>
+  </symbol>
+    <symbol id="down" width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path id="Polygon 3__down" d="M5.5 6L0.73686 0.75L10.2631 0.750001L5.5 6Z" fill="#333333"/>
     </symbol>
     <symbol id="food" width="46" height="128" viewBox="0 0 46 128" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="0.5" y="0.5" width="45" height="127" rx="4.5" stroke="#9747FF" stroke-dasharray="10 5"/>
@@ -268,6 +271,16 @@
     </symbol>
     <symbol id="goToTop" width="116" height="116" viewBox="0 0 116 116" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="58" cy="58" r="57.5" fill="white" stroke="#E3E3E3"/>
+    </symbol>
+    <symbol id="hamburger-black" width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g id="Icon / Hamburger__hamburger-black" clip-path="url(#clip0_5520_4649__hamburger-black)">
+            <path id="Vector__hamburger-black" fill-rule="evenodd" clip-rule="evenodd" d="M0 0H16V1.7H0V0ZM0 6.15H16V7.85H0V6.15ZM0 12.3H16V14H0V12.3Z" fill="#333333"/>
+        </g>
+        <defs>
+            <clipPath id="clip0_5520_4649__hamburger-black">
+                <rect width="16" height="14" fill="white"/>
+            </clipPath>
+        </defs>
     </symbol>
     <symbol id="hamburger" width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clip-path="url(#clip0_42_621__hamburger)">
