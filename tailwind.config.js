@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./index.html', './src/**/**/*.html'],
+  content: ['./index.html', './src/**/**/*.{html,js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
@@ -60,7 +60,7 @@ export default {
         'p-lg': ['21.3px', { lineHeight: '160%', fontWeight: '400' }],
         'p-xl': ['28.4px', { lineHeight: '160%', fontWeight: '400' }],
       },
-      fontFamily: { pretendard: 'Pretendard' },
+      fontFamily: { sans: 'Pretendard-Regular' },
       boxShadow: {
         text: 'inset 1px 1px 0px 0px rgba(0,0,0,1)',
         'Above/High': '0px -16px 48px 0px rgba(0,0,0,0.3)',
@@ -81,6 +81,14 @@ export default {
       },
       width: {
         innerWrapper: '1050px',
+        'productBox-width': '249px',
+      },
+      height: {
+        'productBox-height': '538px',
+      },
+      inset: {
+        'productBox-cart-top': '258px',
+        'productBox-cart-left': '189px',
       },
     },
   },
