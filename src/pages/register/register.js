@@ -1,4 +1,5 @@
 import { getNode, getNodes, attr } from '/src/lib/';
+import '/src/styles/tailwind.css';
 
 const radioSvgs = getNodes('.radio__icon');
 const radioSvgsArray = [...radioSvgs];
