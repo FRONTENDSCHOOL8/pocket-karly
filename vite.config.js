@@ -12,6 +12,7 @@ export default defineConfig({
         popup: resolve(__dirname, 'src/pages/components/popup.html'),
         register: resolve(__dirname, 'src/pages/register/index.html'),
         productBox: resolve(__dirname, 'src/pages/components/productBox.html'),
+        addCart: resolve(__dirname, 'src/pages/components/addCart.html'),
       },
     },
   },
