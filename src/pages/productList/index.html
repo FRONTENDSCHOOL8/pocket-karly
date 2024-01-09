@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="module" src="/src/pages/productList/productList.js"></script>
+    <title>상품 목록</title>
+  </head>
+  <body>
+    <div class="pb-20">
+      <h2 class="py-12 text-center text-l-lg text-black">베스트</h2>
+      <div class="mx-auto my-0 flex w-innerWrapper justify-between">
+        <div class="w-[220px] py-3.5">
+          <details class="group">
+            <summary class="list__summury">
+              <span>필터</span>
+              <span class="text-[10px] font-light text-gray-300">초기화</span>
+            </summary>
+          </details>
+          <details class="group">
+            <summary class="list__summury">
+              <span>카테고리</span>
+              <span class="list__summury--rotate">
+                <svg role="img" width="18" height="18" viewBox="8 34 18 18 ">
+                  <use href="/icons/_sprite.svg#arrows" />
+                </svg>
+              </span>
+            </summary>
+            <p class="list__summury-p">카테고리입니다</p>
+          </details>
+          <details class="group">
+            <summary class="list__summury">
+              <span>브랜드</span>
+              <span class="list__summury--rotate">
+                <svg role="img" width="18" height="18" viewBox="8 34 18 18 ">
+                  <use href="/icons/_sprite.svg#arrows" />
+                </svg>
+              </span>
+            </summary>
+            <p class="list__summury-p">브랜드입니다</p>
+          </details>
+          <details class="group">
+            <summary class="list__summury">
+              <span>가격</span>
+              <span class="list__summury--rotate">
+                <svg role="img" width="18" height="18" viewBox="8 34 18 18 ">
+                  <use href="/icons/_sprite.svg#arrows" />
+                </svg>
+              </span>
+            </summary>
+            <p class="list__summury-p">가격입니다</p>
+          </details>
+          <details class="group">
+            <summary class="list__summury">
+              <span>혜택</span>
+              <span class="list__summury--rotate">
+                <svg role="img" width="18" height="18" viewBox="8 34 18 18 ">
+                  <use href="/icons/_sprite.svg#arrows" />
+                </svg>
+              </span>
+            </summary>
+            <p class="list__summury-p">혜택입니다</p>
+          </details>
+          <details class="group">
+            <summary class="list__summury">
+              <span>유형</span>
+              <span class="list__summury--rotate">
+                <svg role="img" width="18" height="18" viewBox="8 34 18 18 ">
+                  <use href="/icons/_sprite.svg#arrows" />
+                </svg>
+              </span>
+            </summary>
+            <p class="list__summury-p">유형입니다</p>
+          </details>
+          <details class="group">
+            <summary class="list__summury">
+              <span>특정상품 제외</span>
+              <span class="list__summury--rotate">
+                <svg role="img" width="18" height="18" viewBox="8 34 18 18 ">
+                  <use href="/icons/_sprite.svg#arrows" />
+                </svg>
+              </span>
+            </summary>
+            <p class="list__summury-p">특정상품 제외입니다</p>
+          </details>
+          <p class="list__summury-p">예시창</p>
+        </div>
+        <div class="flex flex-col">
+          <div class="grid grid-cols-3 gap-x-[18px] gap-y-6">
+            <div class="text-l-base text-black">
+              총 <span class="list__span-total">284</span>건
+            </div>
+            <div class="list__li-sorting col-span-2 text-l-base">
+              <ul class="flex items-center justify-end">
+                <li class="flex items-center gap-1">
+                  <a href="">추천순 </a>
+                  <svg
+                    role="img"
+                    width="14"
+                    height="20"
+                    viewBox="0 0 14 20"
+                    aria-label="마켓칼리 페이스북 바로가기"
+                  >
+                    <use href="/src/assets/svg/_sprite.svg#question-frame" />
+                  </svg>
+                </li>
+                <div class="div__divider"></div>
+                <li class="text-gray-300">신상품순</li>
+                <div class="div__divider"></div>
+                <li class="text-gray-300">판매량순</li>
+                <div class="div__divider"></div>
+                <li class="text-gray-300">혜택순</li>
+                <div class="div__divider"></div>
+                <li class="text-gray-300">낮은 가격순</li>
+                <div class="div__divider"></div>
+                <li class="text-gray-300">높은가격순</li>
+              </ul>
+            </div>
+          </div>
+          <div>
+            <ul class="flex items-center justify-center text-center">
+              <li class="h-[34px] w-[34px] border-r">-</li>
+              <li class="h-[34px] w-[34px] border-r">-</li>
+              <li class="h-[34px] w-[34px] border-r">1</li>
+              <li class="h-[34px] w-[34px] border-r">2</li>
+              <li class="h-[34px] w-[34px] border-r">-</li>
+              <li class="h-[34px] w-[34px] border-r">--</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
