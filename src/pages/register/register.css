@@ -1,0 +1,23 @@
+.register__label {
+  @apply inline-block h-11 w-[139px] p-2 text-l-base;
+}
+
+.register__section {
+  @apply flex gap-2 py-5;
+}
+
+.register__input {
+  @apply h-11 w-[333px] content-center rounded border border-gray-400 px-5 focus:border-black focus:outline-none;
+}
+
+.register__required {
+  @apply after:ml-0.5 after:p-1 after:align-super after:text-l-base after:text-red-500 after:content-['*'];
+}
+
+.register__agreement__list {
+  @apply py-3 text-p-base text-content;
+}
+
+.register__a {
+  @apply flex items-center gap-1 text-primary;
+}
