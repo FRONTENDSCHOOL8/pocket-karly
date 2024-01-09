@@ -87,10 +87,12 @@ export default {
         100: '400px',
         61.75: '247px',
         48.5: '194px',
+        7.5: '30px',
       },
       height: {
         'productBox-height': '538px',
         3.25: '13px',
+        7.5: '30px',
         13: '52px',
         18: '72px',
       },
@@ -104,6 +106,15 @@ export default {
         5.25: '21px',
         7.25: '29px',
         13.5: '54px',
+      },
+      backgroundImage: {
+        input__button: "url('/src/assets/svg/input-button.svg')",
+      },
+      backgroundPosition: {
+        'radio--no': 'left top',
+        'radio--yes': 'left bottom',
+        'check--no': 'right top',
+        'check--yes': 'right bottom',
       },
     },
   },
