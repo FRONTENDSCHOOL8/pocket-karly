@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/src/styles/tailwind.css" />
     <script type="module" src="/src/pages/components/header.js"></script>
     <title>header</title>
   </head>
@@ -11,7 +10,7 @@
     <header>
       <h1 class="sr-only">마켓컬리</h1>
       <div class="mx-auto my-0 w-innerWrapper">
-        <div class="header__div-top flex h-13 items-center justify-end"></div>
+        <div class="header__div-top h-13 flex items-center justify-end"></div>
         <div class="mb-3.25 flex items-center justify-between">
           <div class="flex items-center gap-3">
             <a href="/">
@@ -21,7 +20,7 @@
               </svg>
             </a>
             <a href="/" class="text-l-lg text-primary">마켓칼리</a>
-            <div class="h-3.5 border-r text-gray-divider"></div>
+            <div class="text-gray-divider h-3.5 border-r"></div>
             <a href="/" class="text-l-lg text-gray-400">뷰티칼리</a>
           </div>
           <div class="relative">
@@ -60,14 +59,14 @@
             </a>
           </div>
         </div>
-        <nav class="flex h-18 items-center justify-between">
-          <div class="group relative flex h-18 items-center gap-3">
+        <nav class="h-18 flex items-center justify-between">
+          <div class="h-18 group relative flex items-center gap-3">
             <svg role="img" width="16" height="14" viewBox="0 0 16 14">
               <use href="/icons/_sprite.svg#hamburger-black" />
             </svg>
             <span>카테고리</span>
             <div
-              class="invisible absolute left-0 top-18 z-10 w-61.75 border-b border-l border-r border-gray-divider px-3 py-2 group-hover:visible"
+              class="top-18 w-61.75 border-gray-divider invisible absolute left-0 z-10 border-b border-l border-r px-3 py-2 group-hover:visible"
             >
               <ul class="flex flex-col gap-2">
                 <li>
@@ -382,14 +381,14 @@
       <div
         class="header__div-simple fixed left-0 right-0 top-0 mx-auto my-0 hidden w-innerWrapper"
       >
-        <nav class="flex h-18 items-center justify-between gap-2">
-          <div class="group relative flex h-18 items-center gap-3">
+        <nav class="h-18 flex items-center justify-between gap-2">
+          <div class="h-18 group relative flex items-center gap-3">
             <svg role="img" width="16" height="14" viewBox="0 0 16 14">
               <use href="/icons/_sprite.svg#hamburger-black" />
             </svg>
             <span>카테고리</span>
             <div
-              class="invisible absolute left-0 top-18 z-10 w-61.75 border-b border-l border-r border-gray-divider px-3 py-2 group-hover:visible"
+              class="top-18 w-61.75 border-gray-divider invisible absolute left-0 z-10 border-b border-l border-r px-3 py-2 group-hover:visible"
             >
               <ul class="flex flex-col gap-2">
                 <li>

@@ -6,6 +6,7 @@ import {
   deleteStorage,
 } from '/src/lib/';
 import pb from '/src/api/pocketbase';
+import '/src/styles/tailwind.css';
 
 // 로그인 시 localStorage에 저장된 정보의 key 값을 'auth'라 가정하고 만듦
 // 추후 로그인 기능 작업시 작업자와 협의해야함.
@@ -46,7 +47,7 @@ if (localStorage.getItem('auth')) {
             <use href="/icons/_sprite.svg#down" />
           </svg>
           <div
-            class="invisible absolute right-3 top-10 w-32 border border-gray-divider bg-white p-2 group-hover:visible"
+            class="invisible absolute right-3 top-10 w-32 border border-gray-divider bg-white p-2 group-hover:visible z-10"
           >
           <ul class="flex list-none flex-col gap-1">
             <li>
@@ -86,7 +87,7 @@ if (localStorage.getItem('auth')) {
       <use href="/icons/_sprite.svg#down" />
     </svg>
     <div
-      class="group invisible absolute right-3 top-10 w-32 border border-gray-divider bg-white p-2 group-hover:visible"
+      class="group invisible absolute right-3 top-10 w-32 border border-gray-divider bg-white p-2 group-hover:visible z-10"
     >
       <ul class="flex list-none flex-col gap-1">
         <li>
