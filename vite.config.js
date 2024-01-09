@@ -13,6 +13,7 @@ export default defineConfig({
         register: resolve(__dirname, 'src/pages/register/index.html'),
         productBox: resolve(__dirname, 'src/pages/components/productBox.html'),
         addCart: resolve(__dirname, 'src/pages/components/addCart.html'),
+        productList: resolve(__dirname, 'src/pages/productList/index.html'),
       },
     },
   },

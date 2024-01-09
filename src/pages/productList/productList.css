@@ -1,0 +1,15 @@
+.div__divider {
+  @apply mx-2 h-2.5 w-0 border border-gray-300;
+}
+
+.list__summury {
+  @apply flex cursor-pointer list-none items-center justify-between py-3.5 text-l-base text-content;
+}
+
+.list__summury--rotate {
+  @apply transition group-open:rotate-180;
+}
+
+.list__summury-p {
+  @apply mt-1 text-p-base text-gray-500;
+}
