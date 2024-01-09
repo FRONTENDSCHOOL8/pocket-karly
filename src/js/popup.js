@@ -1,5 +1,6 @@
 import { setStorage, getStorage } from '/src/lib/utils/storage';
 import { getNode } from '/src/lib/';
+import '/src/styles/tailwind.css';
 
 const popup = getNode('.popup');
 const todayCloseButton = getNode('.button__today--closed');
