@@ -18,7 +18,7 @@
   </head>
   <body>
     <div class="main-wraper">
-      <!-- <div class="banner relative"> -->
+      <div class="banner relative h-auto">
         <div class="swiper swiper-container">
           <ul class="swiper-wrapper">
             <li class="swiper-slide">
@@ -46,103 +46,901 @@
               />
             </li>
           </ul>
-          <div class="swiper-button-prev ">
-            <!-- <img
-              class=""
-              src="src/assets/svg/arrow-circle.svg"
-              alt=""
-            /> -->
-          </div>
-          <div class="swiper-button-next">
-            <!-- <img
-              class=""
-              src="src/assets/svg/arrowReverse.svg"
-              alt=""
-            /> -->
-          </div>
         </div>
-
-
-
+        <div class="absolute left-[300px] top-40 z-10">
+          <img
+            class="swiper-prev"
+            src="src/assets/svg/arrow-circle.svg"
+            alt="이전 버튼"
+          />
+        </div>
+        <div class="absolute right-[300px] top-40 z-10">
+          <img
+            class="swiper-next"
+            src="src/assets/svg/arrowReverse.svg"
+            alt="다음 버튼"
+          />
+        </div>
+      </div>
       <section>
-        <div class="w-innerWrapper mx-auto">
-          <div class="flex flex-col items-center mt-[40px]  mb-[28px]">
-            <h3 class="text-[28.43px] font-bold ">이 상품 어때요?</h3>
+        <div class="relative mx-auto h-auto w-innerWrapper">
+          <div class="mb-7 mt-10 flex flex-col items-center">
+            <h3 class="text-xl font-bold">이 상품 어때요?</h3>
           </div>
           <div class="swiper swiper-product w-innerWrapper">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide">
-                <div class="w-productBox-width h-productBox-height">
-                  <a href="/">
-                    <div class="mb-4 h-80">
+            <ul class="swiper-wrapper">
+              <li class="swiper-slide">
+                <div class="h-productBox-height w-productBox-width">
+                  <a href="javascript:void(0)">
+                    <div class="relative">
+                      <div class="mb-4 h-80">
                         <img
-                        class="h-full w-full object-cover"
-                        src="/src/assets/images/ex/thumb-1.jpg"
-                        alt="상품이미지">
-                    </div>
-                    <div class="info flex flex-col gap-2">
-                      <span class="text-l-sm text-gray-400">샛별배송</span>
-                      <p class="text-p-base text-content">[풀무원] 탱탱쫄면 (4개입)</p>
-                      <div class="flex gap-2">
-                        <p class="text-l-lg text-content">
-                          4,980 원
+                          class="h-full w-full object-cover"
+                          src="/src/assets/images/ex/thumb-1.jpg"
+                          alt="상품이미지"
+                        />
+                      </div>
+                      <div class="info flex flex-col gap-2">
+                        <span class="text-l-sm text-gray-400">샛별배송</span>
+                        <p class="text-p-base text-content">
+                          [풀무원] 탱탱쫄면 (4개입)
                         </p>
+                        <div class="flex gap-2">
+                          <p class="text-l-lg text-content">4,980 원</p>
+                        </div>
+                        <span class="text-sm font-normal text-gray-400">
+                          튀기지 않아 부담없는 매콤함
+                        </span>
+                        <div class="flex gap-2">
+                          <span
+                            class="rounded bg-gray-100 p-1 text-l-sm text-primary"
+                            >Karly Only</span
+                          >
+                          <span
+                            class="rounded bg-gray-100 p-1 text-l-sm text-content"
+                            >한정수량</span
+                          >
+                        </div>
                       </div>
-                      <span class="text-gray-400 text-sm font-normal">
-                        튀기지 않아 부담없는 매콤함
-                      </span>
-                      <div class="flex gap-2">
-                        <span class="rounded bg-gray-100 p-1 text-l-sm text-primary">Karly Only</span>
-                        <span class="rounded bg-gray-100 p-1 text-l-sm text-content">한정수량</span>
-                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      aria-label="장바구니 버튼"
+                      class="productBox__cart-button absolute left-productBox-cart-left top-productBox-cart-top"
+                    >
+                      <svg
+                        role="img"
+                        width="45"
+                        height="45"
+                        viewBox="0 0 45 45 "
+                      >
+                        <use href="/icons/_sprite.svg#cart" />
+                      </svg>
+                    </button>
                   </a>
                 </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="w-productBox-width h-productBox-height">
-                  <a href="/">
-                    <div class="mb-4 h-80">
+              </li>
+              <li class="swiper-slide">
+                <div class="h-productBox-height w-productBox-width">
+                  <a href="javascript:void(0)">
+                    <div class="relative">
+                      <div class="mb-4 h-80">
                         <img
-                        class="h-full w-full object-cover"
-                        src="/src/assets/images/ex/thumb-1.jpg"
-                        alt="상품이미지">
-                    </div>
-                    <div class="info flex flex-col gap-2">
-                      <span class="text-l-sm text-gray-400">샛별배송</span>
-                      <p class="text-p-base text-content">[풀무원] 탱탱쫄면 (4개입)</p>
-                      <div class="flex gap-2">
-                        <p class="text-l-lg text-content">
-                          4,980 원
+                          class="h-full w-full object-cover"
+                          src="/src/assets/images/ex/thumb-1.jpg"
+                          alt="상품이미지"
+                        />
+                      </div>
+                      <div class="info flex flex-col gap-2">
+                        <span class="text-l-sm text-gray-400">샛별배송</span>
+                        <p class="text-p-base text-content">
+                          [풀무원] 탱탱쫄면 (4개입)
                         </p>
+                        <div class="flex gap-2">
+                          <p class="text-l-lg text-content">4,980 원</p>
+                        </div>
+                        <span class="text-sm font-normal text-gray-400">
+                          튀기지 않아 부담없는 매콤함
+                        </span>
+                        <div class="flex gap-2">
+                          <span
+                            class="rounded bg-gray-100 p-1 text-l-sm text-primary"
+                            >Karly Only</span
+                          >
+                          <span
+                            class="rounded bg-gray-100 p-1 text-l-sm text-content"
+                            >한정수량</span
+                          >
+                        </div>
                       </div>
-                      <span class="text-gray-400 text-sm font-normal">
-                        튀기지 않아 부담없는 매콤함
-                      </span>
-                      <div class="flex gap-2">
-                        <span class="rounded bg-gray-100 p-1 text-l-sm text-primary">Karly Only</span>
-                        <span class="rounded bg-gray-100 p-1 text-l-sm text-content">한정수량</span>
-                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      aria-label="장바구니 버튼"
+                      class="productBox__cart-button absolute left-productBox-cart-left top-productBox-cart-top"
+                    >
+                      <svg
+                        role="img"
+                        width="45"
+                        height="45"
+                        viewBox="0 0 45 45 "
+                      >
+                        <use href="/icons/_sprite.svg#cart" />
+                      </svg>
+                    </button>
                   </a>
                 </div>
-              </div>
-            </div>
+              </li>
+              <li class="swiper-slide">
+                <div class="h-productBox-height w-productBox-width">
+                  <a href="javascript:void(0)">
+                    <div class="relative">
+                      <div class="mb-4 h-80">
+                        <img
+                          class="h-full w-full object-cover"
+                          src="/src/assets/images/ex/thumb-1.jpg"
+                          alt="상품이미지"
+                        />
+                      </div>
+                      <div class="info flex flex-col gap-2">
+                        <span class="text-l-sm text-gray-400">샛별배송</span>
+                        <p class="text-p-base text-content">
+                          [풀무원] 탱탱쫄면 (4개입)
+                        </p>
+                        <div class="flex gap-2">
+                          <p class="text-l-lg text-content">4,980 원</p>
+                        </div>
+                        <span class="text-sm font-normal text-gray-400">
+                          튀기지 않아 부담없는 매콤함
+                        </span>
+                        <div class="flex gap-2">
+                          <span
+                            class="rounded bg-gray-100 p-1 text-l-sm text-primary"
+                            >Karly Only</span
+                          >
+                          <span
+                            class="rounded bg-gray-100 p-1 text-l-sm text-content"
+                            >한정수량</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      aria-label="장바구니 버튼"
+                      class="productBox__cart-button absolute left-productBox-cart-left top-productBox-cart-top"
+                    >
+                      <svg
+                        role="img"
+                        width="45"
+                        height="45"
+                        viewBox="0 0 45 45 "
+                      >
+                        <use href="/icons/_sprite.svg#cart" />
+                      </svg>
+                    </button>
+                  </a>
+                </div>
+              </li>
+              <li class="swiper-slide">
+                <div class="h-productBox-height w-productBox-width">
+                  <a href="javascript:void(0)">
+                    <div class="relative">
+                      <div class="mb-4 h-80">
+                        <img
+                          class="h-full w-full object-cover"
+                          src="/src/assets/images/ex/thumb-1.jpg"
+                          alt="상품이미지"
+                        />
+                      </div>
+                      <div class="info flex flex-col gap-2">
+                        <span class="text-l-sm text-gray-400">샛별배송</span>
+                        <p class="text-p-base text-content">
+                          [풀무원] 탱탱쫄면 (4개입)
+                        </p>
+                        <div class="flex gap-2">
+                          <p class="text-l-lg text-content">4,980 원</p>
+                        </div>
+                        <span class="text-sm font-normal text-gray-400">
+                          튀기지 않아 부담없는 매콤함
+                        </span>
+                        <div class="flex gap-2">
+                          <span
+                            class="rounded bg-gray-100 p-1 text-l-sm text-primary"
+                            >Karly Only</span
+                          >
+                          <span
+                            class="rounded bg-gray-100 p-1 text-l-sm text-content"
+                            >한정수량</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      aria-label="장바구니 버튼"
+                      class="productBox__cart-button absolute left-productBox-cart-left top-productBox-cart-top"
+                    >
+                      <svg
+                        role="img"
+                        width="45"
+                        height="45"
+                        viewBox="0 0 45 45 "
+                      >
+                        <use href="/icons/_sprite.svg#cart" />
+                      </svg>
+                    </button>
+                  </a>
+                </div>
+              </li>
+              <li class="swiper-slide">
+                <div class="h-productBox-height w-productBox-width">
+                  <a href="javascript:void(0)">
+                    <div class="relative">
+                      <div class="mb-4 h-80">
+                        <img
+                          class="h-full w-full object-cover"
+                          src="/src/assets/images/ex/thumb-1.jpg"
+                          alt="상품이미지"
+                        />
+                      </div>
+                      <div class="info flex flex-col gap-2">
+                        <span class="text-l-sm text-gray-400">샛별배송</span>
+                        <p class="text-p-base text-content">
+                          [풀무원] 탱탱쫄면 (4개입)
+                        </p>
+                        <div class="flex gap-2">
+                          <p class="text-l-lg text-content">4,980 원</p>
+                        </div>
+                        <span class="text-sm font-normal text-gray-400">
+                          튀기지 않아 부담없는 매콤함
+                        </span>
+                        <div class="flex gap-2">
+                          <span
+                            class="rounded bg-gray-100 p-1 text-l-sm text-primary"
+                            >Karly Only</span
+                          >
+                          <span
+                            class="rounded bg-gray-100 p-1 text-l-sm text-content"
+                            >한정수량</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      aria-label="장바구니 버튼"
+                      class="productBox__cart-button absolute left-productBox-cart-left top-productBox-cart-top"
+                    >
+                      <svg
+                        role="img"
+                        width="45"
+                        height="45"
+                        viewBox="0 0 45 45 "
+                      >
+                        <use href="/icons/_sprite.svg#cart" />
+                      </svg>
+                    </button>
+                  </a>
+                </div>
+              </li>
+              <li class="swiper-slide">
+                <div class="h-productBox-height w-productBox-width">
+                  <a href="javascript:void(0)">
+                    <div class="relative">
+                      <div class="mb-4 h-80">
+                        <img
+                          class="h-full w-full object-cover"
+                          src="/src/assets/images/ex/thumb-1.jpg"
+                          alt="상품이미지"
+                        />
+                      </div>
+                      <div class="info flex flex-col gap-2">
+                        <span class="text-l-sm text-gray-400">샛별배송</span>
+                        <p class="text-p-base text-content">
+                          [풀무원] 탱탱쫄면 (4개입)
+                        </p>
+                        <div class="flex gap-2">
+                          <p class="text-l-lg text-content">4,980 원</p>
+                        </div>
+                        <span class="text-sm font-normal text-gray-400">
+                          튀기지 않아 부담없는 매콤함
+                        </span>
+                        <div class="flex gap-2">
+                          <span
+                            class="rounded bg-gray-100 p-1 text-l-sm text-primary"
+                            >Karly Only</span
+                          >
+                          <span
+                            class="rounded bg-gray-100 p-1 text-l-sm text-content"
+                            >한정수량</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      aria-label="장바구니 버튼"
+                      class="productBox__cart-button absolute left-productBox-cart-left top-productBox-cart-top"
+                    >
+                      <svg
+                        role="img"
+                        width="45"
+                        height="45"
+                        viewBox="0 0 45 45 "
+                      >
+                        <use href="/icons/_sprite.svg#cart" />
+                      </svg>
+                    </button>
+                  </a>
+                </div>
+              </li>
+              <li class="swiper-slide">
+                <div class="h-productBox-height w-productBox-width">
+                  <a href="javascript:void(0)">
+                    <div class="relative">
+                      <div class="mb-4 h-80">
+                        <img
+                          class="h-full w-full object-cover"
+                          src="/src/assets/images/ex/thumb-1.jpg"
+                          alt="상품이미지"
+                        />
+                      </div>
+                      <div class="info flex flex-col gap-2">
+                        <span class="text-l-sm text-gray-400">샛별배송</span>
+                        <p class="text-p-base text-content">
+                          [풀무원] 탱탱쫄면 (4개입)
+                        </p>
+                        <div class="flex gap-2">
+                          <p class="text-l-lg text-content">4,980 원</p>
+                        </div>
+                        <span class="text-sm font-normal text-gray-400">
+                          튀기지 않아 부담없는 매콤함
+                        </span>
+                        <div class="flex gap-2">
+                          <span
+                            class="rounded bg-gray-100 p-1 text-l-sm text-primary"
+                            >Karly Only</span
+                          >
+                          <span
+                            class="rounded bg-gray-100 p-1 text-l-sm text-content"
+                            >한정수량</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      aria-label="장바구니 버튼"
+                      class="productBox__cart-button absolute left-productBox-cart-left top-productBox-cart-top"
+                    >
+                      <svg
+                        role="img"
+                        width="45"
+                        height="45"
+                        viewBox="0 0 45 45 "
+                      >
+                        <use href="/icons/_sprite.svg#cart" />
+                      </svg>
+                    </button>
+                  </a>
+                </div>
+              </li>
+              <li class="swiper-slide">
+                <div class="h-productBox-height w-productBox-width">
+                  <a href="javascript:void(0)">
+                    <div class="relative">
+                      <div class="mb-4 h-80">
+                        <img
+                          class="h-full w-full object-cover"
+                          src="/src/assets/images/ex/thumb-1.jpg"
+                          alt="상품이미지"
+                        />
+                      </div>
+                      <div class="info flex flex-col gap-2">
+                        <span class="text-l-sm text-gray-400">샛별배송</span>
+                        <p class="text-p-base text-content">
+                          [풀무원] 탱탱쫄면 (4개입)
+                        </p>
+                        <div class="flex gap-2">
+                          <p class="text-l-lg text-content">4,980 원</p>
+                        </div>
+                        <span class="text-sm font-normal text-gray-400">
+                          튀기지 않아 부담없는 매콤함
+                        </span>
+                        <div class="flex gap-2">
+                          <span
+                            class="rounded bg-gray-100 p-1 text-l-sm text-primary"
+                            >Karly Only</span
+                          >
+                          <span
+                            class="rounded bg-gray-100 p-1 text-l-sm text-content"
+                            >한정수량</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      aria-label="장바구니 버튼"
+                      class="productBox__cart-button absolute left-productBox-cart-left top-productBox-cart-top"
+                    >
+                      <svg
+                        role="img"
+                        width="45"
+                        height="45"
+                        viewBox="0 0 45 45 "
+                      >
+                        <use href="/icons/_sprite.svg#cart" />
+                      </svg>
+                    </button>
+                  </a>
+                </div>
+              </li>
+              <li class="swiper-slide w-productBox-width">
+                <div class="flex h-80 items-center justify-center">
+                  <a href="/">
+                    <img src="/src/assets/svg/goToTop.svg" alt="" />
+                    <span> 전체보기 </span>
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="swiper-button-prev-product absolute -left-6 top-52 z-10">
+            <img src="/src/assets/svg/arrow-circle.svg" alt="이전 버튼" />
+          </div>
+          <div
+            class="swiper-button-next-product absolute -right-[10.5px] top-52 z-10"
+          >
+            <img src="/src/assets/svg/arrowReverse.svg" alt="다음 버튼" />
           </div>
         </div>
       </section>
 
-      <section class="w-innerWrapper mx-auto">
-        <img src="/src/assets/images/line-banner.jpg" alt="">
+      <section class="mx-auto w-innerWrapper">
+        <img
+          src="/src/assets/images/line-banner.jpg"
+          alt="더 풍성해진 10월의 퍼플위크"
+        />
       </section>
 
       <section>
-        <div class="inner w-[1050px] mx-auto my-0 px-[40px] py-[0px]">
-          <div class="flex flex-col items-center mt-[40px]  mb-[28px]">
-            <h3 class="text-[28.43px] font-bold ">놓치면 후회할 가격</h3>
+        <div class="relative mx-auto h-auto w-innerWrapper">
+          <div class="mb-7 mt-10 flex flex-col items-center">
+            <h3 class="text-xl font-bold">놓치면 후회할 가격</h3>
+          </div>
+
+          <div class="swiper swiper-discount w-innerWrapper">
+            <ul class="swiper-wrapper flex">
+              <li class="swiper-slide">
+                <div class="h-productBox-height w-productBox-width">
+                  <a href="javascript:void(0)">
+                    <div class="relative">
+                      <div class="mb-4 h-80">
+                        <img
+                          class="h-full w-full object-cover"
+                          src="/src/assets/images/ex/thumb-1.jpg"
+                          alt="상품이미지"
+                        />
+                      </div>
+                      <div class="info flex flex-col gap-2">
+                        <span class="text-l-sm text-gray-400">샛별배송</span>
+                        <p class="text-p-base text-content">
+                          [풀무원] 탱탱쫄면 (4개입)
+                        </p>
+                        <div class="flex gap-2">
+                          <p class="text-l-lg text-content">4,980 원</p>
+                        </div>
+                        <span class="text-sm font-normal text-gray-400">
+                          튀기지 않아 부담없는 매콤함
+                        </span>
+                        <div class="flex gap-2">
+                          <span
+                            class="rounded bg-gray-100 p-1 text-l-sm text-primary"
+                            >Karly Only</span
+                          >
+                          <span
+                            class="rounded bg-gray-100 p-1 text-l-sm text-content"
+                            >한정수량</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      aria-label="장바구니 버튼"
+                      class="productBox__cart-button absolute left-productBox-cart-left top-productBox-cart-top"
+                    >
+                      <svg
+                        role="img"
+                        width="45"
+                        height="45"
+                        viewBox="0 0 45 45 "
+                      >
+                        <use href="/icons/_sprite.svg#cart" />
+                      </svg>
+                    </button>
+                  </a>
+                </div>
+              </li>
+              <li class="swiper-slide">
+                <div class="h-productBox-height w-productBox-width">
+                  <a href="javascript:void(0)">
+                    <div class="relative">
+                      <div class="mb-4 h-80">
+                        <img
+                          class="h-full w-full object-cover"
+                          src="/src/assets/images/ex/thumb-1.jpg"
+                          alt="상품이미지"
+                        />
+                      </div>
+                      <div class="info flex flex-col gap-2">
+                        <span class="text-l-sm text-gray-400">샛별배송</span>
+                        <p class="text-p-base text-content">
+                          [풀무원] 탱탱쫄면 (4개입)
+                        </p>
+                        <div class="flex gap-2">
+                          <p class="text-l-lg text-content">4,980 원</p>
+                        </div>
+                        <span class="text-sm font-normal text-gray-400">
+                          튀기지 않아 부담없는 매콤함
+                        </span>
+                        <div class="flex gap-2">
+                          <span
+                            class="rounded bg-gray-100 p-1 text-l-sm text-primary"
+                            >Karly Only</span
+                          >
+                          <span
+                            class="rounded bg-gray-100 p-1 text-l-sm text-content"
+                            >한정수량</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      aria-label="장바구니 버튼"
+                      class="productBox__cart-button absolute left-productBox-cart-left top-productBox-cart-top"
+                    >
+                      <svg
+                        role="img"
+                        width="45"
+                        height="45"
+                        viewBox="0 0 45 45 "
+                      >
+                        <use href="/icons/_sprite.svg#cart" />
+                      </svg>
+                    </button>
+                  </a>
+                </div>
+              </li>
+              <li class="swiper-slide">
+                <div class="h-productBox-height w-productBox-width">
+                  <a href="javascript:void(0)">
+                    <div class="relative">
+                      <div class="mb-4 h-80">
+                        <img
+                          class="h-full w-full object-cover"
+                          src="/src/assets/images/ex/thumb-1.jpg"
+                          alt="상품이미지"
+                        />
+                      </div>
+                      <div class="info flex flex-col gap-2">
+                        <span class="text-l-sm text-gray-400">샛별배송</span>
+                        <p class="text-p-base text-content">
+                          [풀무원] 탱탱쫄면 (4개입)
+                        </p>
+                        <div class="flex gap-2">
+                          <p class="text-l-lg text-content">4,980 원</p>
+                        </div>
+                        <span class="text-sm font-normal text-gray-400">
+                          튀기지 않아 부담없는 매콤함
+                        </span>
+                        <div class="flex gap-2">
+                          <span
+                            class="rounded bg-gray-100 p-1 text-l-sm text-primary"
+                            >Karly Only</span
+                          >
+                          <span
+                            class="rounded bg-gray-100 p-1 text-l-sm text-content"
+                            >한정수량</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      aria-label="장바구니 버튼"
+                      class="productBox__cart-button absolute left-productBox-cart-left top-productBox-cart-top"
+                    >
+                      <svg
+                        role="img"
+                        width="45"
+                        height="45"
+                        viewBox="0 0 45 45 "
+                      >
+                        <use href="/icons/_sprite.svg#cart" />
+                      </svg>
+                    </button>
+                  </a>
+                </div>
+              </li>
+              <li class="swiper-slide">
+                <div class="h-productBox-height w-productBox-width">
+                  <a href="javascript:void(0)">
+                    <div class="relative">
+                      <div class="mb-4 h-80">
+                        <img
+                          class="h-full w-full object-cover"
+                          src="/src/assets/images/ex/thumb-1.jpg"
+                          alt="상품이미지"
+                        />
+                      </div>
+                      <div class="info flex flex-col gap-2">
+                        <span class="text-l-sm text-gray-400">샛별배송</span>
+                        <p class="text-p-base text-content">
+                          [풀무원] 탱탱쫄면 (4개입)
+                        </p>
+                        <div class="flex gap-2">
+                          <p class="text-l-lg text-content">4,980 원</p>
+                        </div>
+                        <span class="text-sm font-normal text-gray-400">
+                          튀기지 않아 부담없는 매콤함
+                        </span>
+                        <div class="flex gap-2">
+                          <span
+                            class="rounded bg-gray-100 p-1 text-l-sm text-primary"
+                            >Karly Only</span
+                          >
+                          <span
+                            class="rounded bg-gray-100 p-1 text-l-sm text-content"
+                            >한정수량</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      aria-label="장바구니 버튼"
+                      class="productBox__cart-button absolute left-productBox-cart-left top-productBox-cart-top"
+                    >
+                      <svg
+                        role="img"
+                        width="45"
+                        height="45"
+                        viewBox="0 0 45 45 "
+                      >
+                        <use href="/icons/_sprite.svg#cart" />
+                      </svg>
+                    </button>
+                  </a>
+                </div>
+              </li>
+              <li class="swiper-slide">
+                <div class="h-productBox-height w-productBox-width">
+                  <a href="javascript:void(0)">
+                    <div class="relative">
+                      <div class="mb-4 h-80">
+                        <img
+                          class="h-full w-full object-cover"
+                          src="/src/assets/images/ex/thumb-1.jpg"
+                          alt="상품이미지"
+                        />
+                      </div>
+                      <div class="info flex flex-col gap-2">
+                        <span class="text-l-sm text-gray-400">샛별배송</span>
+                        <p class="text-p-base text-content">
+                          [풀무원] 탱탱쫄면 (4개입)
+                        </p>
+                        <div class="flex gap-2">
+                          <p class="text-l-lg text-content">4,980 원</p>
+                        </div>
+                        <span class="text-sm font-normal text-gray-400">
+                          튀기지 않아 부담없는 매콤함
+                        </span>
+                        <div class="flex gap-2">
+                          <span
+                            class="rounded bg-gray-100 p-1 text-l-sm text-primary"
+                            >Karly Only</span
+                          >
+                          <span
+                            class="rounded bg-gray-100 p-1 text-l-sm text-content"
+                            >한정수량</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      aria-label="장바구니 버튼"
+                      class="productBox__cart-button absolute left-productBox-cart-left top-productBox-cart-top"
+                    >
+                      <svg
+                        role="img"
+                        width="45"
+                        height="45"
+                        viewBox="0 0 45 45 "
+                      >
+                        <use href="/icons/_sprite.svg#cart" />
+                      </svg>
+                    </button>
+                  </a>
+                </div>
+              </li>
+              <li class="swiper-slide">
+                <div class="h-productBox-height w-productBox-width">
+                  <a href="javascript:void(0)">
+                    <div class="relative">
+                      <div class="mb-4 h-80">
+                        <img
+                          class="h-full w-full object-cover"
+                          src="/src/assets/images/ex/thumb-1.jpg"
+                          alt="상품이미지"
+                        />
+                      </div>
+                      <div class="info flex flex-col gap-2">
+                        <span class="text-l-sm text-gray-400">샛별배송</span>
+                        <p class="text-p-base text-content">
+                          [풀무원] 탱탱쫄면 (4개입)
+                        </p>
+                        <div class="flex gap-2">
+                          <p class="text-l-lg text-content">4,980 원</p>
+                        </div>
+                        <span class="text-sm font-normal text-gray-400">
+                          튀기지 않아 부담없는 매콤함
+                        </span>
+                        <div class="flex gap-2">
+                          <span
+                            class="rounded bg-gray-100 p-1 text-l-sm text-primary"
+                            >Karly Only</span
+                          >
+                          <span
+                            class="rounded bg-gray-100 p-1 text-l-sm text-content"
+                            >한정수량</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      aria-label="장바구니 버튼"
+                      class="productBox__cart-button absolute left-productBox-cart-left top-productBox-cart-top"
+                    >
+                      <svg
+                        role="img"
+                        width="45"
+                        height="45"
+                        viewBox="0 0 45 45 "
+                      >
+                        <use href="/icons/_sprite.svg#cart" />
+                      </svg>
+                    </button>
+                  </a>
+                </div>
+              </li>
+              <li class="swiper-slide">
+                <div class="h-productBox-height w-productBox-width">
+                  <a href="javascript:void(0)">
+                    <div class="relative">
+                      <div class="mb-4 h-80">
+                        <img
+                          class="h-full w-full object-cover"
+                          src="/src/assets/images/ex/thumb-1.jpg"
+                          alt="상품이미지"
+                        />
+                      </div>
+                      <div class="info flex flex-col gap-2">
+                        <span class="text-l-sm text-gray-400">샛별배송</span>
+                        <p class="text-p-base text-content">
+                          [풀무원] 탱탱쫄면 (4개입)
+                        </p>
+                        <div class="flex gap-2">
+                          <p class="text-l-lg text-content">4,980 원</p>
+                        </div>
+                        <span class="text-sm font-normal text-gray-400">
+                          튀기지 않아 부담없는 매콤함
+                        </span>
+                        <div class="flex gap-2">
+                          <span
+                            class="rounded bg-gray-100 p-1 text-l-sm text-primary"
+                            >Karly Only</span
+                          >
+                          <span
+                            class="rounded bg-gray-100 p-1 text-l-sm text-content"
+                            >한정수량</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      aria-label="장바구니 버튼"
+                      class="productBox__cart-button absolute left-productBox-cart-left top-productBox-cart-top"
+                    >
+                      <svg
+                        role="img"
+                        width="45"
+                        height="45"
+                        viewBox="0 0 45 45 "
+                      >
+                        <use href="/icons/_sprite.svg#cart" />
+                      </svg>
+                    </button>
+                  </a>
+                </div>
+              </li>
+              <li class="swiper-slide">
+                <div class="h-productBox-height w-productBox-width">
+                  <a href="javascript:void(0)">
+                    <div class="relative">
+                      <div class="mb-4 h-80">
+                        <img
+                          class="h-full w-full object-cover"
+                          src="/src/assets/images/ex/thumb-1.jpg"
+                          alt="상품이미지"
+                        />
+                      </div>
+                      <div class="info flex flex-col gap-2">
+                        <span class="text-l-sm text-gray-400">샛별배송</span>
+                        <p class="text-p-base text-content">
+                          [풀무원] 탱탱쫄면 (4개입)
+                        </p>
+                        <div class="flex gap-2">
+                          <p class="text-l-lg text-content">4,980 원</p>
+                        </div>
+                        <span class="text-sm font-normal text-gray-400">
+                          튀기지 않아 부담없는 매콤함
+                        </span>
+                        <div class="flex gap-2">
+                          <span
+                            class="rounded bg-gray-100 p-1 text-l-sm text-primary"
+                            >Karly Only</span
+                          >
+                          <span
+                            class="rounded bg-gray-100 p-1 text-l-sm text-content"
+                            >한정수량</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      aria-label="장바구니 버튼"
+                      class="productBox__cart-button absolute left-productBox-cart-left top-productBox-cart-top"
+                    >
+                      <svg
+                        role="img"
+                        width="45"
+                        height="45"
+                        viewBox="0 0 45 45 "
+                      >
+                        <use href="/icons/_sprite.svg#cart" />
+                      </svg>
+                    </button>
+                  </a>
+                </div>
+              </li>
+              <li class="swiper-slide w-productBox-width">
+                <div class="flex h-80 items-center justify-center">
+                  <a href="/">
+                    <img src="/src/assets/svg/goToTop.svg" alt="" />
+                    <span> 전체보기 </span>
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="swiper-button-prev-discount absolute -left-6 top-52 z-10">
+            <img src="/src/assets/svg/arrow-circle.svg" alt="이전 버튼" />
+          </div>
+          <div
+            class="swiper-button-next-discount absolute -right-[10.5px] top-52 z-10"
+          >
+            <img src="/src/assets/svg/arrowReverse.svg" alt="다음 버튼" />
           </div>
         </div>
       </section>
-
     </div>
-
   </body>
 </html>
