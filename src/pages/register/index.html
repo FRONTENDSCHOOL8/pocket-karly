@@ -18,53 +18,55 @@
         >
         <form action="/" class="border-t-2 border-t-black" method="post">
           <div class="register__section">
-            <label for="username" class="register__label register__required"
-              >아이디</label
-            >
-            <input
-              class="register__input"
-              type="text"
-              id="username"
-              name="ID"
-              placeholder="아이디를 입력해주세요"
-              required
-            />
-            <button class="button--white__small w-[143px]" type="button">
-              중복확인
-            </button>
+            <label for="username" class="register__label register__required">아이디</label>
+            <div class="relative">
+              <input
+                class="register__input"
+                type="text"
+                id="username"
+                name="ID"
+                placeholder="아이디를 입력해주세요"
+                required
+              />
+              <span class="input__validation -bottom-5 left-0 hidden"
+                >6자 이상 16자 이하의 영문 혹은 영문과 숫자를 조합</span
+              >
+            </div>
+            <button class="register__valid__id button--white__small w-[143px]" type="button">중복확인</button>
           </div>
           <div class="register__section">
-            <label for="password" class="register__label register__required"
-              >비밀번호</label
-            >
-            <input
-              class="register__input"
-              type="password"
-              id="password"
-              name="password"
-              placeholder="비밀번호를 입력해주세요"
-              required
-            />
+            <label for="password" class="register__label register__required">비밀번호</label>
+            <div class="relative">
+              <input
+                class="register__input"
+                type="password"
+                id="password"
+                name="password"
+                placeholder="비밀번호를 입력해주세요"
+                required
+              />
+              <span class="input__validation -bottom-5 left-0 hidden">최소 10자 이상 입력</span>
+              <span class="input__validation -bottom-5 left-0 hidden"
+                >영문/숫자/특수문자(공백 제외)만 허용하며, 2개 이상 조합</span
+              >
+            </div>
           </div>
           <div class="register__section">
-            <label
-              for="password-repeat"
-              class="register__label register__required"
-              >비밀번호확인</label
-            >
-            <input
-              class="register__input"
-              type="password"
-              id="password-repeat"
-              name="password-repeat"
-              placeholder="비밀번호를 한번 더 입력해주세요"
-              required
-            />
+            <label for="password-repeat" class="register__label register__required">비밀번호확인</label>
+            <div class="relative">
+              <input
+                class="register__input"
+                type="password"
+                id="password-repeat"
+                name="password-repeat"
+                placeholder="비밀번호를 한번 더 입력해주세요"
+                required
+              />
+              <span class="input__validation -bottom-5 left-0 hidden">동일한 비밀번호를 입력</span>
+            </div>
           </div>
           <div class="register__section">
-            <label for="name" class="register__label register__required"
-              >이름</label
-            >
+            <label for="name" class="register__label register__required">이름</label>
             <input
               class="register__input"
               type="text"
@@ -75,167 +77,117 @@
             />
           </div>
           <div class="register__section">
-            <label for="email" class="register__label register__required"
-              >이메일</label
-            >
-            <input
-              class="register__input"
-              type="email"
-              id="email"
-              name="email"
-              placeholder="예) marketkarly@karly.com"
-              required
-            />
-            <button class="button--white__small w-[143px]" type="button">
-              중복확인
-            </button>
+            <label for="email" class="register__label register__required">이메일</label>
+            <div class="relative">
+              <input
+                class="register__input"
+                type="email"
+                id="email"
+                name="email"
+                placeholder="예) marketkarly@karly.com"
+                required
+              />
+              <span class="input__validation -bottom-5 left-0 hidden">이메일 형식으로 입력해 주세요.</span>
+            </div>
+            <button class="register__valid__email button--white__small w-[143px]" type="button">중복확인</button>
           </div>
           <div class="register__section">
-            <label for="phone" class="register__label register__required"
-              >휴대폰</label
-            >
+            <label for="phone" class="register__label register__required">휴대폰</label>
             <input
               class="register__input"
-              type="text"
+              type="number"
               id="phone"
               name="phone"
               placeholder="숫자만 입력해주세요."
               required
             />
-            <button type="button" class="button--white__small w-[143px]">
-              인증번호 받기
-            </button>
+            <button type="button" class="button--white__small w-[143px]">인증번호 받기</button>
           </div>
 
           <div class="register__section">
             <label class="register__label register__required">주소</label>
             <div class="flex flex-col">
-              <button type="button" class="button--white__small w-[333px]">
-                주소검색
-              </button>
-              <span class="text-p-sm"
-                >배송지에 따라 상품 정보가 달라질 수 있습니다.
-              </span>
+              <button type="button" class="button--white__small w-[333px]">주소검색</button>
+              <span class="text-p-sm">배송지에 따라 상품 정보가 달라질 수 있습니다. </span>
             </div>
           </div>
 
           <div class="register__section items-center">
             <label class="register__label">성별</label>
             <div class="gender__wrapper flex h-6 w-[333px] justify-between">
-              <div class="radio__man inline-block">
-                <input
-                  class="sr-only"
-                  type="radio"
-                  name="gender"
-                  id="man"
-                  value="man"
-                />
-
-                <label
-                  class="flex cursor-pointer items-center gap-2 text-l-base"
-                  for="man"
-                  ><div class="h-6 w-6 overflow-hidden">
-                    <svg
-                      role="img"
-                      class="radio__icon"
-                      width="40"
-                      height="73"
-                      viewBox="8 8 40 73"
-                    >
-                      <!-- viewBox checked 8 41 40 73 -->
-                      <use href="/src/assets/svg/_sprite.svg#radio" />
-                    </svg>
-                  </div>
-                  남자
-                </label>
+              <div class="radio__man flex gap-2">
+                <input class="peer appearance-none" type="radio" name="gender" id="man" value="man" />
+                <span class="h-6 w-6 bg-input__button bg-radio--no peer-checked:bg-radio--yes"></span>
+                <label class="flex cursor-pointer items-center gap-2 text-l-base" for="man"> 남자 </label>
               </div>
-              <div class="radio__woman inline-block">
-                <input
-                  class="sr-only"
-                  type="radio"
-                  name="gender"
-                  id="woman"
-                  value="woman"
-                />
-                <label
-                  class="flex cursor-pointer items-center gap-2 text-l-base"
-                  for="woman"
-                  ><div class="h-6 w-6 overflow-hidden">
-                    <svg
-                      role="img"
-                      class="radio__icon"
-                      width="40"
-                      height="73"
-                      viewBox="8 8 40 73"
-                    >
-                      <use href="/src/assets/svg/_sprite.svg#radio" />
-                    </svg>
-                  </div>
-                  여자
-                </label>
+              <div class="radio__woman flex gap-2">
+                <input class="peer appearance-none" type="radio" name="gender" id="woman" value="woman" />
+                <span class="h-6 w-6 bg-input__button bg-radio--no peer-checked:bg-radio--yes"></span>
+                <label class="flex cursor-pointer items-center gap-2 text-l-base" for="woman"> 여자 </label>
               </div>
-              <div class="radio__unselected inline-block">
+              <div class="radio__unselected flex gap-2">
                 <input
                   checked
-                  class="sr-only"
+                  class="peer appearance-none"
                   type="radio"
                   name="gender"
                   id="unselected"
                   value="unselected"
                 />
-                <label
-                  class="flex cursor-pointer items-center gap-2 text-l-base"
-                  for="unselected"
-                  ><div class="h-6 w-6 overflow-hidden">
-                    <svg
-                      role="img"
-                      class="radio__icon"
-                      width="40"
-                      height="73"
-                      viewBox="8 41 40 73"
-                    >
-                      <use href="/src/assets/svg/_sprite.svg#radio" />
-                    </svg>
-                  </div>
-                  선택안함</label
-                >
+                <span class="h-6 w-6 bg-input__button bg-radio--no peer-checked:bg-radio--yes"></span>
+                <label class="flex cursor-pointer items-center gap-2 text-l-base" for="unselected"> 선택안함 </label>
               </div>
             </div>
           </div>
 
           <div class="register__section">
             <label class="register__label">생년월일</label>
-            <div class="birth__input register__input flex justify-center gap-1">
-              <input
-                class="h-10 w-[25%] px-4 text-center text-[14px] focus:outline-none"
-                type="text"
-                name="year"
-                id="year"
-                placeholder="YYYY"
-                required
-              />
-              <span
-                class="inline-block h-10 text-[14px] leading-10 text-gray-300 after:content-['/']"
-              ></span>
-              <input
-                class="h-10 w-[25%] px-4 text-center text-[14px] focus:outline-none"
-                type="text"
-                name="month"
-                id="month"
-                placeholder="MM"
-                required
-              />
-              <span
-                class="inline-block h-10 text-[14px] leading-10 text-gray-300 after:content-['/']"
-              ></span>
-              <input
-                class="h-10 w-[25%] px-4 text-center text-[14px] focus:outline-none"
-                type="text"
-                name="day"
-                id="day"
-                placeholder="DD"
-                required
-              />
+            <div class="birth relative">
+              <div class="birth__input register__input flex justify-center gap-1">
+                <input
+                  class="h-10 w-[25%] px-4 text-center text-[14px] focus:outline-none"
+                  type="number"
+                  name="year"
+                  id="year"
+                  placeholder="YYYY"
+                  required
+                  oninput="limitNumberLength(this, 4)"
+                />
+                <span class="inline-block h-10 text-[14px] leading-10 text-gray-300 after:content-['/']"></span>
+                <input
+                  class="h-10 w-[25%] px-4 text-center text-[14px] focus:outline-none"
+                  type="number"
+                  name="month"
+                  id="month"
+                  placeholder="MM"
+                  required
+                  oninput="limitNumberLength(this, 2)"
+                />
+                <span class="inline-block h-10 text-[14px] leading-10 text-gray-300 after:content-['/']"></span>
+                <input
+                  class="h-10 w-[25%] px-4 text-center text-[14px] focus:outline-none"
+                  type="number"
+                  name="days"
+                  id="days"
+                  placeholder="DD"
+                  required
+                  oninput="limitNumberLength(this, 2)"
+                />
+              </div>
+              <script>
+                function limitNumberLength(input, maxLen) {
+                  if (input.value.length > maxLen) {
+                    input.value = input.value.slice(0, maxLen);
+                  }
+                }
+              </script>
+
+              <span class="input__validation -bottom-5 left-0" hidden>생년월일을 다시 확인해주세요.</span>
+              <span class="input__validation -bottom-5 left-0" hidden>생년월일이 미래로 입력 되었습니다.</span>
+              <span class="input__validation -bottom-5 left-0" hidden>만 14세 미만은 가입이 불가합니다.</span>
+              <span class="input__validation -bottom-5 left-0" hidden>태어난 년도 4자리를 정확하게 입력해주세요.</span>
+              <span class="input__validation -bottom-5 left-0" hidden>태어난 월을 정확하게 입력해주세요.</span>
+              <span class="input__validation -bottom-5 left-0" hidden>태어난 일을 정확하게 입력해주세요.</span>
             </div>
           </div>
 
@@ -243,52 +195,18 @@
             <label class="register__label">추가입력 사항</label>
             <div class="extra__wrapper flex w-[333px] justify-between">
               <div class="flex items-center gap-2 text-l-base">
-                <input
-                  class="sr-only"
-                  type="radio"
-                  name="event"
-                  id="recommandId"
-                />
-                <label
-                  class="flex cursor-pointer items-center gap-2 text-l-base"
-                  for="recommandId"
-                  ><div class="h-6 w-6 overflow-hidden">
-                    <svg
-                      role="img"
-                      class="radio__icon"
-                      width="40"
-                      height="73"
-                      viewBox="8 8 40 73"
-                    >
-                      <use href="/src/assets/svg/_sprite.svg#radio" />
-                    </svg>
-                  </div>
-                  친구초대 추천인 아이디</label
-                >
+                <input class="peer appearance-none" type="radio" name="event" id="recommandId" />
+                <span class="h-6 w-6 bg-input__button bg-radio--no peer-checked:bg-radio--yes"></span>
+                <label class="flex cursor-pointer items-center gap-2 text-l-base" for="recommandId">
+                  친구초대 추천인 아이디
+                </label>
               </div>
               <div class="flex items-center gap-2 text-l-base">
-                <input
-                  class="sr-only"
-                  type="radio"
-                  name="event"
-                  id="isMarketing"
-                />
-                <label
-                  class="flex cursor-pointer items-center gap-2 text-l-base"
-                  for="isMarketing"
-                  ><div class="h-6 w-6 overflow-hidden">
-                    <svg
-                      role="img"
-                      class="radio__icon"
-                      width="40"
-                      height="73"
-                      viewBox="8 8 40 73"
-                    >
-                      <use href="/src/assets/svg/_sprite.svg#radio" />
-                    </svg>
-                  </div>
-                  참여 이벤트명</label
-                >
+                <input class="peer appearance-none" type="radio" name="event" id="isMarketing" />
+                <span class="h-6 w-6 bg-input__button bg-radio--no peer-checked:bg-radio--yes"></span>
+                <label class="flex cursor-pointer items-center gap-2 text-l-base" for="isMarketing">
+                  참여 이벤트명
+                </label>
               </div>
             </div>
           </div>
@@ -296,200 +214,83 @@
           <div
             class="register__agreement register__section border-b-[1px] border-t-[1px] border-b-gray-200 border-t-black"
           >
-            <label class="register__label register__required"
-              >이용약관동의</label
-            >
+            <label class="register__label register__required">이용약관동의</label>
+
             <div>
-              <div class="register__agreement__list flex items-baseline">
-                <input
-                  class="sr-only"
-                  type="checkbox"
-                  name="agreeAll"
-                  id="agreeAll"
-                />
-                <div>
-                  <label
-                    class="flex cursor-pointer items-center gap-2 text-l-lg"
-                    for="agreeAll"
-                  >
-                    <div class="h-6 w-6 overflow-hidden">
-                      <svg
-                        role="img"
-                        class="check__icon"
-                        width="40"
-                        height="72"
-                        viewBox="8 8 40 72"
-                      >
-                        <use href="/src/assets/svg/_sprite.svg#check" />
-                      </svg>
-                    </div>
-                    전체 동의합니다.</label
-                  >
-                  <p class="pl-8 text-p-sm text-gray-400">
-                    선택항목에 동의하지 않은 경우도 회원가입 및 일반적인
-                    서비스를 이용할 수 있습니다.
+              <div class="register__agreement__list flex gap-2">
+                <input class="peer appearance-none" type="checkbox" name="agreeAll" id="agreeAll" />
+                <span class="h-6 w-6 bg-input__button bg-check--no peer-checked:bg-check--yes"></span>
+                <div class="pr-2">
+                  <label class="cursor-pointer text-l-lg" for="agreeAll"> 전체 동의합니다. </label>
+                  <p class="text-p-sm text-gray-400">
+                    선택항목에 동의하지 않은 경우도 회원가입 및 일반적인 서비스를 이용할 수 있습니다.
                   </p>
                 </div>
               </div>
-              <div class="register__agreement__list flex justify-between">
-                <div>
-                  <input
-                    class="sr-only"
-                    type="checkbox"
-                    name="agree"
-                    id="agreeTerms"
-                  />
-                  <label
-                    class="flex cursor-pointer items-center gap-2 text-l-base"
-                    for="agreeTerms"
-                  >
-                    <div class="h-6 w-6 overflow-hidden">
-                      <svg
-                        role="img"
-                        class="check__icon"
-                        width="40"
-                        height="72"
-                        viewBox="8 8 40 72"
-                      >
-                        <use href="/src/assets/svg/_sprite.svg#check" />
-                      </svg>
-                    </div>
-                    이용약관 동의 (필수)</label
-                  >
+
+              <divv class="register__agreement__list flex justify-between">
+                <div class="flex gap-2">
+                  <input class="peer appearance-none" type="checkbox" name="agree" id="agreeTerms" />
+                  <span class="h-6 w-6 bg-input__button bg-check--no peer-checked:bg-check--yes"></span>
+                  <label class="flex cursor-pointer items-center gap-2 text-l-base" for="agreeTerms">
+                    이용약관 동의 (필수)
+                  </label>
                 </div>
                 <a class="register__a" href="#"
                   >약관보기
-                  <svg
-                    aria-hidden="true"
-                    width="6"
-                    height="11"
-                    role="img"
-                    viewBox="0 0 6 11"
-                  >
+                  <svg aria-hidden="true" width="6" height="11" role="img" viewBox="0 0 6 11">
                     <use href="/src/assets/svg/_sprite.svg#arrow" />
                   </svg>
                 </a>
-              </div>
+              </divv>
+
               <div class="register__agreement__list flex justify-between">
-                <div>
-                  <input
-                    class="sr-only"
-                    type="checkbox"
-                    name="agree"
-                    id="agreePersonal"
-                  />
-                  <label
-                    class="flex cursor-pointer items-center gap-2 text-l-base"
-                    for="agreePersonal"
-                  >
-                    <div class="h-6 w-6 overflow-hidden">
-                      <svg
-                        role="img"
-                        class="check__icon"
-                        width="40"
-                        height="72"
-                        viewBox="8 8 40 72"
-                      >
-                        <use href="/src/assets/svg/_sprite.svg#check" />
-                      </svg>
-                    </div>
+                <div class="flex gap-2">
+                  <input class="peer appearance-none" type="checkbox" name="agree" id="agreePersonal" />
+                  <span class="h-6 w-6 bg-input__button bg-check--no peer-checked:bg-check--yes"></span>
+                  <label class="flex cursor-pointer items-center gap-2 text-l-base" for="agreePersonal">
                     개인정보 수집 이용∙동의 (필수)
                   </label>
                 </div>
                 <a class="register__a" href="#"
-                  >약관보기<svg
-                    aria-hidden="true"
-                    width="6"
-                    height="11"
-                    role="img"
-                    viewBox="0 0 6 11"
-                  >
+                  >약관보기<svg aria-hidden="true" width="6" height="11" role="img" viewBox="0 0 6 11">
                     <use href="/src/assets/svg/_sprite.svg#arrow" />
                   </svg>
                 </a>
               </div>
+
               <div class="register__agreement__list flex justify-between">
-                <div>
-                  <input
-                    class="sr-only"
-                    type="checkbox"
-                    name="agree"
-                    id="agreeEvent"
-                  />
-                  <label
-                    class="flex cursor-pointer items-center gap-2 text-l-base"
-                    for="agreeEvent"
-                  >
-                    <div class="h-6 w-6 overflow-hidden">
-                      <svg
-                        role="img"
-                        class="check__icon"
-                        width="40"
-                        height="72"
-                        viewBox="8 8 40 72"
-                      >
-                        <use href="/src/assets/svg/_sprite.svg#check" />
-                      </svg>
-                    </div>
+                <div class="flex gap-2">
+                  <input class="peer appearance-none" type="checkbox" name="agree" id="agreeEvent" />
+                  <span class="h-6 w-6 bg-input__button bg-check--no peer-checked:bg-check--yes"></span>
+                  <label class="flex cursor-pointer items-center gap-2 text-l-base" for="agreeEvent">
                     무료배송, 할인쿠폰 등 혜택/정보 수신 동의 (선택)</label
                   >
                 </div>
                 <a class="register__a" href="#"
-                  >약관보기<svg
-                    aria-hidden="true"
-                    width="6"
-                    height="11"
-                    role="img"
-                    viewBox="0 0 6 11"
-                  >
+                  >약관보기<svg aria-hidden="true" width="6" height="11" role="img" viewBox="0 0 6 11">
                     <use href="/src/assets/svg/_sprite.svg#arrow" />
                   </svg>
                 </a>
               </div>
+
               <div class="register__agreement__list flex justify-between">
-                <div>
-                  <input
-                    class="sr-only"
-                    type="checkbox"
-                    name="agree"
-                    id="over14"
-                  />
-                  <label
-                    class="flex cursor-pointer items-center gap-2 text-l-base"
-                    for="over14"
-                  >
-                    <div class="h-6 w-6 overflow-hidden">
-                      <svg
-                        role="img"
-                        class="check__icon"
-                        width="40"
-                        height="72"
-                        viewBox="8 8 40 72"
-                      >
-                        <use href="/src/assets/svg/_sprite.svg#check" />
-                      </svg>
-                    </div>
+                <div class="flex gap-2">
+                  <input class="peer appearance-none" type="checkbox" name="agree" id="over14" />
+                  <span class="h-6 w-6 bg-input__button bg-check--no peer-checked:bg-check--yes"></span>
+                  <label class="flex cursor-pointer items-center gap-2 text-l-base" for="over14">
                     본인은 만 14세 이상입니다. (필수)</label
                   >
                 </div>
                 <a class="register__a" href="#"
-                  >약관보기<svg
-                    aria-hidden="true"
-                    width="6"
-                    height="11"
-                    role="img"
-                    viewBox="0 0 6 11"
-                  >
+                  >약관보기<svg aria-hidden="true" width="6" height="11" role="img" viewBox="0 0 6 11">
                     <use href="/src/assets/svg/_sprite.svg#arrow" />
                   </svg>
                 </a>
               </div>
             </div>
           </div>
-          <button
-            type="submit"
-            class="button--purple__big mx-auto my-10 w-[340px]"
-          >
+          <button type="button" id="registerSubmit" class="button--purple__big mx-auto my-10 w-[340px]">
             가입확인
           </button>
         </form>

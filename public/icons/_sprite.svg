@@ -75,7 +75,7 @@
                 <rect width="24" height="24" fill="white" transform="translate(8 40)"/>
             </clipPath>
         </defs>
-    </symbol>
+  </symbol>
     <symbol id="down" width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path id="Polygon 3__down" d="M5.5 6L0.73686 0.75L10.2631 0.750001L5.5 6Z" fill="#333333"/>
     </symbol>
