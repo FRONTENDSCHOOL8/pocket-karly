@@ -32,6 +32,10 @@
             </clipPath>
         </defs>
     </symbol>
+    <symbol id="arrowReverse" width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M26 51C39.8071 51 51 39.8071 51 26C51 12.1929 39.8071 1 26 1C12.1929 1 1 12.1929 1 26C1 39.8071 12.1929 51 26 51Z" fill="black" fill-opacity="0.2"/>
+        <path d="M23.285 34.699C23.4552 34.8731 23.6831 34.9791 23.9259 34.9972C24.1688 35.0152 24.4099 34.944 24.604 34.797L24.699 34.715L32.699 26.898C32.8711 26.7297 32.9769 26.505 32.9967 26.2651C33.0165 26.0252 32.9492 25.7862 32.807 25.592L32.727 25.496L25.004 17.314C24.8294 17.1289 24.5909 17.0173 24.337 17.0018C24.083 16.9864 23.8328 17.0684 23.6371 17.231C23.4415 17.3936 23.3152 17.6247 23.2839 17.8772C23.2527 18.1297 23.3189 18.3846 23.469 18.59L23.549 18.686L30.598 26.155L23.301 33.285C23.1268 33.4552 23.0208 33.6831 23.0028 33.926C22.9847 34.1688 23.0559 34.4099 23.203 34.604L23.285 34.699Z" fill="white"/>
+    </symbol>
     <symbol id="arrows" width="34" height="112" viewBox="0 0 34 112" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="0.5" y="0.5" width="33" height="111" rx="4.5" stroke="#9747FF" stroke-dasharray="10 5"/>
         <path d="M13 19L17 15L21 19" stroke="#999999" stroke-width="1.2"/>
@@ -52,6 +56,25 @@
                 <path id="Vector_5__cart" d="M11.0298 14.38H14.0498L15.4598 20.36" stroke="white" stroke-width="1.4" stroke-linecap="square" stroke-linejoin="round"/>
             </g>
         </g>
+    </symbol>
+    <symbol id="check" width="40" height="72" viewBox="0 0 40 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0.5" y="0.5" width="39" height="71" rx="4.5" stroke="#9747FF" stroke-dasharray="10 5"/>
+        <g clip-path="url(#clip0_42_1788__check)">
+            <path d="M20 31.5C26.3513 31.5 31.5 26.3513 31.5 20C31.5 13.6487 26.3513 8.5 20 8.5C13.6487 8.5 8.5 13.6487 8.5 20C8.5 26.3513 13.6487 31.5 20 31.5Z" stroke="#C4C4C4"/>
+            <path d="M15 20.667L18.385 24L26 16.5" stroke="#C4C4C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+        <g clip-path="url(#clip1_42_1788__check)">
+            <path d="M20 63.5C26.3513 63.5 31.5 58.3513 31.5 52C31.5 45.6487 26.3513 40.5 20 40.5C13.6487 40.5 8.5 45.6487 8.5 52C8.5 58.3513 13.6487 63.5 20 63.5Z" fill="#5F0080"/>
+            <path d="M15 52.667L18.385 56L26 48.5" stroke="#C4C4C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+        <defs>
+            <clipPath id="clip0_42_1788__check">
+                <rect width="24" height="24" fill="white" transform="translate(8 8)"/>
+            </clipPath>
+            <clipPath id="clip1_42_1788__check">
+                <rect width="24" height="24" fill="white" transform="translate(8 40)"/>
+            </clipPath>
+        </defs>
     </symbol>
     <symbol id="down" width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path id="Polygon 3__down" d="M5.5 6L0.73686 0.75L10.2631 0.750001L5.5 6Z" fill="#333333"/>
@@ -260,6 +283,17 @@
     </symbol>
     <symbol id="goToTop" width="116" height="116" viewBox="0 0 116 116" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="58" cy="58" r="57.5" fill="white" stroke="#E3E3E3"/>
+    </symbol>
+    <symbol id="group" width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g id="Group__group">
+            <path id="Vector__group" opacity="0.5" d="M22.5 45C34.9264 45 45 34.9264 45 22.5C45 10.0736 34.9264 0 22.5 0C10.0736 0 0 10.0736 0 22.5C0 34.9264 10.0736 45 22.5 45Z" fill="#2A0038"/>
+            <g id="Group_2__group">
+                <path id="Vector_2__group" fill-rule="evenodd" clip-rule="evenodd" d="M31.4897 17.29L29.3197 26.52H16.8997L14.7397 17.29H31.4897Z" stroke="white" stroke-width="1.4" stroke-linecap="square" stroke-linejoin="round"/>
+                <path id="Vector_3__group" d="M27.3797 32.94C28.3186 32.94 29.0797 32.1789 29.0797 31.24C29.0797 30.3012 28.3186 29.54 27.3797 29.54C26.4408 29.54 25.6797 30.3012 25.6797 31.24C25.6797 32.1789 26.4408 32.94 27.3797 32.94Z" stroke="white" stroke-width="1.2" stroke-linecap="square" stroke-linejoin="round"/>
+                <path id="Vector_4__group" d="M18.8499 32.94C19.7888 32.94 20.5499 32.1789 20.5499 31.24C20.5499 30.3012 19.7888 29.54 18.8499 29.54C17.911 29.54 17.1499 30.3012 17.1499 31.24C17.1499 32.1789 17.911 32.94 18.8499 32.94Z" stroke="white" stroke-width="1.2" stroke-linecap="square" stroke-linejoin="round"/>
+                <path id="Vector_5__group" d="M11.0298 14.38H14.0498L15.4598 20.36" stroke="white" stroke-width="1.4" stroke-linecap="square" stroke-linejoin="round"/>
+            </g>
+        </g>
     </symbol>
     <symbol id="hamburger-black" width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g id="Icon / Hamburger__hamburger-black" clip-path="url(#clip0_5520_4649__hamburger-black)">
@@ -508,6 +542,16 @@
         <circle cx="20" cy="20" r="11.5" stroke="#C4C4C4"/>
         <circle cx="20" cy="53" r="12" fill="#5F0080"/>
         <circle cx="20" cy="53" r="5" fill="#C4C4C4"/>
+    </symbol>
+    <symbol id="search-gray" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_5734_6311__search-gray)">
+            <path d="M26.0811 26.081L21.9611 21.961M16.4671 23.334C17.3689 23.334 18.2618 23.1564 19.095 22.8113C19.9281 22.4662 20.6851 21.9603 21.3228 21.3227C21.9605 20.685 22.4663 19.928 22.8114 19.0949C23.1565 18.2617 23.3341 17.3688 23.3341 16.467C23.3341 15.5652 23.1565 14.6722 22.8114 13.8391C22.4663 13.0059 21.9605 12.2489 21.3228 11.6113C20.6851 10.9736 19.9281 10.4678 19.095 10.1227C18.2618 9.77759 17.3689 9.59998 16.4671 9.59998C14.6459 9.59998 12.8992 10.3235 11.6114 11.6113C10.3236 12.8991 9.6001 14.6457 9.6001 16.467C9.6001 18.2882 10.3236 20.0349 11.6114 21.3227C12.8992 22.6105 14.6459 23.334 16.4671 23.334V23.334Z" stroke="#565656" stroke-width="1.7" stroke-linecap="round"/>
+        </g>
+        <defs>
+            <clipPath id="clip0_5734_6311__search-gray">
+                <rect width="36" height="36" fill="white"/>
+            </clipPath>
+        </defs>
     </symbol>
     <symbol id="search" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clip-path="url(#clip0_42_122__search)">
