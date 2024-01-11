@@ -17,7 +17,7 @@
           >필수입력사항</span
         >
         <form action="/" class="border-t-2 border-t-black" method="post">
-          <div class="register__section">
+          <div class="register__section relative">
             <label for="username" class="register__label register__required"
               >아이디</label
             >
@@ -35,8 +35,10 @@
               >
             </div>
             <button
-              class="register__valid__id button--white__small w-[143px]"
+              class="register__valid__id flex h-[44px] w-[143px] items-center justify-center rounded border text-l-base text-gray-300"
               type="button"
+              id="id__button"
+              disabled
             >
               중복확인
             </button>
@@ -113,7 +115,9 @@
               >
             </div>
             <button
-              class="register__valid__email button--white__small w-[143px]"
+              disabled
+              class="register__valid__id flex h-[44px] w-[143px] items-center justify-center rounded border text-l-base text-gray-300"
+              id="email__button"
               type="button"
             >
               중복확인
@@ -132,7 +136,12 @@
               required
               oninput="validateNumberInput(this), limitNumberLength(this, 11)"
             />
-            <button type="button" class="button--white__small w-[143px]">
+            <button
+              id="phone__button"
+              type="button"
+              class="flex h-[44px] w-[143px] items-center justify-center rounded border text-l-base text-gray-300"
+              disabled
+            >
               인증번호 받기
             </button>
           </div>
@@ -142,14 +151,15 @@
               >주소</label
             >
             <div class="flex flex-col">
-              <input
-                id="addressSearchButton"
-                class="button--white__small w-[333px]"
-                type="button"
-                onclick="sample4_execDaumPostcode()"
-                value="주소검색"
-              /><br />
-              <div class="flex-col">
+              <div id="addressSearchButton">
+                <input
+                  class="button--white__small w-[333px]"
+                  type="button"
+                  onclick="sample4_execDaumPostcode()"
+                  value="주소검색"
+                />
+              </div>
+              <div id="address__accordian" hidden class="flex-col">
                 <div class="flex gap-2">
                   <input
                     readonly
@@ -591,6 +601,14 @@
             // guideTextBox.innerHTML = '';
             // guideTextBox.style.display = 'none';
           }
+          const accordian = document.getElementById('address__accordian');
+          const addressSearchButton = document.getElementById(
+            'addressSearchButton'
+          );
+          accordian.removeAttribute('hidden');
+          addressSearchButton.setAttribute('hidden', '');
+
+          // node.setAttribute("hidden");
         },
       }).open();
     }
