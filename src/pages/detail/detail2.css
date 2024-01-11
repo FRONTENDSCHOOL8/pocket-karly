@@ -1,0 +1,49 @@
+/* 등급 뱃지 디자인 */
+
+.class--filled {
+  @apply block h-[18px] w-9 rounded-xs border border-secondary bg-secondary text-center text-l-sm text-white;
+}
+.class--unfilled {
+  @apply block h-[18px] w-9 rounded-xs border border-primary text-center text-l-sm text-primary;
+}
+.class--notice {
+  @apply block h-[18px] w-9 rounded-xs border border-gray-100 bg-gray-100 text-center text-l-sm text-content;
+}
+.class--best {
+  @apply block h-[18px] w-12 rounded-xs border border-secondary bg-secondary text-center text-l-sm text-white;
+}
+
+/* 상품문의 글 디자인 */
+
+.review--article {
+  @apply flex border-b border-b-gray-100 p-5;
+}
+
+.review--article__badge {
+  @apply flex gap-2 pr-[82px] text-l-sm;
+}
+
+.review--article__text {
+  @apply flex flex-col gap-5 text-l-sm;
+}
+
+.review--pagenation {
+  @apply flex items-center justify-center gap-2 pt-4;
+}
+.inquiries--article {
+  @apply flex border-b border-b-gray-100 py-4;
+}
+.inquiries--h3 {
+  @apply w-[750px] px-5 text-l-base;
+}
+.inquiries--span {
+  @apply w-[100px] px-1 text-center text-l-base text-gray-400;
+}
+
+.inquiries--span__top {
+  @apply px-1 text-center text-l-base text-black;
+}
+
+.inquiries--span__answered {
+  @apply w-[100px] px-1 text-center text-l-base text-primary;
+}
