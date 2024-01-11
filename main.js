@@ -19,15 +19,47 @@ new Swiper('.swiper-container', {
     delay: 3000,
   },
   navigation: {
-    prevEl: '.swiper-button-prev',
-    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-prev',
+    nextEl: '.swiper-next',
   },
 });
 
-// const productSwiper = new Swiper('.swiper-product', {
-//   spaceBetweenL: 10,
-//   loop: true,
-//   autoplay: {
-//     delay: 3000,
-//   },
-// });
+new Swiper('.swiper-product', {
+  slidesPerView: 4,
+  slidesPerGroup: 4,
+  watchOverflow: true,
+  navigation: {
+    prevEl: '.swiper-button-prev-product',
+    nextEl: '.swiper-button-next-product',
+  },
+  on: {
+    slideChange() {
+      const nextButton = document.querySelector('.swiper-button-next-product');
+      if (this.isEnd) {
+        nextButton.style.display = 'none';
+      } else {
+        nextButton.style.display = 'block';
+      }
+    },
+  },
+});
+
+new Swiper('.swiper-discount', {
+  slidesPerView: 4,
+  slidesPerGroup: 4,
+  watchOverflow: true,
+  navigation: {
+    prevEl: '.swiper-button-prev-discount',
+    nextEl: '.swiper-button-next-discount',
+  },
+  on: {
+    slideChange() {
+      const nextButton = document.querySelector('.swiper-button-next-discount');
+      if (this.isEnd) {
+        nextButton.style.display = 'none';
+      } else {
+        nextButton.style.display = 'block';
+      }
+    },
+  },
+});

@@ -1,4 +1,4 @@
-import { getNode, getNodes, attr, removeClass, addClass } from '/src/lib/';
+import { getNode, getNodes, removeClass, addClass } from '/src/lib/';
 import '/src/styles/tailwind.css';
 import pb from '/src/api/pocketbase';
 
@@ -11,13 +11,11 @@ function checkAll() {
   const agree = getNodes('input[name="agree"]');
   if (agreeAll.checked) {
     agree.forEach((li) => {
-      console.log(li.checked);
-      attr(li, 'checked', true);
+      li.checked = true;
     });
   } else {
     agree.forEach((li) => {
-      console.log(li.checked);
-      attr(li, 'checked', '');
+      li.checked = false;
     });
   }
 }
@@ -29,11 +27,11 @@ agreeAll.addEventListener('click', checkAll);
 
 let id = 0;
 let password = 0;
+let passwordConfirm = 0;
 let email = 0;
 const idInput = getNode('#username');
 const passwordInput = getNode('#password');
 const passwordConfirmInput = getNode('input[name="password-repeat"]');
-const passwordConfirm = passwordConfirmInput.value;
 const emailInput = getNode('#email');
 const yearInput = getNode('#year');
 const monthInput = getNode('#month');
@@ -41,7 +39,6 @@ const dayInput = getNode('#days');
 const idButton = getNode('.register__valid__id');
 const emailButton = getNode('.register__valid__email');
 const submit = getNode('#registerSubmit');
-
 const allUser = await pb.collection('users').getFullList();
 const allUserName = allUser.map((item) => {
   return item.username;
@@ -53,26 +50,41 @@ const allUserEmail = allUser.map((item) => {
 // 아이디 정규식 밸리데이션
 function regId() {
   id = idInput.value; // 검사하려는 문자열
+  const errText = idInput.nextElementSibling;
 
-  if (id.length >= 10) {
+  // 한글 또는 특수문자가 포함되어 있는지 검사하는 정규식
+  const invalidChars = /[ㄱ-ㅎㅏ-ㅣ가-힣\x21-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]/;
+
+  if (id.length >= 6 || id.lengh <= 16) {
+    // 한글 또는 특수문자가 포함되어 있으면 안 됨
+    if (invalidChars.test(id)) {
+      removeClass(errText, 'hidden');
+      return; // 조건을 만족하지 않으므로 여기서 함수 종료
+    }
+
     let count = 0;
     if (/[A-Za-z]/.test(id)) count++; // 영문 포함 여부
-    if (/[0-9]/.test(id)) count++; // 숫자 포함 여부
-    if (/[\W_]/.test(id)) count++; // 특수문자 포함 여부 (공백 제외)
+    // if (/[0-9]/.test(id)) count++; // 숫자 포함 여부
+    // 특수문자 포함 여부 (공백 제외) - 기존의 조건이므로 이 부분은 삭제하거나 주석 처리합니다.
+    //if (/[\W_]/.test(id)) count++;
 
-    if (count >= 2) {
-      console.log('조건을 만족합니다.');
+    if (count >= 1) {
+      addClass(errText, 'hidden');
     } else {
-      console.log('영문, 숫자, 특수문자 중 최소 2개 이상을 조합해야 합니다.');
+      removeClass(errText, 'hidden');
     }
   } else {
-    console.log('문자열이 10자 이상이어야 합니다.');
+    removeClass(errText, 'hidden');
   }
 }
+
+// 'input' 이벤트 리스너를 추가하는 부분은 그대로 유지합니다.
 idInput.addEventListener('input', regId);
 
 // 패스워드 정규식 밸리데이션
 function regPw() {
+  const errText = passwordInput.nextElementSibling;
+  const errText2 = errText.nextElementSibling;
   password = passwordInput.value;
 
   if (password.length >= 10) {
@@ -82,12 +94,16 @@ function regPw() {
     if (/[\W_]/.test(password)) count++; // 특수문자 포함 여부 (공백 제외)
 
     if (count >= 2) {
+      addClass(errText, 'hidden');
+      addClass(errText2, 'hidden');
       console.log('조건을 만족합니다.');
     } else {
-      console.log('영문, 숫자, 특수문자 중 최소 2개 이상을 조합해야 합니다.');
+      addClass(errText, 'hidden');
+      removeClass(errText2, 'hidden');
     }
   } else {
-    console.log('문자열이 10자 이상이어야 합니다.');
+    addClass(errText2, 'hidden');
+    removeClass(errText, 'hidden');
   }
 }
 passwordInput.addEventListener('input', regPw);
@@ -108,12 +124,13 @@ passwordConfirmInput.addEventListener('input', (e) => {
 
 //이메일 정규식 밸리데이션
 function regEmail() {
+  const errText = emailInput.nextElementSibling;
   email = emailInput.value;
   const emailRegEx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   if (emailRegEx.test(email)) {
-    console.log('이메일 형식이 올바릅니다.');
+    addClass(errText, 'hidden');
   } else {
-    console.log('이메일 형식이 올바르지 않습니다.');
+    removeClass(errText, 'hidden');
   }
 }
 emailInput.addEventListener('input', regEmail);
@@ -160,6 +177,7 @@ function checkBirthDate() {
 }
 
 birthInput.addEventListener('input', checkBirthDate);
+
 /*----------------------------------*/
 /*             "DateBase"            */
 /*----------------------------------*/
@@ -192,30 +210,48 @@ async function clickRegister(e) {
 
   id = idInput.value;
   password = passwordInput.value;
+  passwordConfirm = passwordConfirmInput.value;
   email = emailInput.value;
   const name = getNode('#name').value;
   const phone = getNode('#phone').value * 1;
   const year = yearInput.value;
   const month = monthInput.value;
   const days = dayInput.value;
-  const birth = `${year}-${month}-${days}`;
+  const address = getNode('#address').value;
+  const detailAddress = getNode('#detailAddress').value;
+
+  const checkgender = getNode('input[name="gender"]:checked');
+  const gender = checkgender.value;
+
+  const birth = {
+    year: `${year}`,
+    month: `${month}`,
+    days: `${days}`,
+  };
+  const checkMarketing = getNode('#agreeEvent');
+  const isMarketing = checkMarketing.checked;
   // const address = getNode('#address') 여기서 주소를 리턴하는 주소 API를 미리 구현해야함
 
-  const userData = {
-    username: id,
-    password,
-    passwordConfirm,
-    name,
-    email,
-    phone,
-    birth,
-  };
-  console.log(userData);
+  try {
+    await pb.collection('users').create({
+      username: id,
+      password,
+      passwordConfirm,
+      name,
+      email,
+      phone,
+      birth,
+      gender,
+      isMarketing,
+      address,
+      detailAddress,
+    });
 
-  const record = await pb.collection('users').create(userData);
-  console.log(record);
+    alert('회원가입이 완료되었습니다. 메인페이지로 이동합니다!');
+    location.href = '/';
+  } catch (error) {
+    alert('입력사항을 다시 한 번 확인해주세요.');
+  }
 }
 
 submit.addEventListener('click', clickRegister);
-// const user = await pb.collection('users').getFullList();
-// console.log(user);
