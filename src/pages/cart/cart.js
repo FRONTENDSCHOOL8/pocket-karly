@@ -75,7 +75,7 @@ cartDataCold.forEach((cart) => {
             height="84"
             viewBox="8 46 46 84"
           >
-            <use href="/src/assets/svg/_sprite.svg#minus" />
+            <use href="/icons/_sprite.svg#minus" />
           </svg>
         </button>
         <span class="product__amount w-7.5 inline-block text-center align-top leading-[30px]">${amount}</span>
@@ -89,7 +89,7 @@ cartDataCold.forEach((cart) => {
             height="84"
             viewBox="8 8 46 84"
           >
-            <use href="/src/assets/svg/_sprite.svg#plus" />
+            <use href="/icons/_sprite.svg#plus" />
           </svg>
         </button>
       </div>
@@ -110,7 +110,7 @@ cartDataCold.forEach((cart) => {
           height="30"
           viewBox="0 0 30 30"
         >
-          <use href="/src/assets/svg/_sprite.svg#cancel" />
+          <use href="/icons/_sprite.svg#cancel" />
         </svg>
       </button>
     </li>
@@ -174,7 +174,7 @@ cartDataFreeze.forEach((cart) => {
             height="84"
             viewBox="8 46 46 84"
           >
-            <use href="/src/assets/svg/_sprite.svg#minus" />
+            <use href="/icons/_sprite.svg#minus" />
           </svg>
         </button>
         <span class="product__amount w-7.5 inline-block text-center align-top leading-[30px]">${amount}</span>
@@ -188,7 +188,7 @@ cartDataFreeze.forEach((cart) => {
             height="84"
             viewBox="8 8 46 84"
           >
-            <use href="/src/assets/svg/_sprite.svg#plus" />
+            <use href="/icons/_sprite.svg#plus" />
           </svg>
         </button>
       </div>
@@ -209,7 +209,7 @@ cartDataFreeze.forEach((cart) => {
           height="30"
           viewBox="0 0 30 30"
         >
-          <use href="/src/assets/svg/_sprite.svg#cancel" />
+          <use href="/icons/_sprite.svg#cancel" />
         </svg>
       </button>
     </li>
@@ -273,7 +273,7 @@ cartDataRoom.forEach((cart) => {
             height="84"
             viewBox="8 46 46 84"
           >
-            <use href="/src/assets/svg/_sprite.svg#minus" />
+            <use href="/icons/_sprite.svg#minus" />
           </svg>
         </button>
         <span class="product__amount w-7.5 inline-block text-center align-top leading-[30px]">${amount}</span>
@@ -287,7 +287,7 @@ cartDataRoom.forEach((cart) => {
             height="84"
             viewBox="8 8 46 84"
           >
-            <use href="/src/assets/svg/_sprite.svg#plus" />
+            <use href="/icons/_sprite.svg#plus" />
           </svg>
         </button>
       </div>
@@ -308,7 +308,7 @@ cartDataRoom.forEach((cart) => {
           height="30"
           viewBox="0 0 30 30"
         >
-          <use href="/src/assets/svg/_sprite.svg#cancel" />
+          <use href="/icons/_sprite.svg#cancel" />
         </svg>
       </button>
     </li>

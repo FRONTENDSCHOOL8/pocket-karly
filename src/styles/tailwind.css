@@ -8,7 +8,6 @@
 @import 'button.css';
 @import '/src/pages/productList/productList.css';
 @import '/src/pages/detail/detail2.css';
-@import '/src/pages/cart/cart.css';
 
 @font-face {
   font-family: 'Pretendard-Regular';
