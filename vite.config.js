@@ -14,6 +14,7 @@ export default defineConfig({
         productBox: resolve(__dirname, 'src/pages/components/productBox.html'),
         addCart: resolve(__dirname, 'src/pages/components/addCart.html'),
         productList: resolve(__dirname, 'src/pages/productList/index.html'),
+        login: resolve(__dirname, 'src/pages/login/index.html'),
       },
     },
   },
