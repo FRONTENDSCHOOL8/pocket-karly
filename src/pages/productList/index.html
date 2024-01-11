@@ -7,17 +7,30 @@
     <title>상품 목록</title>
   </head>
   <body>
+    <header data-include-path="/src/pages/components/header.html"></header>
     <div class="pb-20">
       <h2 class="py-12 text-center text-l-lg text-black">베스트</h2>
       <div class="mx-auto my-0 flex w-innerWrapper justify-between">
-        <div class="w-[220px] py-3.5">
-          <details class="group">
-            <summary class="list__summury">
+        <div
+          class="list__div-filter no-scrollbar h-[650px] w-[220px] overflow-y-scroll py-3.5"
+        >
+          <details class="group border-b border-gray-100">
+            <summary
+              class="flex list-none items-center justify-between py-3.5 text-l-base text-content"
+            >
               <span>필터</span>
-              <span class="text-[10px] font-light text-gray-300">초기화</span>
+              <button
+                class="list__button-reset text-[10px] font-light text-gray-300"
+                type="button"
+              >
+                초기화
+              </button>
             </summary>
           </details>
-          <details class="group">
+          <details
+            class="group border-b border-gray-100"
+            data-filter="category"
+          >
             <summary class="list__summury">
               <span>카테고리</span>
               <span class="list__summury--rotate">
@@ -26,9 +39,9 @@
                 </svg>
               </span>
             </summary>
-            <p class="list__summury-p">카테고리입니다</p>
+            <ul class="list__ul-filter-category list__ul-filter"></ul>
           </details>
-          <details class="group">
+          <details class="group border-b border-gray-100" data-filter="brand">
             <summary class="list__summury">
               <span>브랜드</span>
               <span class="list__summury--rotate">
@@ -37,9 +50,9 @@
                 </svg>
               </span>
             </summary>
-            <p class="list__summury-p">브랜드입니다</p>
+            <ul class="list__ul-filter-brand list__ul-filter"></ul>
           </details>
-          <details class="group">
+          <details class="group border-b border-gray-100" data-filter="price">
             <summary class="list__summury">
               <span>가격</span>
               <span class="list__summury--rotate">
@@ -48,9 +61,61 @@
                 </svg>
               </span>
             </summary>
-            <p class="list__summury-p">가격입니다</p>
+            <ul class="list__ul-filter">
+              <li class="list__li-filter">
+                <button class="button__radio--no mr-2"></button>
+                <label for="price1">5,000원 미만</label>
+                <input
+                  type="radio"
+                  id="price1"
+                  name="price"
+                  class="appearance-none"
+                  data-filter="price"
+                  data-operator="and"
+                />
+              </li>
+              <li class="list__li-filter">
+                <button class="button__radio--no mr-2"></button>
+                <label for="price2">5,000원 ~ 10,000원</label>
+                <input
+                  type="radio"
+                  id="price2"
+                  name="price"
+                  class="appearance-none"
+                  data-filter="price"
+                  data-operator="and"
+                />
+              </li>
+              <li class="list__li-filter">
+                <button class="button__radio--no mr-2"></button>
+                <label for="price3">10,001원 ~ 15,000원</label>
+                <input
+                  type="radio"
+                  id="price3"
+                  name="price"
+                  class="appearance-none"
+                  data-filter="price"
+                  data-operator="and"
+                />
+              </li>
+              <li class="list__li-filter">
+                <button class="button__radio--no mr-2"></button>
+                <label for="price4">15,000원 이상</label>
+                <input
+                  type="radio"
+                  id="price4"
+                  name="price"
+                  class="appearance-none"
+                  data-filter="price"
+                  data-operator="and"
+                />
+              </li>
+            </ul>
           </details>
-          <details class="group">
+          <details
+            class="group border-b border-gray-100"
+            data-filter="discount"
+          >
             <summary class="list__summury">
               <span>혜택</span>
               <span class="list__summury--rotate">
@@ -59,9 +124,22 @@
                 </svg>
               </span>
             </summary>
-            <p class="list__summury-p">혜택입니다</p>
+            <ul class="list__ul-filter">
+              <li class="list__li-filter">
+                <button class="button__check--no mr-2"></button>
+                <label for="discount">할인 상품</label>
+                <input
+                  type="checkbox"
+                  id="discount"
+                  name="discount"
+                  class="appearance-none"
+                  data-filter="discount"
+                  data-operator="and"
+                />
+              </li>
+            </ul>
           </details>
-          <details class="group">
+          <details class="group border-b border-gray-100" data-filter="badge">
             <summary class="list__summury">
               <span>유형</span>
               <span class="list__summury--rotate">
@@ -70,9 +148,34 @@
                 </svg>
               </span>
             </summary>
-            <p class="list__summury-p">유형입니다</p>
+            <ul class="list__ul-filter">
+              <li class="list__li-filter">
+                <button class="button__check--no mr-2"></button>
+                <label for="karlyOnly">Karly Only</label>
+                <input
+                  type="checkbox"
+                  id="karlyOnly"
+                  name="karlyOnly"
+                  class="appearance-none"
+                  data-filter="karlyOnly"
+                  data-operator="and"
+                />
+              </li>
+              <li class="list__li-filter">
+                <button class="button__check--no mr-2"></button>
+                <label for="limited">한정수량</label>
+                <input
+                  type="checkbox"
+                  id="limited"
+                  name="limited"
+                  class="appearance-none"
+                  data-filter="limited"
+                  data-operator="and"
+                />
+              </li>
+            </ul>
           </details>
-          <details class="group">
+          <details class="group border-b border-gray-100" data-filter="except">
             <summary class="list__summury">
               <span>특정상품 제외</span>
               <span class="list__summury--rotate">
@@ -81,51 +184,144 @@
                 </svg>
               </span>
             </summary>
-            <p class="list__summury-p">특정상품 제외입니다</p>
+            <ul class="list__ul-filter">
+              <li class="list__li-filter">
+                <button class="button__check--no mr-2"></button>
+                <label for="pet">반려동물 상품</label>
+                <input
+                  type="checkbox"
+                  id="pet"
+                  name="pet"
+                  class="appearance-none"
+                  data-filter="except"
+                  value="반려동물"
+                />
+              </li>
+            </ul>
           </details>
-          <p class="list__summury-p">예시창</p>
+
+          <div
+            class="border-b border-gray-100 pb-4 pt-4 text-l-sm text-gray-300"
+          >
+            <button class="mx-auto my-0 block">카테고리 더보기</button>
+          </div>
         </div>
         <div class="flex flex-col">
-          <div class="grid grid-cols-3 gap-x-[18px] gap-y-6">
-            <div class="text-l-base text-black">
-              총 <span class="list__span-total">284</span>건
+          <div class="list__grid mb-6 grid grid-cols-3 gap-x-[18px] gap-y-6">
+            <div class="text-l-base text-content">
+              총 <span class="list__span-total"></span>건
             </div>
-            <div class="list__li-sorting col-span-2 text-l-base">
-              <ul class="flex items-center justify-end">
-                <li class="flex items-center gap-1">
-                  <a href="">추천순 </a>
-                  <svg
-                    role="img"
-                    width="14"
-                    height="20"
-                    viewBox="0 0 14 20"
-                    aria-label="마켓칼리 페이스북 바로가기"
-                  >
-                    <use href="/src/assets/svg/_sprite.svg#question-frame" />
-                  </svg>
-                </li>
+            <div class="list__div-sort col-span-2 text-l-base">
+              <div class="flex items-center justify-end text-gray-300">
+                <button
+                  type="button"
+                  class="list__button-sort--isSelected mr-1"
+                  data-sort="-created"
+                >
+                  추천순
+                </button>
+                <svg
+                  role="img"
+                  width="14"
+                  height="20"
+                  viewBox="0 0 14 20"
+                  aria-label=""
+                >
+                  <use href="/icons/_sprite.svg#question-frame" />
+                </svg>
                 <div class="div__divider"></div>
-                <li class="text-gray-300">신상품순</li>
+                <div class="">
+                  <button type="button" data-sort="-created">신상품순</button>
+                </div>
                 <div class="div__divider"></div>
-                <li class="text-gray-300">판매량순</li>
+                <div class="">
+                  <button type="button" data-sort="-saleRate">판매량순</button>
+                </div>
                 <div class="div__divider"></div>
-                <li class="text-gray-300">혜택순</li>
+                <div class="">
+                  <button type="button" data-sort="-discount">혜택순</button>
+                </div>
                 <div class="div__divider"></div>
-                <li class="text-gray-300">낮은 가격순</li>
+                <div class="">
+                  <button type="button" data-sort="price">낮은 가격순</button>
+                </div>
                 <div class="div__divider"></div>
-                <li class="text-gray-300">높은가격순</li>
-              </ul>
+                <div class="">
+                  <button type="button" data-sort="-price">높은 가격순</button>
+                </div>
+              </div>
             </div>
           </div>
-          <div>
-            <ul class="flex items-center justify-center text-center">
-              <li class="h-[34px] w-[34px] border-r">-</li>
-              <li class="h-[34px] w-[34px] border-r">-</li>
-              <li class="h-[34px] w-[34px] border-r">1</li>
-              <li class="h-[34px] w-[34px] border-r">2</li>
-              <li class="h-[34px] w-[34px] border-r">-</li>
-              <li class="h-[34px] w-[34px] border-r">--</li>
-            </ul>
+
+          <div
+            class="flex h-[600px] flex-col items-center justify-center"
+            id="no-item"
+          >
+            <svg
+              role="img"
+              width="72"
+              height="72"
+              viewBox="0 0 36 36"
+              aria-label=""
+            >
+              <use href="/icons/_sprite.svg#search-gray" />
+            </svg>
+            <p class="text-p-base text-gray-600">해당 상품이 없습니다.</p>
+          </div>
+          <div class="flex justify-center pt-9 text-center">
+            <div
+              class="list__div-pagination flex border-y border-l border-gray-100"
+            >
+              <button class="list__button-pagination" data-type="first">
+                <svg
+                  role="img"
+                  width="10"
+                  height="10"
+                  viewBox="3 3 10 10"
+                  aria-label=""
+                >
+                  <use href="/icons/_sprite.svg#arrow-page" />
+                </svg>
+              </button>
+              <button class="list__button-pagination" data-type="prev">
+                <svg
+                  role="img"
+                  width="10"
+                  height="10"
+                  viewBox="22 3 10 10"
+                  aria-label=""
+                >
+                  <use href="/icons/_sprite.svg#arrow-page" />
+                </svg>
+              </button>
+
+              <button
+                class="list__button-pagination"
+                id="next-arrow"
+                data-type="next"
+              >
+                <svg
+                  role="img"
+                  width="10"
+                  height="10"
+                  viewBox="35 3 10 10"
+                  aria-label=""
+                >
+                  <use href="/icons/_sprite.svg#arrow-page" />
+                </svg>
+              </button>
+              <button class="list__button-pagination" data-type="last">
+                <svg
+                  role="img"
+                  width="10"
+                  height="10"
+                  viewBox="55 3 10 10"
+                  aria-label=""
+                >
+                  <use href="/icons/_sprite.svg#arrow-page" />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       </div>
