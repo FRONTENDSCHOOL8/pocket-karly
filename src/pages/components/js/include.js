@@ -73,6 +73,9 @@ const header = async () => {
               <a href="/src/pages/cart/" class="block">장바구니</a>
             </li>
             <li class="w-full">
+              <button type="button" class="header__button-delete w-full text-left">탈퇴하기</button>
+            </li>
+            <li class="w-full">
               <button type="button" class="header__button-logout w-full text-left">로그아웃</button>
             </li>
           </ul>
@@ -163,15 +166,32 @@ const header = async () => {
   insertLast('.header__a-cart-origin', cartBadge);
 
   // 로그아웃 버튼 눌렀을 경우 localStorage에서 'auth'삭제한 뒤 page reroad
-  const logout = getNode('.header__button-logout');
-  function handleLogout() {
-    pb.authStore.clear();
-    deleteStorage('auth');
-    window.location.reload();
+  const logoutButton = getNode('.header__button-logout');
+  // 탈퇴하기 버튼 눌렀을 경우 pocketbase 연결해서 계정 삭제
+  const deleteButton = getNode('.header__button-delete');
+
+  if (logoutButton) {
+    logoutButton.addEventListener('click', () => {
+      pb.authStore.clear();
+      deleteStorage('auth');
+      window.location.reload();
+    });
   }
 
-  if (logout) {
-    logout.addEventListener('click', handleLogout);
+  if (deleteButton) {
+    deleteButton.addEventListener('click', async () => {
+      if (confirm('탈퇴 하시겠습니까?')) {
+        try {
+          const { user } = await getStorage('auth');
+          pb.authStore.clear();
+          deleteStorage('auth');
+          await pb.collection('users').delete(user.id);
+          location.href = '/';
+        } catch (error) {
+          alert('회원 탈퇴에 실패했습니다.');
+        }
+      }
+    });
   }
 };
 
