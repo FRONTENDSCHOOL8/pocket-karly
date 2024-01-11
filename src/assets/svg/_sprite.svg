@@ -281,8 +281,16 @@
         <path fill-rule="evenodd" clip-rule="evenodd" d="M268.764 18.3C267.191 21.1878 264.042 23.157 260.416 23.1577C256.828 23.157 253.712 21.2359 252.12 18.4084C254.546 17.5569 257.462 17.0588 260.6 17.0588H260.604C263.61 17.0588 266.409 17.5148 268.764 18.3ZM260.416 23.1577C260.415 23.1577 260.414 23.1577 260.414 23.1577H260.417C260.417 23.1577 260.416 23.1577 260.416 23.1577Z" fill="#7E7E7E"/>
         <circle cx="260.059" cy="13.0588" r="10" transform="rotate(-0.337756 260.059 13.0588)" stroke="white" stroke-width="2.5"/>
     </symbol>
-    <symbol id="goToTop" width="116" height="116" viewBox="0 0 116 116" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="58" cy="58" r="57.5" fill="white" stroke="#E3E3E3"/>
+    <symbol id="goToTop" width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_5713_3458__goToTop)">
+            <path d="M32 64C49.6731 64 64 49.6731 64 32C64 14.3269 49.6731 0 32 0C14.3269 0 0 14.3269 0 32C0 49.6731 14.3269 64 32 64Z" fill="white"/>
+            <path d="M28.0979 43.341C28.3158 43.568 28.6076 43.7063 28.9184 43.7298C29.2292 43.7533 29.5378 43.6605 29.7862 43.4688L29.9078 43.3619L40.1477 33.1708C40.3681 32.9515 40.5035 32.6585 40.5288 32.3458C40.5542 32.033 40.468 31.7214 40.286 31.4682L40.1836 31.343L30.2982 20.6761C30.0748 20.4347 29.7696 20.2892 29.4445 20.2691C29.1195 20.249 28.7991 20.3559 28.5487 20.5679C28.2983 20.7799 28.1366 21.0812 28.0967 21.4103C28.0567 21.7395 28.1413 22.0718 28.3335 22.3396L28.4359 22.4648L37.4585 32.2021L28.1184 41.4976C27.8955 41.7195 27.7598 42.0166 27.7367 42.3332C27.7136 42.6498 27.8047 42.9641 27.993 43.2172L28.0979 43.341V43.341Z" fill="#333333"/>
+        </g>
+        <defs>
+            <clipPath id="clip0_5713_3458__goToTop">
+                <rect width="64" height="64" fill="white"/>
+            </clipPath>
+        </defs>
     </symbol>
     <symbol id="group" width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g id="Group__group">
@@ -335,6 +343,27 @@
             </clipPath>
             <clipPath id="clip1_5249_3479__icons">
                 <rect width="36" height="36" fill="white" transform="translate(112)"/>
+            </clipPath>
+        </defs>
+    </symbol>
+    <symbol id="input-button" width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_5746_6697__input-button)">
+            <path d="M40 23.5C46.3513 23.5 51.5 18.3513 51.5 12C51.5 5.64873 46.3513 0.5 40 0.5C33.6487 0.5 28.5 5.64873 28.5 12C28.5 18.3513 33.6487 23.5 40 23.5Z" stroke="#C4C4C4"/>
+            <path d="M35 12.667L38.385 16L46 8.5" stroke="#C4C4C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+        <g clip-path="url(#clip1_5746_6697__input-button)">
+            <path d="M40 51.5C46.3513 51.5 51.5 46.3513 51.5 40C51.5 33.6487 46.3513 28.5 40 28.5C33.6487 28.5 28.5 33.6487 28.5 40C28.5 46.3513 33.6487 51.5 40 51.5Z" fill="#5F0080"/>
+            <path d="M35 40.667L38.385 44L46 36.5" stroke="#C4C4C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+        <circle cx="12" cy="12" r="11.5" stroke="#C4C4C4"/>
+        <circle cx="12" cy="40" r="12" fill="#5F0080"/>
+        <circle cx="12" cy="40" r="5" fill="#C4C4C4"/>
+        <defs>
+            <clipPath id="clip0_5746_6697__input-button">
+                <rect width="24" height="24" fill="white" transform="translate(28)"/>
+            </clipPath>
+            <clipPath id="clip1_5746_6697__input-button">
+                <rect width="24" height="24" fill="white" transform="translate(28 28)"/>
             </clipPath>
         </defs>
     </symbol>
@@ -514,6 +543,14 @@
                 <rect width="48" height="48" fill="white"/>
             </clipPath>
         </defs>
+    </symbol>
+    <symbol id="pageArrow-left" width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0.5" y="0.5" width="55" height="55" rx="3.5" stroke="#E1E1E1"/>
+        <path d="M32 36L24 28L32 20" stroke="#999999" stroke-width="1.2"/>
+    </symbol>
+    <symbol id="pageArrow-right" width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0.5" y="0.5" width="55" height="55" rx="3.5" stroke="#E1E1E1"/>
+        <path d="M24 20L32 28L24 36" stroke="#999999" stroke-width="1.2"/>
     </symbol>
     <symbol id="plus" width="46" height="84" viewBox="0 0 46 84" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="0.5" y="0.5" width="45" height="83" rx="4.5" stroke="#9747FF" stroke-dasharray="10 5"/>
