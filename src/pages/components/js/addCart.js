@@ -41,7 +41,7 @@ function changeAmount(e) {
 }
 
 // 상품 수에 따라 합계를 누적
-function updateAcc(target, currentCount) {
+export function updateAcc(target, currentCount) {
   return target * currentCount;
 }
 
