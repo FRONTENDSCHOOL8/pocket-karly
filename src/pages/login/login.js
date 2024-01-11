@@ -20,9 +20,7 @@ async function handleLogin(e) {
       user: model,
       token,
     });
-
-    alert('로그인 완료! 메인페이지로 이동합니다.');
-    // window.location.href = '/index.html'
+    window.location.href = '/index.html';
   } catch {
     alert('아이디,비밀번호를 확인해주세요.');
   }
