@@ -88,6 +88,8 @@ export default {
         61.75: '247px',
         48.5: '194px',
         7.5: '30px',
+        75: '300px',
+        85: '340px',
       },
       height: {
         'productBox-height': '538px',
