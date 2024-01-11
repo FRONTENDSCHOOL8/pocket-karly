@@ -7,7 +7,7 @@
 }
 
 .register__input {
-  @apply h-11 w-[333px] content-center rounded border border-gray-400 px-5 focus:border-black focus:outline-none;
+  @apply h-11 w-[333px] content-center rounded border border-gray-400 px-5;
 }
 
 .register__required {
