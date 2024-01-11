@@ -5,6 +5,8 @@ import {
   insertLast,
   deleteStorage,
 } from '/src/lib/';
+import Swiper from 'swiper/bundle';
+import 'swiper/css/bundle';
 import pb from '/src/api/pocketbase';
 import '/src/styles/tailwind.css';
 
@@ -28,6 +30,7 @@ function loadIncludedHTML() {
   Array.prototype.forEach.call(allElements, (item) => {
     includeHTML(item, () => {
       if (item.tagName === 'HEADER') header();
+      if (item.tagName === 'DIV') div();
     });
   });
 }
@@ -239,3 +242,43 @@ async function getCartAmountStorage() {
   }
   return total;
 }
+
+/* -------------------------------------------------------------------------- */
+// 최근본상품 사이드바
+const div = () => {
+  const swiper = new Swiper('.swiper', {
+    direction: 'vertical',
+    slidesPerView: 2.7,
+    spaceBetween: 20,
+    slidesOffsetAfter: 20,
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    navigation: {
+      nextEl: '.button__next',
+      prevEl: '.button__prev',
+    },
+    keyboard: {
+      enabled: true,
+    },
+  });
+
+  drawViewedProduct(swiper);
+
+  async function drawViewedProduct(swiper) {
+    // local storage의 'viewedProduct'에 최근본상품 정보 저장되어 있음
+    const viewedProduct = await getStorage('viewedProduct');
+    if (viewedProduct) {
+      viewedProduct.forEach((product) => {
+        const template = `
+      <div class="swiper-slide">
+        <a href="/src/pages/detail/#${product.id}"><img src="${product.thumbImg}" alt="${product.thumbImgAlt}" /></a>
+      </div>
+      `;
+        swiper.appendSlide(template);
+      });
+    }
+  }
+  swiper.update();
+};
