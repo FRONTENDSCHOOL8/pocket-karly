@@ -11,6 +11,7 @@ export default defineConfig({
         footer: resolve(__dirname, 'src/pages/components/footer.html'),
         popup: resolve(__dirname, 'src/pages/components/popup.html'),
         register: resolve(__dirname, 'src/pages/register/index.html'),
+        detail2: resolve(__dirname, 'src/pages/detail/index2.html'),
         productBox: resolve(__dirname, 'src/pages/components/productBox.html'),
         addCart: resolve(__dirname, 'src/pages/components/addCart.html'),
         productList: resolve(__dirname, 'src/pages/productList/index.html'),

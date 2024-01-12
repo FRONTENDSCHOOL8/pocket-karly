@@ -30,11 +30,9 @@
 .review--pagenation {
   @apply flex items-center justify-center gap-2 pt-4;
 }
-.inquiries--article {
-  @apply flex border-b border-b-gray-100 py-4;
-}
+
 .inquiries--h3 {
-  @apply w-[750px] px-5 text-l-base;
+  @apply flex h-[58px] w-[750px] items-center px-5 text-l-base;
 }
 .inquiries--span {
   @apply w-[100px] px-1 text-center text-l-base text-gray-400;
