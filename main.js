@@ -68,11 +68,13 @@ async function drawProductSwiper(swiper, slideCount) {
   const numbers = [];
   const randomProducts = [];
 
-  while (numbers.length < slideCount) {
+  let count = 0;
+  while (count < slideCount) {
     const randomNumber = Math.floor(Math.random() * products.length);
     if (numbers.indexOf(randomNumber) === -1) {
       numbers.push(randomNumber);
       randomProducts.push(products[randomNumber]);
+      count++;
     }
   }
 
