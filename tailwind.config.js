@@ -58,6 +58,7 @@ export default {
         // Paragraph
         'p-xsm': ['10px', { lineHeight: '160%', fontWeight: '400' }],
         'p-sm': ['12px', { lineHeight: '160%', fontWeight: '400' }],
+        'p-wsm': ['12px', { lineHeight: '150%', fontWeight: '400' }],
         'p-base': ['16px', { lineHeight: '160%', fontWeight: '400' }],
         'p-lg': ['21.3px', { lineHeight: '160%', fontWeight: '400' }],
         'p-xl': ['28.4px', { lineHeight: '160%', fontWeight: '400' }],
@@ -89,14 +90,19 @@ export default {
         48.5: '194px',
         7.5: '30px',
         75: '300px',
+        78.75: '315px',
         85: '340px',
+        140: '560px',
+        262.5: '1050px',
       },
       height: {
         'productBox-height': '538px',
         3.25: '13px',
         7.5: '30px',
         13: '52px',
+        13.5: '54px',
         18: '72px',
+        167.5: '670px',
       },
       inset: {
         'productBox-cart-top': '258px',

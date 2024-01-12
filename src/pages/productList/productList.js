@@ -428,9 +428,13 @@ async function drawProductBox(collection, page, perPage, option) {
                 Math.floor((price - price * (discount * 0.01)) / 10) * 10
               )} <span>원</span></p>
             </div>
-            <span class="text-p-sm text-gray-400 line-through">${comma(
-              price
-            )} 원</span>
+            ${
+              discount === 0
+                ? ``
+                : `<span class="text-p-sm text-gray-400 line-through">${comma(
+                    price
+                  )} 원</span>`
+            }
             <p class="text-p-sm text-gray-400">${detail}</p>
             <div class="flex gap-2">
               ${

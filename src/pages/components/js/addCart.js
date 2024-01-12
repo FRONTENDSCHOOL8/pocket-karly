@@ -133,9 +133,55 @@ export function cancelAddCart(addCartPopup) {
 
 // 장바구니 담기 버튼 클릭
 export async function addCart(addCartPopup) {
-  const productId = getNode('.product__info--template p').dataset.id;
-  let amount = Number(getNode('.product__amount').innerText);
-  const name = getNode('.product__info--template p').innerText;
+  const auth = await getStorage('auth');
+  const data = {
+    productId: getNode('.product__info--template p').dataset.id,
+    amount: Number(getNode('.product__amount').innerText),
+    name: getNode('.product__info--template p').innerText,
+    auth,
+  };
+
+  // local storage에 auth가 있다면 로그인 된 상태기 때문에 DB에 장바구니 상품 추가해줌
+  if (auth) {
+    addCartDB(data, addCartPopup);
+  } else {
+    // local storage에 auth가 있다면 로그인 안 된 상태기 때문 local storage에 상품 추가해줌
+    addCartLocalStorage(data, addCartPopup);
+  }
+}
+
+async function addCartDB(data, addCartPopup) {
+  const { productId, amount, auth, name } = data;
+  const userId = auth.user.id;
+
+  const carts = await pb.collection('carts').getFullList({
+    filter: `users_record= "${userId}" && products_record= "${productId}"`,
+  });
+
+  if (!carts.length) {
+    // 기존에 장바구니에 없던 상품. 따라서 DB에 새로 데이터 넣어줌
+    const data = {
+      users_record: userId,
+      products_record: productId,
+      amount,
+    };
+    await pb.collection('carts').create(data);
+  } else {
+    // 기존에 장바구니에 있던 상품. 따라서 기존 데이터의 amount 값을 바꿔줌
+    const beforeAmount = carts[0].amount;
+    const data = {
+      amount: beforeAmount + amount,
+    };
+
+    await pb.collection('carts').update(carts[0].id, data);
+  }
+  addCartPopup.close();
+  alert(`장바구니에 ${name}을 담았습니다.`);
+}
+
+async function addCartLocalStorage(data, addCartPopup) {
+  const { productId, name } = data;
+  let { amount } = data;
   let isExist = false;
 
   // local storage에 저장되어 있는 cart 값 가져옴
