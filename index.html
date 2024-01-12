@@ -19,8 +19,10 @@
   <body>
     <header data-include-path="/src/pages/components/header.html"></header>
     <div data-include-path="/src/pages/components/sidebar.html"></div>
-    <div class="main-wraper">
-      <div class="banner relative h-auto">
+    <div class="main-wraper overflow-x-hidden">
+      <div
+        class="banner relative left-1/2 min-w-[1920px] max-w-[1920px] translate-x-[-50%]"
+      >
         <div class="swiper swiper-container">
           <ul class="swiper-wrapper">
             <li class="swiper-slide">
@@ -49,14 +51,14 @@
             </li>
           </ul>
         </div>
-        <div class="absolute left-[300px] top-40 z-10">
+        <div class="absolute left-[18%] top-40 z-10">
           <img
             class="swiper-prev"
             src="src/assets/svg/arrow-circle.svg"
             alt="이전 버튼"
           />
         </div>
-        <div class="absolute right-[300px] top-40 z-10">
+        <div class="absolute right-[18%] top-40 z-10">
           <img
             class="swiper-next"
             src="src/assets/svg/arrowReverse.svg"
@@ -65,8 +67,8 @@
         </div>
       </div>
       <section>
-        <div class="relative mx-auto h-auto w-innerWrapper">
-          <div class="mb-7 mt-10 flex flex-col items-center">
+        <div class="relative mx-auto w-innerWrapper">
+          <div class="mb-10 mt-[52px] flex flex-col items-center">
             <h3 class="text-xl font-bold">이 상품 어때요?</h3>
           </div>
           <div class="swiper swiper-product w-innerWrapper">
@@ -83,7 +85,7 @@
         </div>
       </section>
 
-      <section class="mx-auto w-innerWrapper">
+      <section class="mx-auto w-innerWrapper py-16">
         <img
           src="/src/assets/images/line-banner.jpg"
           alt="더 풍성해진 10월의 퍼플위크"
@@ -92,7 +94,7 @@
 
       <section class="mb-10">
         <div class="relative mx-auto h-auto w-innerWrapper">
-          <div class="mb-7 mt-10 flex flex-col items-center">
+          <div class="mb-10 mt-[52px] flex flex-col items-center">
             <h3 class="text-xl font-bold">놓치면 후회할 가격</h3>
           </div>
 
