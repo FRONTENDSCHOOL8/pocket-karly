@@ -21,16 +21,15 @@ const productTemplate = getNode('.product--template');
 const userData = await pb.collection('users').getOne('q4l7a4urcjb33hz');
 // const userData = await pb.collection('users').getOne('9vzsdelu39rzk6q');
 const { id, address } = userData;
-console.log('address: ', address);
 
 // 냉장식품 템플릿
 const cartDataCold = await pb.collection('carts_products_data').getFullList({
   filter: `packageType = "냉장식품" && users_record = "${id}"`,
   sort: 'created',
 });
-console.log('cartDataCold: ', cartDataCold);
 
-const coldState = {};
+// 선택된 상품 상태변수 관리
+const productState = {};
 
 // * 냉장식품 템플릿 반복문
 cartDataCold.forEach((cart) => {
@@ -127,9 +126,8 @@ cartDataCold.forEach((cart) => {
 
   insertFirst('.product__cold--template', templateProduct);
 
-  coldState[products_record] = true;
+  productState[products_record] = true;
 });
-console.log('coldState 맨 처음:', coldState);
 
 function removeNumbers(value) {
   const result = value.replace(/\d+/g, '');
@@ -141,9 +139,9 @@ function removeNumbers(value) {
 function checkState(target, products_record) {
   console.log('target,', target);
   if (target.checked) {
-    coldState[products_record] = true;
+    productState[products_record] = true;
   } else {
-    coldState[products_record] = false;
+    productState[products_record] = false;
   }
 }
 
@@ -152,8 +150,6 @@ const cartDataFreeze = await pb.collection('carts_products_data').getFullList({
   filter: `packageType = "냉동식품" && users_record = "${id}"`,
   sort: 'created',
 });
-
-const freezeState = {};
 
 cartDataFreeze.forEach((cart) => {
   const { products_record, name, price, discount, amount, thumbImgAlt } = cart;
@@ -165,7 +161,7 @@ cartDataFreeze.forEach((cart) => {
   const templateProduct = /* html */ `
     <li class="flex items-center px-1 py-5">
       <label
-        for=${products_record}
+        for=${removeNumbers(products_record)}
         class="relative flex items-center text-l-base text-content"
       >
         <input
@@ -249,18 +245,14 @@ cartDataFreeze.forEach((cart) => {
 
   insertFirst('.product__freeze--template', templateProduct);
 
-  freezeState[products_record] = true;
+  productState[products_record] = true;
 });
-
-console.log('freezeState 맨 처음:', freezeState);
 
 // 상온식품 템플릿
 const cartDataRoom = await pb.collection('carts_products_data').getFullList({
   filter: `packageType = "상온식품" && users_record = "${id}"`,
   sort: 'created',
 });
-
-const roomState = {};
 
 cartDataRoom.forEach((cart) => {
   const { products_record, name, price, discount, amount, thumbImgAlt } = cart;
@@ -272,7 +264,7 @@ cartDataRoom.forEach((cart) => {
   const templateProduct = /* html */ `
     <li class="flex items-center px-1 py-5">
       <label
-        for=${products_record}
+        for=${removeNumbers(products_record)}
         class="relative flex items-center text-l-base text-content"
       >
         <input
@@ -356,10 +348,8 @@ cartDataRoom.forEach((cart) => {
 
   insertFirst('.product__room--template', templateProduct);
 
-  roomState[products_record] = true;
+  productState[products_record] = true;
 });
-
-console.log('roomState 맨 처음:', roomState);
 
 /* -------------------------------------------------------------------------- */
 // 상품 개수
@@ -393,12 +383,15 @@ export const checkAll = (elem) => {
     if (target.checked) {
       select.forEach((item) => {
         item.checked = true;
+        productState[item.dataset.record] = true;
       });
     } else {
       select.forEach((item) => {
         item.checked = false;
+        productState[item.dataset.record] = false;
       });
     }
+    console.log('productState: ', productState);
   };
 };
 
@@ -502,7 +495,6 @@ function calcTotalPrice() {
   const realPriceAcc = arrayToSum(realPriceArray);
   const discountPriceAcc = arrayToSum(discountPriceArray);
 
-  // console.log(realPriceAcc, discountPriceAcc);
   return { realPriceAcc, discountPriceAcc };
 }
 
@@ -579,25 +571,9 @@ function handleButton(e) {
     const productId = input.dataset.record;
     console.log('productId: ', productId);
     checkState(input, productId);
-    console.log('coldState:', coldState);
-    console.log('freezeState:', freezeState);
-    console.log('roomState:', roomState);
-
-    // coldState의 value를 순회해서 true값인 key만 찾기
+    console.log('productState: ', productState);
   }
 }
-
-// ^value로 key찾기
-// const trueKeys = Object.keys(sampleObject).filter(key => sampleObject[key] === true);
-
-// function trueKeys(obj) {
-//   return Object.keys(obj).reduce((acc, key) => {
-//     if (obj[key] === true) {
-//       acc.push(key);
-//     }
-//     return acc;
-//   }, []);
-// }
 
 const selectDeleteButton = getNodes('.button--delete__select');
 [...selectDeleteButton].forEach((button) => {

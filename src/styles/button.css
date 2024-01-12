@@ -10,6 +10,10 @@
   @apply button__default h-[54px] border border-primary text-primary;
 }
 
+.button--gray__big {
+  @apply flex h-[54px] items-center justify-center border border-gray-300 bg-gray-50 text-l-base text-black;
+}
+
 .button--purple__small {
   @apply button__default h-[44px] bg-primary text-white;
 }
