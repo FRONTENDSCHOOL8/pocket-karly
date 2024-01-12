@@ -246,7 +246,7 @@ async function getCartAmountStorage() {
 /* -------------------------------------------------------------------------- */
 // 최근본상품 사이드바
 const div = () => {
-  const swiper = new Swiper('.swiper', {
+  const swiper = new Swiper('.swiper__sidebar', {
     direction: 'vertical',
     slidesPerView: 2.7,
     spaceBetween: 20,

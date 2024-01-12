@@ -1,6 +1,7 @@
 import { getPbImageURL, setStorage, getStorage } from '/src/lib';
 import pb from '/src/api/pocketbase';
 import '/src/styles/tailwind.css';
+import '/src/pages/components/js/include.js';
 
 async function onPageLoad() {
   // 해당 상품의 정보 가져옴

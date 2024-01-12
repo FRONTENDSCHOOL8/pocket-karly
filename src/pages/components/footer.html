@@ -1,282 +1,263 @@
-<!doctype html>
-<html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/src/styles/tailwind.css" />
-    <title>footer</title>
-  </head>
-  <body>
-    <footer class="">
-      <div
-        class="w-innerWrapper mx-auto my-7 flex justify-between text-content"
+<footer class="mt-7 border border-t-gray-100">
+  <div class="mx-auto my-7 flex w-innerWrapper justify-between text-content">
+    <div>
+      <h2 class="test text-h-lg">고객행복센터</h2>
+      <span class="mt-4 text-h-2xl"><a href="tel:1644-1107">1644-1107</a></span>
+      <span class="test ml-2 mt-4 inline-block align-top text-l-base"
+        >월~토요일 오전 7시 - 오후 6시</span
       >
-        <div>
-          <h2 class="test text-h-lg">고객행복센터</h2>
-          <span class="mt-4 text-h-2xl"
-            ><a href="tel:1644-1107">1644-1107</a></span
+      <ul class="my-5">
+        <li class="flex">
+          <button type="button" class="button--footer mr-4">
+            카카오톡 문의
+          </button>
+          <div>
+            <p class="text-p-base">월~토요일 | 오전 7시 - 오후 6시</p>
+            <p>일/공휴일 | 오전 7시 - 오후 1시</p>
+          </div>
+        </li>
+        <li class="my-7 flex">
+          <button type="button" class="button--footer mr-4">1:1 문의</button>
+          <div>
+            <p>365일</p>
+            <p>고객센터 운영시간에 순차적으로 답변드리겠습니다.</p>
+          </div>
+        </li>
+        <li class="flex">
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLScWcjRuN6eWJK-G8x3NwBfE8IyKZIOq7jhD3fUXuKSWwPqzJw/viewform"
+            target="_blank"
+            class="button--footer mr-4 block text-center"
           >
-          <span class="test ml-2 mt-4 inline-block align-top text-l-base"
-            >월~토요일 오전 7시 - 오후 6시</span
-          >
-          <ul class="my-5">
-            <li class="flex">
-              <button type="button" class="button--footer mr-4">
-                카카오톡 문의
-              </button>
-              <div>
-                <p class="text-p-base">월~토요일 | 오전 7시 - 오후 6시</p>
-                <p>일/공휴일 | 오전 7시 - 오후 1시</p>
-              </div>
-            </li>
-            <li class="my-7 flex">
-              <button type="button" class="button--footer mr-4">
-                1:1 문의
-              </button>
-              <div>
-                <p>365일</p>
-                <p>고객센터 운영시간에 순차적으로 답변드리겠습니다.</p>
-              </div>
-            </li>
-            <li class="flex">
-              <a
-                href="https://docs.google.com/forms/d/e/1FAIpQLScWcjRuN6eWJK-G8x3NwBfE8IyKZIOq7jhD3fUXuKSWwPqzJw/viewform"
-                target="_blank"
-                class="button--footer mr-4 block text-center"
-              >
-                대량주문 문의
-              </a>
-              <div>
-                <p>월~금요일 | 오전 9시 - 오후 6시</p>
-                <p>점심시간 | 낮 12시 - 오후 1시</p>
-              </div>
-            </li>
-          </ul>
-          <p>
-            비회원 문의 :
-            <a href="mailto:help@karlycorp.com" class="text-primary"
-              >help@karlycorp.com</a
-            >
-          </p>
-          <p>
-            비회원 대량주문 문의 :
-            <a href="mailto:help@karlycorp.com" class="text-primary"
-              >help@karlycorp.com</a
-            >
-          </p>
-        </div>
-        <div>
-          <nav>
-            <ul class="flex gap-x-3 text-p-base">
-              <li>칼리 소개</li>
-              <li>칼리 소개 영상</li>
-              <li>인재 채용</li>
-              <li>이용약관</li>
-              <li>개인정보처리방침</li>
-              <li>이용안내</li>
-            </ul>
-          </nav>
-          <address class="my-7 text-p-sm not-italic">
-            <div>
-              <span>법인명 (상호) : 주식회사 칼리</span>
-              <span aria-hidden="true">|</span>
-              <span>사업자등록번호 : 261-81-23467</span>
-              <span aria-hidden="true">|</span>
-              <span
-                ><a
-                  href="https://www.ftc.go.kr/bizCommPop.do?wrkr_no=2618123567&apv_perm_no="
-                  class="text-primary"
-                  >사업자정보 확인</a
-                ></span
-              >
-            </div>
-            <div>
-              <span>통신판매업 : 제 2018-서울강남-01646호</span>
-              <span aria-hidden="true">|</span>
-              <span>개인정보보호책임자 : 이원준</span>
-            </div>
-            <div>
-              <span>주소 : 서울특별시 강남구 테헤란로 133, 18층(역삼동)</span>
-              <span aria-hidden="true">|</span>
-              <span>대표이사 : 김슬아</span>
-            </div>
-            <div>
-              <span>입점문의 : 입점문의하기</span>
-              <span aria-hidden="true">|</span>
-              <span
-                >제휴문의 :
-                <a href="mailto:business@karlycrop.com" class="text-primary"
-                  >business@karlycorp.com</a
-                ></span
-              >
-            </div>
-            <span class="block"
-              >채용문의 :
-              <a href="mailto:recruit@karlycorp.com" class="text-primary"
-                >recruit@karlycorp.com</a
-              ></span
-            >
-            <span>팩스 : 070 - 7500 - 6098</span>
-          </address>
-          <ul class="flex gap-x-5">
-            <li class="w-[30px] overflow-hidden">
-              <a href="https://blog.naver.com/marketkurly" target="_blank">
-                <svg
-                  role="img"
-                  width="188"
-                  height="30"
-                  viewBox="0 0 376 60"
-                  aria-label="마켓칼리 네이버블로그 바로가기"
-                >
-                  <use href="/src/assets/svg/_sprite.svg#sns" />
-                </svg>
-              </a>
-            </li>
-            <li class="w-[30px] overflow-hidden">
-              <a href="https://www.instagram.com/marketkurly/" target="_blank">
-                <img
-                  src="https://res.kurly.com/pc/ico/1810/ico_instagram.png"
-                  alt="마켓칼리 인스타그램 바로가기"
-                />
-              </a>
-            </li>
-            <li class="w-[30px] overflow-hidden">
-              <a href="https://www.facebook.com/Marketkurly/" target="_blank">
-                <svg
-                  role="img"
-                  width="188"
-                  height="30"
-                  viewBox="158 0 376 60"
-                  aria-label="마켓칼리 페이스북 바로가기"
-                >
-                  <use href="/src/assets/svg/_sprite.svg#sns" />
-                </svg>
-              </a>
-            </li>
-            <li class="w-[30px] overflow-hidden">
-              <a href="https://m.post.naver.com/marketkurly" target="_blank">
-                <svg
-                  role="img"
-                  width="188"
-                  height="30"
-                  viewBox="237 0 376 60"
-                  aria-label="마켓칼리 네이버포스트 바로가기"
-                >
-                  <use href="/src/assets/svg/_sprite.svg#sns" />
-                </svg>
-              </a>
-            </li>
-            <li class="w-[30px] overflow-hidden">
-              <a
-                href="https://www.youtube.com/channel/UCfpdjL5pl-1qKT7Xp4UQzQg"
-                target="_blank"
-              >
-                <svg
-                  role="img"
-                  width="188"
-                  height="30"
-                  viewBox="316 0 376 60"
-                  aria-label="마켓칼리 유튜브 바로가기"
-                >
-                  <use href="/src/assets/svg/_sprite.svg#sns" />
-                </svg>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <ul
-        class="w-innerWrapper mx-auto mt-8 flex justify-between border-t border-gray-100 pb-7 pt-6 text-[10px] leading-[160%]"
-      >
-        <li class="flex gap-x-2">
-          <div class="inline-block w-[34px] overflow-hidden">
-            <svg
-              role="img"
-              width="277"
-              height="36"
-              viewBox="0 0 277 36"
-              aria-label="isms 로고"
-            >
-              <use href="/src/assets/svg/_sprite.svg#footer" />
-            </svg>
-          </div>
-          <div class="w-[180px]">
-            <p>
-              [인증범위] 마켓칼리 쇼핑몰 서비스 개발 운영(심사받지 않은 물리적
-              인프라 제외)
-            </p>
-            <p>[유효기간] 2022.01.19 ~ 2025.01.18</p>
-          </div>
-        </li>
-        <li class="flex gap-x-2">
-          <div class="inline-block w-[34px] overflow-hidden">
-            <svg
-              role="img"
-              width="277"
-              height="36"
-              viewBox="58 0 277 36"
-              aria-label="eprivacy plus 로고"
-            >
-              <use href="/src/assets/svg/_sprite.svg#footer" />
-            </svg>
-          </div>
-          <div class="w-[180px]">
-            <p>개인정보보호 우수 웹사이트</p>
-            <p>개인정보처리시스템 인증 (ePRIVACY PLUS)</p>
-          </div>
-        </li>
-        <li class="flex gap-x-2">
-          <div class="inline-block w-[102px] overflow-hidden">
-            <svg
-              role="img"
-              width="277"
-              height="36"
-              viewBox="115 0 277 36"
-              aria-label="payments 로고"
-            >
-              <use href="/src/assets/svg/_sprite.svg#footer" />
-            </svg>
-          </div>
-          <div class="w-[135px]">
-            <p>
-              토스페이먼츠 구매안전(에스크로) 서비스를 이용하실 수 있습니다.
-            </p>
-          </div>
-        </li>
-        <li class="flex gap-x-2">
-          <div class="inline-block w-[38px] overflow-hidden">
-            <svg
-              role="img"
-              width="277"
-              height="36"
-              viewBox="240 0 277 36"
-              aria-label="우리은행 로고"
-            >
-              <use href="/src/assets/svg/_sprite.svg#footer" />
-            </svg>
-          </div>
-          <div class="w-[205px]">
-            <p>
-              고객님이 현금으로 결제한 금액에 대해 우리은행과 채무지급보증
-              계약을 체결하여 안전거래를 보장하고 있습니다.
-            </p>
+            대량주문 문의
+          </a>
+          <div>
+            <p>월~금요일 | 오전 9시 - 오후 6시</p>
+            <p>점심시간 | 낮 12시 - 오후 1시</p>
           </div>
         </li>
       </ul>
-      <div
-        class="min-w-max bg-gray-50 pb-7 pt-5 text-center text-[10px] leading-[160%] text-gray-400"
-      >
-        <p>
-          마켓칼리에서 판매되는 상품 중에는 마켓칼리에 입점한 개별 판매자가
-          판매하는 마켓플레이스(오픈마켓) 상품이 포함되어 있습니다.
-        </p>
-        <p>
-          마켓플레이스(오픈마켓) 상품의 경우 칼리는 통신판매중개자로서
-          통신판매의 당사자가 아닙니다. 칼리는 해당 상품의 주문, 품질, 교환/환불
-          등 의무와 책임을 부담하지 않습니다.
-        </p>
-        <small class="mt-2 capitalize"> karly corp. all rights reserved</small>
+      <p>
+        비회원 문의 :
+        <a href="mailto:help@karlycorp.com" class="text-primary"
+          >help@karlycorp.com</a
+        >
+      </p>
+      <p>
+        비회원 대량주문 문의 :
+        <a href="mailto:help@karlycorp.com" class="text-primary"
+          >help@karlycorp.com</a
+        >
+      </p>
+    </div>
+    <div>
+      <nav>
+        <ul class="flex gap-x-3 text-p-base">
+          <li>칼리 소개</li>
+          <li>칼리 소개 영상</li>
+          <li>인재 채용</li>
+          <li>이용약관</li>
+          <li>개인정보처리방침</li>
+          <li>이용안내</li>
+        </ul>
+      </nav>
+      <address class="my-7 text-p-sm not-italic">
+        <div>
+          <span>법인명 (상호) : 주식회사 칼리</span>
+          <span aria-hidden="true">|</span>
+          <span>사업자등록번호 : 261-81-23467</span>
+          <span aria-hidden="true">|</span>
+          <span
+            ><a
+              href="https://www.ftc.go.kr/bizCommPop.do?wrkr_no=2618123567&apv_perm_no="
+              class="text-primary"
+              >사업자정보 확인</a
+            ></span
+          >
+        </div>
+        <div>
+          <span>통신판매업 : 제 2018-서울강남-01646호</span>
+          <span aria-hidden="true">|</span>
+          <span>개인정보보호책임자 : 이원준</span>
+        </div>
+        <div>
+          <span>주소 : 서울특별시 강남구 테헤란로 133, 18층(역삼동)</span>
+          <span aria-hidden="true">|</span>
+          <span>대표이사 : 김슬아</span>
+        </div>
+        <div>
+          <span>입점문의 : 입점문의하기</span>
+          <span aria-hidden="true">|</span>
+          <span
+            >제휴문의 :
+            <a href="mailto:business@karlycrop.com" class="text-primary"
+              >business@karlycorp.com</a
+            ></span
+          >
+        </div>
+        <span class="block"
+          >채용문의 :
+          <a href="mailto:recruit@karlycorp.com" class="text-primary"
+            >recruit@karlycorp.com</a
+          ></span
+        >
+        <span>팩스 : 070 - 7500 - 6098</span>
+      </address>
+      <ul class="flex gap-x-5">
+        <li class="w-[30px] overflow-hidden">
+          <a href="https://blog.naver.com/marketkurly" target="_blank">
+            <svg
+              role="img"
+              width="188"
+              height="30"
+              viewBox="0 0 376 60"
+              aria-label="마켓칼리 네이버블로그 바로가기"
+            >
+              <use href="/src/assets/svg/_sprite.svg#sns" />
+            </svg>
+          </a>
+        </li>
+        <li class="w-[30px] overflow-hidden">
+          <a href="https://www.instagram.com/marketkurly/" target="_blank">
+            <img
+              src="https://res.kurly.com/pc/ico/1810/ico_instagram.png"
+              alt="마켓칼리 인스타그램 바로가기"
+            />
+          </a>
+        </li>
+        <li class="w-[30px] overflow-hidden">
+          <a href="https://www.facebook.com/Marketkurly/" target="_blank">
+            <svg
+              role="img"
+              width="188"
+              height="30"
+              viewBox="158 0 376 60"
+              aria-label="마켓칼리 페이스북 바로가기"
+            >
+              <use href="/src/assets/svg/_sprite.svg#sns" />
+            </svg>
+          </a>
+        </li>
+        <li class="w-[30px] overflow-hidden">
+          <a href="https://m.post.naver.com/marketkurly" target="_blank">
+            <svg
+              role="img"
+              width="188"
+              height="30"
+              viewBox="237 0 376 60"
+              aria-label="마켓칼리 네이버포스트 바로가기"
+            >
+              <use href="/src/assets/svg/_sprite.svg#sns" />
+            </svg>
+          </a>
+        </li>
+        <li class="w-[30px] overflow-hidden">
+          <a
+            href="https://www.youtube.com/channel/UCfpdjL5pl-1qKT7Xp4UQzQg"
+            target="_blank"
+          >
+            <svg
+              role="img"
+              width="188"
+              height="30"
+              viewBox="316 0 376 60"
+              aria-label="마켓칼리 유튜브 바로가기"
+            >
+              <use href="/src/assets/svg/_sprite.svg#sns" />
+            </svg>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <ul
+    class="mx-auto mt-8 flex w-innerWrapper justify-between border-t border-gray-100 pb-7 pt-6 text-[10px] leading-[160%]"
+  >
+    <li class="flex gap-x-2">
+      <div class="inline-block w-[34px] overflow-hidden">
+        <svg
+          role="img"
+          width="277"
+          height="36"
+          viewBox="0 0 277 36"
+          aria-label="isms 로고"
+        >
+          <use href="/src/assets/svg/_sprite.svg#footer" />
+        </svg>
       </div>
-    </footer>
-  </body>
-</html>
+      <div class="w-[180px]">
+        <p>
+          [인증범위] 마켓칼리 쇼핑몰 서비스 개발 운영(심사받지 않은 물리적
+          인프라 제외)
+        </p>
+        <p>[유효기간] 2022.01.19 ~ 2025.01.18</p>
+      </div>
+    </li>
+    <li class="flex gap-x-2">
+      <div class="inline-block w-[34px] overflow-hidden">
+        <svg
+          role="img"
+          width="277"
+          height="36"
+          viewBox="58 0 277 36"
+          aria-label="eprivacy plus 로고"
+        >
+          <use href="/src/assets/svg/_sprite.svg#footer" />
+        </svg>
+      </div>
+      <div class="w-[180px]">
+        <p>개인정보보호 우수 웹사이트</p>
+        <p>개인정보처리시스템 인증 (ePRIVACY PLUS)</p>
+      </div>
+    </li>
+    <li class="flex gap-x-2">
+      <div class="inline-block w-[102px] overflow-hidden">
+        <svg
+          role="img"
+          width="277"
+          height="36"
+          viewBox="115 0 277 36"
+          aria-label="payments 로고"
+        >
+          <use href="/src/assets/svg/_sprite.svg#footer" />
+        </svg>
+      </div>
+      <div class="w-[135px]">
+        <p>토스페이먼츠 구매안전(에스크로) 서비스를 이용하실 수 있습니다.</p>
+      </div>
+    </li>
+    <li class="flex gap-x-2">
+      <div class="inline-block w-[38px] overflow-hidden">
+        <svg
+          role="img"
+          width="277"
+          height="36"
+          viewBox="240 0 277 36"
+          aria-label="우리은행 로고"
+        >
+          <use href="/src/assets/svg/_sprite.svg#footer" />
+        </svg>
+      </div>
+      <div class="w-[205px]">
+        <p>
+          고객님이 현금으로 결제한 금액에 대해 우리은행과 채무지급보증 계약을
+          체결하여 안전거래를 보장하고 있습니다.
+        </p>
+      </div>
+    </li>
+  </ul>
+  <div
+    class="min-w-max bg-gray-50 pb-7 pt-5 text-center text-[10px] leading-[160%] text-gray-400"
+  >
+    <p>
+      마켓칼리에서 판매되는 상품 중에는 마켓칼리에 입점한 개별 판매자가 판매하는
+      마켓플레이스(오픈마켓) 상품이 포함되어 있습니다.
+    </p>
+    <p>
+      마켓플레이스(오픈마켓) 상품의 경우 칼리는 통신판매중개자로서 통신판매의
+      당사자가 아닙니다. 칼리는 해당 상품의 주문, 품질, 교환/환불 등 의무와
+      책임을 부담하지 않습니다.
+    </p>
+    <small class="mt-2 capitalize"> karly corp. all rights reserved</small>
+  </div>
+</footer>
