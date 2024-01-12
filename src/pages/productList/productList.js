@@ -9,6 +9,7 @@ import {
 } from '/src/lib';
 import pb from '/src/api/pocketbase';
 import '/src/styles/tailwind.css';
+import '/src/pages/components/js/include.js';
 
 // 필터 메뉴의 카테고리, 브랜드 영역 구현
 drawFilterMenu();
@@ -267,7 +268,7 @@ function getFilterOption() {
 }
 
 function getOrOption(node) {
-  let orOptionArr = [];
+  const orOptionArr = [];
 
   node.forEach((input) => {
     const dataset = input.dataset.filter;
@@ -285,7 +286,7 @@ function getOrOption(node) {
 }
 
 function getAndOption(node) {
-  let andOptionArr = [];
+  const andOptionArr = [];
 
   node.forEach((input) => {
     const dataset = input.dataset.filter;

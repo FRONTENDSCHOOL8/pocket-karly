@@ -1,6 +1,7 @@
 import '/src/styles/tailwind.css';
 import pb from '/src/api/pocketbase';
 import { getNode, getStorage, setStorage } from '/src/lib/';
+import '/src/pages/components/js/include.js';
 
 const loginButton = getNode('.loginButton');
 
