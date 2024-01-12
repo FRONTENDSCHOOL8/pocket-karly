@@ -9,7 +9,7 @@
   <body>
     <header data-include-path="/src/pages/components/header.html"></header>
     <div data-include-path="/src/pages/components/sidebar.html"></div>
-    <main class="mx-auto w-innerWrapper">
+    <main class="mx-auto mb-20 w-innerWrapper">
       <h2 class="m-20 text-center text-l-lg">장바구니</h2>
       <div class="flex justify-between">
         <section class="w-[742px]">
@@ -30,13 +30,16 @@
                 aria-hidden="true"
                 class="mr-2 inline-block h-6 w-6 cursor-pointer bg-input__button bg-check--no peer-checked:bg-check--yes"
               ></span>
-              전체선택 <span class="ml-1">(3/3)</span>
+              전체선택 <span class="product__count ml-1">(3/3)</span>
             </label>
             <span
               aria-hidden="true"
               class="m-2 inline-block h-2.5 border-r border-r-content"
             ></span>
-            <button type="button" class="text-l-base text-content">
+            <button
+              type="button"
+              class="button--delete__select text-l-base text-content"
+            >
               선택삭제
             </button>
           </div>
@@ -175,6 +178,7 @@
               class="relative flex items-center text-l-base text-content"
             >
               <input
+                checked
                 type="checkbox"
                 name="select-all"
                 id="select-all2"
@@ -190,7 +194,10 @@
               aria-hidden="true"
               class="m-2 inline-block h-2.5 border-r border-r-content"
             ></span>
-            <button type="button" class="text-l-base text-content">
+            <button
+              type="button"
+              class="button--delete__select text-l-base text-content"
+            >
               선택삭제
             </button>
           </div>
