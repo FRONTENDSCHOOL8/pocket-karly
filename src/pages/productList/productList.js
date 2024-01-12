@@ -10,6 +10,12 @@ import {
 import pb from '/src/api/pocketbase';
 import '/src/styles/tailwind.css';
 import '/src/pages/components/js/include.js';
+import {
+  drawCartPopup,
+  changeAmount,
+  cancelAddCart,
+  addCart,
+} from '/src/pages/components/js/addCart.js';
 
 // 필터 메뉴의 카테고리, 브랜드 영역 구현
 drawFilterMenu();
@@ -477,3 +483,48 @@ function drawTotalItems(totalItems) {
   const totalItemsNode = getNode('.list__span-total');
   totalItemsNode.innerText = totalItems;
 }
+
+/* -------------------------------------------------------------------------- */
+
+const addCartPopup = getNode('.add-cart__popup');
+function handleCartButtonClick(e) {
+  const button = e.target.closest('.productBox__cart-button');
+  if (!button) {
+    return;
+  } else {
+    e.preventDefault();
+
+    // 해당 product의 id 가져오기
+    const productIdIndex = e.target.closest('a').href.indexOf('#') + 1;
+    const productId = e.target.closest('a').href.slice(productIdIndex);
+
+    // 장바구니 팝업 그리기
+    drawCartPopup(productId);
+    addCartPopup.showModal();
+    return;
+  }
+}
+
+function handleCartAmount(e) {
+  changeAmount(e);
+}
+
+function handleCartClose() {
+  cancelAddCart(addCartPopup);
+}
+
+function handleCartAdd() {
+  addCart(addCartPopup);
+}
+
+const minusButton = getNode('.button__minus');
+const plusButton = getNode('.button__plus');
+const closeButton = getNode('.add-cart__button--closed');
+const addButton = getNode('.add-cart__button');
+const list = getNode('.list__grid');
+
+minusButton.addEventListener('click', handleCartAmount);
+plusButton.addEventListener('click', handleCartAmount);
+closeButton.addEventListener('click', handleCartClose);
+addButton.addEventListener('click', handleCartAdd);
+list.addEventListener('click', handleCartButtonClick);

@@ -1,5 +1,11 @@
 import pb from '/src/api/pocketbase';
-import { getPbImageURL, comma } from '/src/lib';
+import { getPbImageURL, comma, getNode } from '/src/lib';
+import {
+  drawCartPopup,
+  changeAmount,
+  cancelAddCart,
+  addCart,
+} from '/src/pages/components/js/addCart.js';
 import Swiper from 'swiper/bundle';
 import 'swiper/css/bundle';
 import '/src/pages/components/js/include.js';
@@ -182,3 +188,48 @@ function drawTemplate(swiper, data) {
   `;
   swiper.appendSlide(shwoAllTemplate);
 }
+
+const addCartPopup = getNode('.add-cart__popup');
+function handleCartButtonClick(e) {
+  const button = e.target.closest('.productBox__cart-button');
+  if (!button) {
+    return;
+  } else {
+    e.preventDefault();
+
+    // 해당 product의 id 가져오기
+    const productIdIndex = e.target.closest('a').href.indexOf('#') + 1;
+    const productId = e.target.closest('a').href.slice(productIdIndex);
+
+    // 장바구니 팝업 그리기
+    drawCartPopup(productId);
+    addCartPopup.showModal();
+    return;
+  }
+}
+
+function handleCartAmount(e) {
+  changeAmount(e);
+}
+
+function handleCartClose() {
+  cancelAddCart(addCartPopup);
+}
+
+function handleCartAdd() {
+  addCart(addCartPopup);
+}
+
+const minusButton = getNode('.button__minus');
+const plusButton = getNode('.button__plus');
+const closeButton = getNode('.add-cart__button--closed');
+const addButton = getNode('.add-cart__button');
+const swiperProductDiv = getNode('.swiper-product');
+const swiperDiscountDiv = getNode('.swiper-discount');
+
+minusButton.addEventListener('click', handleCartAmount);
+plusButton.addEventListener('click', handleCartAmount);
+closeButton.addEventListener('click', handleCartClose);
+addButton.addEventListener('click', handleCartAdd);
+swiperProductDiv.addEventListener('click', handleCartButtonClick);
+swiperDiscountDiv.addEventListener('click', handleCartButtonClick);
