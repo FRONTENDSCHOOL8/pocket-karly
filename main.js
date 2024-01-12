@@ -2,6 +2,7 @@ import pb from '/src/api/pocketbase';
 import { getPbImageURL, comma } from '/src/lib';
 import Swiper from 'swiper/bundle';
 import 'swiper/css/bundle';
+import '/src/pages/components/js/include.js';
 
 // mainBanner Swiper
 new Swiper('.swiper-container', {
@@ -64,8 +65,8 @@ async function drawProductSwiper(swiper, slideCount) {
   // 전체 상품에서 slideCount 만큼 랜덤하게 뽑하여 화면 그려줌
   const products = await pb.collection('products').getFullList();
 
-  let numbers = [];
-  let randomProducts = [];
+  const numbers = [];
+  const randomProducts = [];
 
   while (numbers.length < slideCount) {
     const randomNumber = Math.floor(Math.random() * products.length);

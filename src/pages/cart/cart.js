@@ -8,6 +8,7 @@ import {
   comma,
 } from '/src/lib';
 import '/src/styles/tailwind.css';
+import '/src/pages/components/js/include.js';
 
 const pb = new PocketBase(import.meta.env.VITE_PB_URL);
 let amount;
