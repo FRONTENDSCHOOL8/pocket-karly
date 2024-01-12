@@ -15,15 +15,15 @@
 
 /* 상품문의 글 디자인 */
 
-.review--article {
+.review__article {
   @apply flex border-b border-b-gray-100 p-5;
 }
 
-.review--article__badge {
+.review__article--badge {
   @apply flex gap-2 pr-[82px] text-l-sm;
 }
 
-.review--article__text {
+.review__article__text {
   @apply flex flex-col gap-5 text-l-sm;
 }
 
@@ -31,17 +31,20 @@
   @apply flex items-center justify-center gap-2 pt-4;
 }
 
-.inquiries--h3 {
+.inquiries__h3 {
   @apply flex h-[58px] w-[750px] items-center px-5 text-l-base;
 }
-.inquiries--span {
+.inquiries__span {
   @apply w-[100px] px-1 text-center text-l-base text-gray-400;
 }
+.inquiries__span--feedback {
+  @apply w-[100px] px-1 text-center text-l-base text-primary;
+}
 
-.inquiries--span__top {
+.inquiries__span--top {
   @apply px-1 text-center text-l-base text-black;
 }
 
-.inquiries--span__answered {
+.inquiries__span--answered {
   @apply w-[100px] px-1 text-center text-l-base text-primary;
 }
