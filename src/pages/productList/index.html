@@ -327,6 +327,46 @@
         </div>
       </div>
     </div>
+    <dialog
+      class="add-cart__popup h-[292px] w-[396px] rounded-2xl px-5 py-6 backdrop:backdrop-brightness-50"
+    >
+      <form action="" class="grid auto-rows-min grid-cols-2 gap-x-2 gap-y-7">
+        <div class="col-span-2 grid">
+          <div class="product__info--template row-start-1"></div>
+          <div
+            class="row-start-1 flex h-[30px] w-[90px] self-end justify-self-end border border-gray-200"
+          >
+            <button
+              type="button"
+              class="button__minus w-[30px] overflow-hidden"
+              disabled
+            >
+              <svg role="img" width="46" height="84" viewBox="8 46 46 84">
+                <use href="/src/assets/svg/_sprite.svg#minus" />
+              </svg>
+            </button>
+            <span
+              class="product__amount inline-block w-[30px] text-center align-top leading-[30px]"
+            ></span>
+            <button type="button" class="button__plus w-[30px] overflow-hidden">
+              <svg role="img" width="46" height="84" viewBox="8 8 46 84">
+                <use href="/src/assets/svg/_sprite.svg#plus" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="price__total--template col-span-2 grid gap-y-1"></div>
+        <button
+          type="reset"
+          class="add-cart__button--closed button__default h-[54px] border border-gray-400 text-content"
+        >
+          취소
+        </button>
+        <button type="button" class="add-cart__button button--purple__big">
+          장바구니 담기
+        </button>
+      </form>
+    </dialog>
     <footer data-include-path="/src/pages/components/footer.html"></footer>
   </body>
 </html>
