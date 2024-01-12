@@ -562,6 +562,14 @@
             </clipPath>
         </defs>
     </symbol>
+    <symbol id="pageArrow-left" width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0.5" y="0.5" width="55" height="55" rx="3.5" stroke="#E1E1E1"/>
+        <path d="M32 36L24 28L32 20" stroke="#999999" stroke-width="1.2"/>
+    </symbol>
+    <symbol id="pageArrow-right" width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0.5" y="0.5" width="55" height="55" rx="3.5" stroke="#E1E1E1"/>
+        <path d="M24 20L32 28L24 36" stroke="#999999" stroke-width="1.2"/>
+    </symbol>
     <symbol id="plus" width="46" height="84" viewBox="0 0 46 84" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="0.5" y="0.5" width="45" height="83" rx="4.5" stroke="#9747FF" stroke-dasharray="10 5"/>
         <path d="M24 18V22H28V24H24V28H22V24H18V22H22V18H24Z" fill="#333333"/>

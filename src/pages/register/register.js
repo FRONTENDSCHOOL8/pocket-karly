@@ -1,6 +1,7 @@
 import { getNode, getNodes, removeClass, addClass, attr } from '/src/lib/';
 import '/src/styles/tailwind.css';
 import pb from '/src/api/pocketbase';
+import '/src/pages/components/js/include.js';
 
 // 필수입력항목 상태관리
 const state = {
