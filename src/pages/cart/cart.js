@@ -361,60 +361,18 @@ const productTotalNum =
 console.log('productTotalNum: ', productTotalNum);
 
 // 선택 상품 개수 - 임시로 설정
-const productSelectedNum = 2;
+let productSelectedNum = productTotalNum;
+renderProductNum();
 
-[...productCountElem].forEach((elem) => {
-  elem.textContent = `(${productSelectedNum}/${productTotalNum})`;
-});
-
-const addressElem = getNode('address');
-addressElem.textContent = address;
-
-/* -------------------------------------------------------------------------- */
-// * 회원가입,장바구니 둘 다 쓸 수 있는 함수로 리팩토링 하면 좋을 듯
-const selectAlls = getNodes('input[name="select-all"]');
-
-export const checkAll = (elem) => {
-  return (e) => {
-    const { target } = e;
-
-    const select = getNodes(elem);
-    // console.log('select: ', select);
-    if (target.checked) {
-      select.forEach((item) => {
-        item.checked = true;
-        productState[item.dataset.record] = true;
-      });
-    } else {
-      select.forEach((item) => {
-        item.checked = false;
-        productState[item.dataset.record] = false;
-      });
-    }
-    console.log('productState: ', productState);
-  };
-};
-
-// 전체선택 연결
-function connectSelect(elem) {
-  const [checkAll1, checkAll2] = elem;
-  checkAll2.addEventListener('change', function () {
-    checkAll1.checked = this.checked;
-  });
-
-  checkAll1.addEventListener('change', function () {
-    checkAll2.checked = this.checked;
+function renderProductNum() {
+  productSelectedNum = trueKeys(productState).length;
+  [...productCountElem].forEach((elem) => {
+    elem.textContent = `(${productSelectedNum}/${productTotalNum})`;
   });
 }
 
-// 전체선택 시 모든 checkbox 선택
-selectAlls.forEach((selectAll) => {
-  connectSelect(selectAlls);
-  selectAll.addEventListener(
-    'click',
-    checkAll('input[name="select__product"]')
-  );
-});
+const addressElem = getNode('address');
+addressElem.textContent = address;
 
 /* -------------------------------------------------------------------------- */
 // 수량 변경 함수
@@ -498,6 +456,17 @@ function calcTotalPrice() {
   return { realPriceAcc, discountPriceAcc };
 }
 
+// value가 true인 key만 배열로 만듦
+function trueKeys(obj) {
+  return Object.keys(obj).reduce((acc, key) => {
+    if (obj[key] === true) {
+      acc.push(key);
+    }
+    return acc;
+  }, []);
+}
+console.log(trueKeys(productState));
+
 // 총 금액 템플릿 업데이트
 function updateTemplate() {
   clearContents('.result--template');
@@ -539,7 +508,51 @@ function updateTemplate() {
   insertFirst('.result--template', templateResult);
 }
 updateTemplate();
+/* -------------------------------------------------------------------------- */
+// * 회원가입,장바구니 둘 다 쓸 수 있는 함수로 리팩토링 하면 좋을 듯
+const selectAlls = getNodes('input[name="select-all"]');
 
+export const checkAll = (elem) => {
+  return (e) => {
+    const { target } = e;
+    const select = getNodes(elem);
+    // console.log('select: ', select);
+    if (target.checked) {
+      select.forEach((item) => {
+        item.checked = true;
+        productState[item.dataset.record] = true;
+      });
+    } else {
+      select.forEach((item) => {
+        item.checked = false;
+        productState[item.dataset.record] = false;
+      });
+    }
+    console.log(trueKeys(productState));
+    renderProductNum();
+  };
+};
+
+// 전체선택 연결
+function connectSelect(elem) {
+  const [checkAll1, checkAll2] = elem;
+  checkAll2.addEventListener('change', function () {
+    checkAll1.checked = this.checked;
+  });
+
+  checkAll1.addEventListener('change', function () {
+    checkAll2.checked = this.checked;
+  });
+}
+
+// 전체선택 시 모든 checkbox 선택
+selectAlls.forEach((selectAll) => {
+  connectSelect(selectAlls);
+  selectAll.addEventListener(
+    'click',
+    checkAll('input[name="select__product"]')
+  );
+});
 /* -------------------------------------------------------------------------- */
 // 버튼 클릭 이벤트 함수
 function handleButton(e) {
@@ -572,6 +585,8 @@ function handleButton(e) {
     console.log('productId: ', productId);
     checkState(input, productId);
     console.log('productState: ', productState);
+    console.log(trueKeys(productState));
+    renderProductNum();
   }
 }
 
