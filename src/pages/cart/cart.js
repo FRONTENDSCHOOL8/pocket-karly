@@ -10,15 +10,22 @@ import {
 import '/src/styles/tailwind.css';
 import '/src/pages/components/js/include.js';
 import { execDaumPostcode } from '/src/pages/components/js/addressApi.js';
+// import { createModal, openModal } from '/src/pages/components/js/modal.js';
 
 const pb = new PocketBase(import.meta.env.VITE_PB_URL);
+const packageTypeCold = getNode('.package__type--cold');
+const packageTypeFreeze = getNode('.package__type--freeze');
+const packageTypeRoom = getNode('.package__type--room');
+const nothingProduct = getNode('.cart__product--nothing');
 const productTemplate = getNode('.product--template');
+const selectAlls = getNodes('input[name="select-all"]');
+// const selectDeleteModal = createModal('선택한 상품을 삭제하시겠습니까?');
 
 // 유저 정보 테스트코드 2개
 // 로그인한 유저의 id를 가져오도록 변경 필요
 const userData = await pb.collection('users').getOne('q4l7a4urcjb33hz');
 // const userData = await pb.collection('users').getOne('9vzsdelu39rzk6q');
-const { id, address } = userData;
+const { id, address, detailAddress } = userData;
 
 const productStateArr = [];
 // 선택된 상품 cart id 상태변수 관리
@@ -383,6 +390,20 @@ cartDataRoom.forEach((cart) => {
 });
 
 /* -------------------------------------------------------------------------- */
+if (cartDataCold.length) {
+  packageTypeCold.classList.remove('hidden');
+}
+if (cartDataFreeze.length) {
+  packageTypeFreeze.classList.remove('hidden');
+}
+if (cartDataRoom.length) {
+  packageTypeRoom.classList.remove('hidden');
+}
+if (cartDataCold.length || cartDataFreeze.length || cartDataRoom.length) {
+  nothingProduct.classList.add('hidden');
+}
+
+/* -------------------------------------------------------------------------- */
 // ^ 상태변수 관리 - 상품 선택 여부를 체크하는 함수
 // * target은 input(dom), products_record는 상품id
 function checkState(target, productId, id) {
@@ -552,8 +573,6 @@ function updateTemplate() {
 }
 updateTemplate();
 /* -------------------------------------------------------------------------- */
-const selectAlls = getNodes('input[name="select-all"]');
-
 export const checkAll = (elem) => {
   return (e) => {
     const { target } = e;
@@ -578,7 +597,7 @@ export const checkAll = (elem) => {
     cartIdFilter = makeCartsIdFilter(cartState);
     // console.log('cartIdFilter: ', cartIdFilter);
     // console.log('productStateArr: ', productStateArr);
-    // console.log(selectedProductArrKey('state', true, 'id'));
+    console.log(selectedProductArrKey('state', true, 'id'));
     renderCartNum();
     updateTemplate();
   };
@@ -598,6 +617,13 @@ function connectSelect(elem) {
 
 // 전체선택 시 모든 checkbox 선택
 selectAlls.forEach((selectAll) => {
+  if (!nothingProduct.classList.contains('hidden')) {
+    selectAll.checked = false;
+    selectAll.disabled = true;
+  } else {
+    selectAll.checked = true;
+    selectAll.disabled = false;
+  }
   connectSelect(selectAlls);
   selectAll.addEventListener(
     'click',
@@ -607,7 +633,8 @@ selectAlls.forEach((selectAll) => {
 /* -------------------------------------------------------------------------- */
 // ^상품 삭제 함수 (x버튼 클릭 - 개별 삭제)
 async function deleteProduct(e) {
-  console.log('!!!!!!!!!!', e.target);
+  // console.log(e.target);
+  // alert('삭제하시겠습니까?');
   const productId = e.target
     .closest('li')
     .firstElementChild.getAttribute('for');
@@ -677,6 +704,7 @@ const selectDeleteButton = getNodes('.button--delete__select');
 [...selectDeleteButton].forEach((button) => {
   button.addEventListener('click', () => {
     console.log('선택 삭제 버튼 클릭');
+    alert('선택한 상품을 삭제하시겠습니까?');
     deleteSelectedProduct();
   });
 });
@@ -686,7 +714,7 @@ productTemplate.addEventListener('click', handleButton);
 /* -------------------------------------------------------------------------- */
 // 배송지 변경 함수
 const addressElem = getNode('address');
-addressElem.textContent = address;
+addressElem.textContent = `${address} ${detailAddress}`;
 const changeAddressButton = getNode('.button__change-address');
 
 changeAddressButton.addEventListener('click', () => {

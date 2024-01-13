@@ -14,7 +14,7 @@
       <div class="flex justify-between">
         <section class="w-[742px]">
           <h3 class="sr-only">상품 선택</h3>
-          <div class="my-4 ml-1 flex">
+          <div class="flex border-b border-b-black py-4 pl-1">
             <label
               for="select-all"
               class="relative flex items-center text-l-base text-content"
@@ -44,7 +44,7 @@
             </button>
           </div>
           <div class="product--template">
-            <div class="border-t border-t-black">
+            <div class="package__type--cold border-b-gray200 hidden border-b">
               <details class="group" open>
                 <summary
                   class="flex cursor-pointer justify-between py-4 pl-0.5 pr-1.5 text-l-base"
@@ -87,7 +87,7 @@
                 ></ul>
               </details>
             </div>
-            <div class="border-t border-t-black">
+            <div class="package__type--freeze border-b-gray200 hidden border-b">
               <details class="group" open>
                 <summary
                   class="flex cursor-pointer justify-between py-4 pl-0.5 pr-1.5 text-l-base"
@@ -129,7 +129,7 @@
                 ></ul>
               </details>
             </div>
-            <div class="border-t border-t-black">
+            <div class="package__type--room hidden">
               <details class="group" open>
                 <summary
                   class="flex cursor-pointer justify-between py-4 pl-0.5 pr-1.5 text-l-base"
@@ -172,7 +172,12 @@
               </details>
             </div>
           </div>
-          <div class="my-4 ml-1 flex">
+          <p
+            class="cart__product--nothing py-28 text-center text-p-base text-gray-400"
+          >
+            장바구니에 담긴 상품이 없습니다
+          </p>
+          <div class="flex border-t border-t-gray-200 py-4 pl-1">
             <label
               for="select-all2"
               class="relative flex items-center text-l-base text-content"
