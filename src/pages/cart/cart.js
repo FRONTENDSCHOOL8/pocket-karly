@@ -6,6 +6,7 @@ import {
   insertFirst,
   clearContents,
   comma,
+  getStorage,
 } from '/src/lib';
 import '/src/styles/tailwind.css';
 import '/src/pages/components/js/include.js';
@@ -594,3 +595,44 @@ changeAddressButton.addEventListener('click', () => {
 });
 
 productTemplate.addEventListener('click', handleButton);
+
+/* -------------------------------------------------------------------------- */
+
+async function handleOrderButton(e) {
+  e.preventDefault();
+  const auth = await getStorage('auth');
+  if (!auth) {
+    alert('로그인 해주세요.');
+    return;
+  }
+
+  const userId = auth.user.id;
+
+  // 장바구니에서 체크박스 선택한 상품
+  const deleteData = Object.entries(productState).filter(
+    ([, state]) => state === true
+  );
+  const filterOptionArr = [];
+
+  // carts collection의 data를 삭제하기 위해선 해당 data의 record id가 필요함.
+  // 따라서 carts collection 의 data를 조회하기 위해 option string을 만들어줌
+  deleteData.forEach((element) => {
+    filterOptionArr.push(`products_record = "${element[0]}"`);
+  });
+  const filterOptionString = filterOptionArr.join('||');
+
+  // carts collection 조회
+  const cartsData = await pb.collection('carts').getFullList({
+    filter: `(${filterOptionString}) && users_record = "${userId}"`,
+  });
+
+  // carts collection 에서 데이터 삭제
+  for (const element of cartsData) {
+    await pb.collection('carts').delete(element.id);
+  }
+
+  alert('주문이 완료되었습니다.');
+  location.reload();
+}
+const orderButton = getNode('.button__order');
+orderButton.addEventListener('click', handleOrderButton);
