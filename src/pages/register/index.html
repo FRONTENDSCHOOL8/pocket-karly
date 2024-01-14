@@ -6,6 +6,7 @@
     <!-- <link rel="stylesheet" href="/src/styles/tailwind.css" /> -->
 
     <title>회원가입 - 칼리</title>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script type="module" src="/src/pages/register/register.js"></script>
   </head>
   <body>
@@ -153,25 +154,25 @@
             >
             <div class="flex flex-col">
               <div id="addressSearchButton">
-                <input
-                  class="button--white__small w-[333px]"
+                <button
+                  class="address__button button--white__small w-[333px]"
                   type="button"
-                  onclick="sample4_execDaumPostcode()"
-                  value="주소검색"
-                />
+                >
+                  주소검색
+                </button>
               </div>
               <div id="address__accordian" hidden class="flex-col">
                 <div class="flex gap-2">
                   <input
                     readonly
-                    class="register__input"
+                    class="register__input-address register__input"
                     type="text"
                     id="address"
                     placeholder=""
                   />
                   <button
-                    onclick="sample4_execDaumPostcode()"
-                    class="register__valid__email button--white__small w-[143px]"
+                    class="reAddress__button register__valid__email button--white__small w-[143px]"
+                    type="button"
                   >
                     <span
                       ><svg
@@ -192,12 +193,6 @@
                   type="text"
                   id="detailAddress"
                   placeholder="나머지 주소를 입력해주세요"
-                />
-                <input
-                  class="hidden"
-                  type="text"
-                  id="sample4_postcode"
-                  placeholder="우편번호"
                 />
               </div>
               <span class="text-p-sm"
@@ -547,8 +542,7 @@
     </div>
     <footer data-include-path="/src/pages/components/footer.html"></footer>
   </body>
-  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-  <script>
+  <!--  <script>
     //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
     function sample4_execDaumPostcode() {
       new daum.Postcode({
@@ -614,5 +608,5 @@
         },
       }).open();
     }
-  </script>
+  </script> -->
 </html>
