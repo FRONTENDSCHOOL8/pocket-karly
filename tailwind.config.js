@@ -126,7 +126,7 @@ export default {
       },
     },
     animation: {
-      fadeIn: 'fadeIn 3s',
+      'bubble-fadeIn': 'fadeIn 3s',
     },
 
     keyframes: {
