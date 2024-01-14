@@ -46,20 +46,20 @@ async function onPageLoad() {
 
   // 만약 아무것도 저장되어 있지 않다면 배열 만들어 viewedProduct 저장
   if (!viewedProduct) {
+    console.log('123');
     viewedProduct = [];
     viewedProduct.push(product);
     setStorage('viewedProduct', viewedProduct);
-    return;
+  } else {
+    // 이미 저장되어 있는 product라면 삭제한 뒤 unshift 이용해서 배열의 가장 앞에 저장
+    viewedProduct.forEach((item, i) => {
+      if (item.id === productId) {
+        viewedProduct.splice(i, 1);
+        return i;
+      }
+    });
+    viewedProduct.unshift(product);
   }
-
-  // 이미 저장되어 있는 product라면 삭제한 뒤 unshift 이용해서 배열의 가장 앞에 저장
-  viewedProduct.forEach((item, i) => {
-    if (item.id === productId) {
-      viewedProduct.splice(i, 1);
-      return i;
-    }
-  });
-  viewedProduct.unshift(product);
 
   // 최대 15개의 product 저장될 수 있도록 함
   setStorage('viewedProduct', viewedProduct.slice(0, 15));
