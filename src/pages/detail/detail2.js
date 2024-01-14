@@ -53,9 +53,6 @@ const hash = window.location.hash.slice(1);
 const thisProductData = await pb
   .collection('products')
   .getOne(hash, { requestKey: null });
-console.log('thisProductData', thisProductData);
-console.log(thisProductData.thumbImg);
-console.log(thisProductData.collectionId);
 
 // 현재페이지에서 로그인 여부 상태 확인 후 localStorage로 auth 전달
 if (!localStorage.getItem('auth')) {
@@ -101,7 +98,6 @@ async function renderReviews() {
       created,
       content,
     } = item;
-    console.log('item', item);
 
     // 사용자 이름 보안처리
     const secureName = encryptName(user_name);
@@ -430,6 +426,7 @@ function openModal(e) {
   const inquiriesFigcap = getNode('#inquiriesFigcap');
   const reviewImg = getNode('#reviewImg');
   const inquiriesImg = getNode('#inquiriesImg');
+
   attr(reviewImg, 'src', `${getPbImageURL(thisProductData, 'thumbImg')}`);
   attr(inquiriesImg, 'src', `${getPbImageURL(thisProductData, 'thumbImg')}`);
 
