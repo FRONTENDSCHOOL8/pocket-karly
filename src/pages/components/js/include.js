@@ -61,7 +61,7 @@ const header = async () => {
     if (isAuth) {
       const memberTemplate = /*html*/ `
       <div
-        class="group relative flex h-full cursor-pointer items-center gap-1 px-3 text-p-sm text-content"
+        class="group relative flex h-full cursor-pointer items-center gap-1 px-3 text-p-sm text-content z-10"
       >
         <span
           class="text-p-xsm rounded-3xl border border-primary px-4 text-primary"
