@@ -11,7 +11,7 @@ import 'swiper/css/bundle';
 import '/src/pages/components/js/include.js';
 
 // mainBanner Swiper
-new Swiper('.swiper-container', {
+const swiperBanner = new Swiper('.swiper-container', {
   loop: true,
   autoplay: {
     delay: 3000,
@@ -62,10 +62,18 @@ const swiperDiscount = new Swiper('.swiper-discount', {
   },
 });
 
+// 메인페이지 배너 swiper 그리기
+drawBannerSwiper(swiperBanner);
 // '이 상품 어때요?' swiper 그리기
 drawProductSwiper(swiperProduct, 11);
 // '놓치면 후회할 가격' swiper 그리기
 drawDiscountSwiper(swiperDiscount, 11);
+
+async function drawBannerSwiper(swiper) {
+  const banners = await pb.collection('banners').getFullList();
+  drawBannerTemplate(swiper, banners);
+  swiper.update();
+}
 
 async function drawProductSwiper(swiper, slideCount) {
   // 전체 상품에서 slideCount 만큼 랜덤하게 뽑하여 화면 그려줌
@@ -97,6 +105,23 @@ async function drawDiscountSwiper(swiper, slideCount) {
   const products = data.items;
   drawTemplate(swiper, products);
   swiper.update();
+}
+
+function drawBannerTemplate(swiper, data) {
+  data.forEach((banner) => {
+    const { bannerAlt } = banner;
+    const template = /*html*/ `
+    <li class="swiper-slide">
+      <a href="/src/pages/productList/">
+        <img
+          src="${getPbImageURL(banner, 'bannerImg')}"
+          alt="${bannerAlt}"
+        />
+      </a>
+    </li>
+      `;
+    swiper.appendSlide(template);
+  });
 }
 
 function drawTemplate(swiper, data) {
