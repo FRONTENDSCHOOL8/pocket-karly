@@ -697,6 +697,7 @@ changeAddressButton.addEventListener('click', () => {
   execDaumPostcode();
 });
 
+
 /* -------------------------------------------------------------------------- */
 
 async function handleOrderButton(e) {
@@ -722,3 +723,4 @@ async function handleOrderButton(e) {
 }
 const orderButton = getNode('.button__order');
 orderButton.addEventListener('click', handleOrderButton);
+
