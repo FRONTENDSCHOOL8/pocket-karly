@@ -76,9 +76,6 @@ const header = async () => {
               <a href="/src/pages/cart/" class="block">장바구니</a>
             </li>
             <li class="w-full">
-              <button type="button" class="header__button-delete w-full text-left">탈퇴하기</button>
-            </li>
-            <li class="w-full">
               <button type="button" class="header__button-logout w-full text-left">로그아웃</button>
             </li>
           </ul>
@@ -107,6 +104,9 @@ const header = async () => {
             </li>
             <li>
               <a href="#">대량주문 문의</a>
+            </li>
+            <li>
+              <button type="button" class="header__button-delete w-full text-left">탈퇴하기</button>
             </li>
           </ul>
         </div>
