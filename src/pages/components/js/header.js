@@ -115,7 +115,7 @@ const cartBadge =
   /*html*/
   `
     <div
-      class="absolute -right-1 top-0.5 rounded-full bg-primary px-[5px] text-center text-[9px] text-white"
+      class="header__cart-badge absolute -right-1 top-0.5 rounded-full bg-primary px-[5px] text-center text-[9px] text-white"
     >${amount}
     </div>
   `;
@@ -169,13 +169,15 @@ async function getCartAmountDB(user) {
 // 비회원의 장바구니 수량 확인(Local Storage)
 async function getCartAmountStorage() {
   let total = 0;
-  // 비회원이 장바구니에 상품을 담은 이력이 있는 경우
-  if (!localStorage.getItem('carts')) {
+  const storageCart = await getStorage('cart');
+
+  // 비회원이 장바구니에 상품을 담은 이력이 없는 경우
+  if (!storageCart) {
     return total;
   }
-  const carts = await getStorage('carts');
-  for (const products in carts) {
-    total += carts[products];
+
+  for (const products of storageCart) {
+    total += products.amount;
   }
   return total;
 }
