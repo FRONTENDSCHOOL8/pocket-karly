@@ -22,7 +22,7 @@ const addressSection = getNode('.user__address');
 const productTemplate = getNode('.product--template');
 const selectAlls = getNodes('input[name="select-all"]'); // 전체선택
 const orderButton = getNode('.button__order'); // 주문하기
-const productStateArr = []; // 상태관리 - 각각 어떤 역할을 하는지 다시 정리해보자
+const productStateArr = []; // 상태관리
 const cartState = {}; // 상태관리
 const isAuth = await getStorage('auth');
 let cartDataCold = [];
@@ -673,8 +673,6 @@ export const checkAll = (elem) => {
       });
     }
     cartIdFilter = makeCartsIdFilter(cartState);
-    // console.log('cartIdFilter: ', cartIdFilter);
-    // console.log('productStateArr: ', productStateArr);
     console.log(selectedProductArrKey('state', true, 'id'));
     renderCartNum();
     updateTemplate();
@@ -731,21 +729,6 @@ async function deleteProduct(e) {
   await pb.collection('carts').delete(cartDataCold[0].id);
   location.reload();
 }
-
-// const deleteProduct = (id) => {
-//   return async (e) => {
-//     const productId = e.target
-//       .closest('li')
-//       .firstElementChild.getAttribute('for');
-//     console.log(productId);
-
-//     const cartDataCold = await pb.collection('carts').getFullList({
-//       filter: `users_record = "${id}" && products_record = "${productId}"`,
-//     });
-//     await pb.collection('carts').delete(cartDataCold[0].id);
-//     location.reload();
-//   };
-// };
 
 // ^선택삭제 버튼 클릭시 선택된 상품 삭제
 async function deleteSelectedProduct() {
