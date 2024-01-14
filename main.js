@@ -6,6 +6,7 @@ import {
   cancelAddCart,
   addCart,
 } from '/src/pages/components/js/addCart.js';
+import '/src/pages/components/js/popup.js';
 import Swiper from 'swiper/bundle';
 import 'swiper/css/bundle';
 import '/src/pages/components/js/include.js';

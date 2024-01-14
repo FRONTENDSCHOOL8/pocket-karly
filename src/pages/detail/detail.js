@@ -31,6 +31,7 @@ const swiper = new Swiper('.swiper__sidebar', {
 
 const productId = window.location.hash.slice(1);
 const productData = await pb.collection('products').getOne(productId);
+onPageLoad();
 
 async function onPageLoad() {
   console.log('onPageLoad');
@@ -69,7 +70,6 @@ async function onPageLoad() {
   drawViewedProduct(swiper);
   swiper.update();
 }
-window.addEventListener('load', onPageLoad);
 
 async function drawViewedProduct(swiper) {
   console.log('drawViewedProduct');
