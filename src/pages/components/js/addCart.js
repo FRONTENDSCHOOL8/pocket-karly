@@ -7,6 +7,7 @@ import {
   getStorage,
   setStorage,
 } from '/src/lib';
+import { updateCartBadge } from '/src/lib';
 import '/src/styles/tailwind.css';
 
 // 장바구니 팝업 그리기
@@ -143,11 +144,12 @@ export async function addCart(addCartPopup) {
 
   // local storage에 auth가 있다면 로그인 된 상태기 때문에 DB에 장바구니 상품 추가해줌
   if (auth) {
-    addCartDB(data, addCartPopup);
+    await addCartDB(data, addCartPopup);
   } else {
     // local storage에 auth가 있다면 로그인 안 된 상태기 때문 local storage에 상품 추가해줌
-    addCartLocalStorage(data, addCartPopup);
+    await addCartLocalStorage(data, addCartPopup);
   }
+  updateCartBadge();
 }
 
 async function addCartDB(data, addCartPopup) {
@@ -156,6 +158,7 @@ async function addCartDB(data, addCartPopup) {
 
   const carts = await pb.collection('carts').getFullList({
     filter: `users_record= "${userId}" && products_record= "${productId}"`,
+    requestKey: null,
   });
 
   if (!carts.length) {
@@ -215,7 +218,7 @@ async function addCartLocalStorage(data, addCartPopup) {
   }
 
   // loacl storage에 cart 배열 저장
-  setStorage('cart', cart);
+  await setStorage('cart', cart);
   addCartPopup.close();
   alert(`장바구니에 ${name}을 담았습니다.`);
 }
