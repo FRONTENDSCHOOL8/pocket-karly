@@ -75,6 +75,7 @@ async function drawViewedProduct(swiper) {
   console.log('drawViewedProduct');
   // local storage의 'viewedProduct'에 최근본상품 정보 저장되어 있음
   const viewedProduct = await getStorage('viewedProduct');
+
   if (viewedProduct) {
     viewedProduct.forEach((product) => {
       const template = `
@@ -102,6 +103,13 @@ async function renderProductData() {
     unit,
     packageType,
   } = productData;
+  const isAuth = await getStorage('auth');
+  const discountPrice =
+    Math.floor((price - price * (discount * 0.01)) / 10) * 10;
+  const reward = Math.round(discountPrice * 0.0005);
+  const rewardMessage = isAuth
+    ? `구매 시 ${reward}원 적립`
+    : '로그인 후, 적립 혜택 제공';
 
   //////////
 
@@ -126,13 +134,11 @@ async function renderProductData() {
               ${
                 discount === 0
                   ? ``
-                  : `<span class="ml-1 text-orange-500 text-l-xl">${comma(
+                  : `<span class="text-orange-500 text-l-xl">${comma(
                       discount
                     )}%</span>`
               }
-                <span class="text-l-xl ml-1">${comma(
-                  Math.floor((price - price * (discount * 0.01)) / 10) * 10
-                )}</span>
+                <span class="text-l-xl ml-1">${comma(discountPrice)}</span>
                 <span class="text-h-base">원</span>
               </div>
               ${
@@ -145,7 +151,11 @@ async function renderProductData() {
 
             </div>
             <span class="text-l-base text-primary"
-              >로그인 후, 적립 혜택이 제공됩니다.</span
+              >${
+                isAuth
+                  ? '최대 36원 적립 일반 0.1%'
+                  : '로그인 후 회원 등급에 따라 적립'
+              }</span
             >
             <ul class="box-border pb-12 ">
               <li class="flex border-y border-gray-100 py-4">
@@ -167,7 +177,7 @@ async function renderProductData() {
               <li class="flex border-b border-gray-100 py-4">
                 <dt class="w-32 text-l-sm text-gray-500">포장타입</dt>
                 <dd class="text-l-sm text-gray-400">
-                  <p class="text-gray-500">${packageType} (종이포장)</p>
+                  <p class="text-gray-500 mb-1">${packageType} (종이포장)</p>
                   <p>택배배송은 에코 포장이 스티로폼으로 대체됩니다.</p>
                 </dd>
               </li>
@@ -243,9 +253,7 @@ async function renderProductData() {
                       ">${comma(price)}원</del>`
                   }
     
-                  <span class="">${comma(
-                    Math.floor((price - price * (discount * 0.01)) / 10) * 10
-                  )}원</span>
+                  <span class="">${comma(discountPrice)}원</span>
                   </div>
                 </dd>
               </li>
@@ -256,12 +264,15 @@ async function renderProductData() {
                   <p class="text-l-base mr-[17px]">총 상품금액:</p>
                   <div>
                     <span class="total text-l-xl mr-[4px]">${comma(
-                      Math.floor((price - price * (discount * 0.01)) / 10) * 10
+                      discountPrice
                     )}</span>
                   </div>
                   <span class="text-h-base">원</span>
                 </div>
-                <p>로그인 후, 적립 혜택 제공</p>
+                <div class="flex items-center">
+                  <span class="rounded-sm bg-accent-yellow px-2 py-1 mr-1 text-white">적립</span>
+                  <span class="reward">${rewardMessage}</span>
+                </div>
               </li>
               <li class="box-border flex h-14 gap-3 overflow-hidden">
                 <button>
@@ -337,9 +348,6 @@ async function renderProductData() {
   const minusButton = getNode('.button__minus');
   const plusButton = getNode('.button__plus');
   const amountSpan = getNode('.product__amount');
-  const totalSpan = getNode('.total');
-
-  console.log(totalSpan);
 
   // 클릭 이벤트 리스너 추가
   minusButton.addEventListener('click', minusAmount);
@@ -351,7 +359,6 @@ async function renderProductData() {
 
     // 값이 1보다 클 때만 감소시킴
     if (currentValue > 1) {
-      amountSpan.textContent = currentValue - 1;
       amountSpan.textContent = currentValue - 1;
     }
   }
