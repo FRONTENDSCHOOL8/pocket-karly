@@ -4,10 +4,14 @@ import {
   removeClass,
   insertAfter,
   insertBefore,
+  setStorage,
   attr,
+  getStorage,
+  getPbImageURL,
 } from '/src/lib/';
 import '/src/styles/tailwind.css';
 import pb from '/src/api/pocketbase';
+import defaultAuthData from '/src/api/defaultAuthData';
 
 const reviewPlaceholder = getNode('.reviewPlaceholder');
 const inquiriesPlaceholder = getNode('.inquiriesPlaceholder');
@@ -44,9 +48,26 @@ const encryptName = (text) => {
   return first + '*'.repeat(text.length - 2) + last;
 };
 
+// get 현재 페이지 상품 data
+const hash = window.location.hash.slice(1);
+const thisProductData = await pb
+  .collection('products')
+  .getOne(hash, { requestKey: null });
+console.log('thisProductData', thisProductData);
+console.log(thisProductData.thumbImg);
+console.log(thisProductData.collectionId);
+
+// 현재페이지에서 로그인 여부 상태 확인 후 localStorage로 auth 전달
+if (!localStorage.getItem('auth')) {
+  setStorage('auth', defaultAuthData);
+}
+// const auth = localStorage.getItem('auth');
+const { user, isAuth } = await getStorage('auth');
+
 // 리뷰 렌더링
 async function renderReviews() {
   const response = await pb.collection('reviews_users_data').getFullList({
+    filter: `products_record = "${hash}"`,
     sort: '-created',
   });
   const reviewNumber = getNode('.reviewNumber');
@@ -80,6 +101,7 @@ async function renderReviews() {
       created,
       content,
     } = item;
+    console.log('item', item);
 
     // 사용자 이름 보안처리
     const secureName = encryptName(user_name);
@@ -87,7 +109,7 @@ async function renderReviews() {
     const bestTemplate = '<span class="class--best">베스트</span>';
     const reviewTemplate = /*html*/ `
     <article class="review__article relative">
-          <div class="review__article--badge">
+          <div class="review__article--badge w-[230px]">
           ${isBestReview ? bestTemplate : ''}
             
             <span class="class--unfilled">${user_class}</span>
@@ -122,6 +144,7 @@ async function renderReviews() {
           </button>
         </article>
     `;
+
     insertBefore(reviewPagenation, reviewTemplate);
   });
   if (!number) {
@@ -129,15 +152,14 @@ async function renderReviews() {
   }
 }
 
-// 문의하기 렌더링 - 로그인한 사용자면 비밀글도 볼 수 있어야하는데 .. ㅎㅇ
+// 문의하기 렌더링
 async function renderInquiries() {
   const response = await pb.collection('inquiries_users_data').getFullList({
+    filter: `products_record = "${hash}"`,
     sort: '-created',
   });
 
   response.forEach((item) => {
-    //답변여부 체크
-    console.log(item);
     const {
       user_name,
       title,
@@ -146,7 +168,10 @@ async function renderInquiries() {
       feedbacks_content,
       created,
       content,
+      users_record,
     } = item;
+
+    //답변여부 체크
     let feedbackStatus;
     if (feedbacks_content) {
       feedbackStatus =
@@ -183,7 +208,20 @@ async function renderInquiries() {
 <summary
   class="flex cursor-pointer items-center border-b border-b-gray-100"
 >
-  <h3 class="inquiries__h3">${title}</h3>
+  <h3 class="inquiries__h3">${title} ${
+    users_record === user.id
+      ? `<svg
+      class = "ml-5"
+  aria-hidden="true"
+  width="12"
+  height="14"
+  viewBox="0 0 12 14"
+  role="img"
+>
+  <use href="/src/assets/svg/_sprite.svg#lock" />
+</svg>`
+      : ''
+  }</h3>
   <span class="inquiries__span">${secureName}</span>
   <span class="inquiries__span">${created.slice(0, 10)}</span>
   ${feedbackStatus}
@@ -229,9 +267,14 @@ ${feedbacks_content ? feedbackTemplate : ''}
 <span class="inquiries__span">${feedbackStatus}</span>
 </div>
 `;
+
     //비밀글 여부
     if (isSecure) {
-      insertBefore(inquiriesPagenation, securedTemplate);
+      if (users_record === user.id) {
+        insertBefore(inquiriesPagenation, unsecuredTemplate);
+      } else {
+        insertBefore(inquiriesPagenation, securedTemplate);
+      }
     } else {
       insertBefore(inquiriesPagenation, unsecuredTemplate);
     }
@@ -250,6 +293,8 @@ async function postReview(e) {
   }
 
   const data = {
+    products_record: hash,
+    users_record: user.id,
     title: reviewTitle.value,
     content: reviewText.value,
   };
@@ -263,13 +308,13 @@ async function postReview(e) {
   }
 }
 
-// Post 문의하기 - 추후에 상품hash랑 Userhash 넘겨야함
+// Post 문의하기 - 추후에 상품hash 넘겨야함
 async function postInpuiries(e) {
   e.preventDefault();
+
   const inquiriesTitle = getNode('#inquiriesTitle');
   const inquiriesText = getNode('#inquiriesText');
   const secret = getNode('#secret');
-  console.log(secret.checked);
 
   if (!inquiriesTitle.value || !inquiriesText.value) {
     alert('입력사항을 다시 한 번 확인해주세요.');
@@ -277,6 +322,8 @@ async function postInpuiries(e) {
   }
 
   const data = {
+    products_record: hash,
+    users_record: user.id,
     title: inquiriesTitle.value,
     content: inquiriesText.value,
     isSecure: secret.checked,
@@ -378,8 +425,24 @@ inquiriesText.addEventListener('input', countTextLength);
 function openModal(e) {
   e.preventDefault();
   const { target } = e;
-  const dialog = target.nextElementSibling;
-  dialog.showModal();
+
+  const reviewFigcap = getNode('#reviewFigcap');
+  const inquiriesFigcap = getNode('#inquiriesFigcap');
+  const reviewImg = getNode('#reviewImg');
+  const inquiriesImg = getNode('#inquiriesImg');
+  attr(reviewImg, 'src', `${getPbImageURL(thisProductData, 'thumbImg')}`);
+  attr(inquiriesImg, 'src', `${getPbImageURL(thisProductData, 'thumbImg')}`);
+
+  inquiriesFigcap.textContent = `${thisProductData.name}`;
+  reviewFigcap.textContent = `${thisProductData.name}`;
+
+  if (!isAuth) {
+    alert('로그인이 필요합니다.');
+    window.location.href = '/src/pages/login/';
+  } else {
+    const dialog = target.nextElementSibling;
+    dialog.showModal();
+  }
 }
 function closeModal(e) {
   e.preventDefault();

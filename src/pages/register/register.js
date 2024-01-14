@@ -2,6 +2,7 @@ import { getNode, getNodes, removeClass, addClass, attr } from '/src/lib/';
 import '/src/styles/tailwind.css';
 import pb from '/src/api/pocketbase';
 import '/src/pages/components/js/include.js';
+import { execDaumPostcode } from '/src/pages/components/js/addressApi.js';
 
 // 필수입력항목 상태관리
 const state = {
@@ -55,6 +56,8 @@ const dayInput = getNode('#days');
 const phoneInput = getNode('#phone');
 const phoneButton = getNode('#phone__button');
 const addressInput = getNode('#address');
+const addressButton = getNode('.address__button');
+const reAddressButton = getNode('.reAddress__button');
 
 const submit = getNode('#registerSubmit');
 const allUser = await pb.collection('users').getFullList();
@@ -255,15 +258,18 @@ phoneButton.addEventListener('click', () => {
   return (state.phone = true);
 });
 
+// 주소 api 실행 이벤트
+
+addressButton.addEventListener('click', execDaumPostcode);
+reAddressButton.addEventListener('click', execDaumPostcode);
+
 //주소 입력 상태 확인
 function checkInputaddress() {
-  const accordian = getNode('#address__accordian');
+  console.log(addressInput.value);
   if (addressInput.value) {
     state.address = true;
-    attr(accordian, 'hidden', '');
   } else {
     state.address = false;
-    attr(accordian, 'hidden', true);
   }
 }
 // 다른건 다 해당 Input에 입력했을 때 이벤트가 발생하게 했는데, 주소는 Input을 받지 못해서 submit을 클릭했을 때 상태를 체크함
@@ -359,6 +365,7 @@ async function clickRegister(e) {
       isMarketing,
       address,
       detailAddress,
+      class: '일반',
     });
 
     alert('회원가입이 완료되었습니다. 메인페이지로 이동합니다!');
