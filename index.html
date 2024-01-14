@@ -19,6 +19,30 @@
   <body>
     <header data-include-path="/src/pages/components/header.html"></header>
     <div data-include-path="/src/pages/components/sidebar.html"></div>
+    <dialog class="popup overflow-hidden rounded-2xl p-0">
+      <a href="#">
+        <img
+          src="/src/assets/images/popup.jpg"
+          alt="처음 만나는 뷰티 플랫폼 BEAUTY Karly 지금 바로 만나보세요!"
+        />
+      </a>
+      <form method="dialog" class="grid grid-flow-col grid-cols-2">
+        <button
+          type="button"
+          value="cancel"
+          class="button__today--closed border-r border-gray-100 py-[30px] text-p-base text-content"
+        >
+          오늘 하루 안 보기
+        </button>
+        <button
+          type="button"
+          value="cancel"
+          class="button--closed py-[30px] text-p-base text-content"
+        >
+          닫기
+        </button>
+      </form>
+    </dialog>
     <div class="main-wraper overflow-x-hidden">
       <div
         class="banner relative left-1/2 min-w-[1920px] max-w-[1920px] translate-x-[-50%]"
