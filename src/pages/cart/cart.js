@@ -17,7 +17,7 @@ const productTemplate = getNode('.product--template');
 
 // 유저 정보 테스트코드 2개
 // 로그인한 유저의 id를 가져오도록 변경 필요
-const userData = await pb.collection('users').getOne('a5jwl3b5dl5lrjq');
+const userData = await pb.collection('users').getOne('q4l7a4urcjb33hz');
 // const userData = await pb.collection('users').getOne('9vzsdelu39rzk6q');
 const { id, address } = userData;
 
