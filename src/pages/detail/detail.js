@@ -4,6 +4,7 @@ import {
   getStorage,
   insertFirst,
   getNode,
+  comma,
 } from '/src/lib';
 import pb from '/src/api/pocketbase';
 import '/src/styles/tailwind.css';
@@ -28,11 +29,13 @@ const swiper = new Swiper('.swiper__sidebar', {
   },
 });
 
+const productId = window.location.hash.slice(1);
+const productData = await pb.collection('products').getOne(productId);
+
 async function onPageLoad() {
   console.log('onPageLoad');
   // 해당 상품의 정보 가져옴
-  const productId = window.location.hash.slice(1);
-  const productData = await pb.collection('products').getOne(productId);
+
   const productImgURL = getPbImageURL(productData, 'thumbImg');
   const product = {
     id: productId,
@@ -87,7 +90,6 @@ async function drawViewedProduct(swiper) {
 //
 
 async function renderProductData() {
-  const productData = await pb.collection('products').getOne('p23nio608325zim');
   const {
     name,
     detail,
@@ -96,6 +98,7 @@ async function renderProductData() {
     origin,
     alergy,
     weight,
+    discount,
     unit,
     packageType,
   } = productData;
@@ -103,12 +106,11 @@ async function renderProductData() {
   //////////
 
   const productTemplate = /* html */ `
-  
       <div class="product-detail flex justify-between">
         <div>
           <img
             class="h-[552px] w-[430px] object-cover"
-            src="/src/assets/images/ex/thumb-1.jpg"
+            src="${getPbImageURL(productData, 'thumbImg')}"
             alt="/"
           />
         </div>
@@ -117,11 +119,30 @@ async function renderProductData() {
             <div class="text-h-lg text-gray-500">샛별 배송</div>
             <div>
               <h2 class="pb-1 text-l-xl">${name}</h2>
-              <span class="text-p-base">${detail}</span>
+              <span class="text-gray-400 text-p-base">${detail}</span>
             </div>
             <div>
-              <span class="text-l-xl">${price}</span>
-              <span class="text-h-base">원</span>
+              <div>
+              ${
+                discount === 0
+                  ? ``
+                  : `<span class="ml-1 text-orange-500 text-l-xl">${comma(
+                      discount
+                    )}%</span>`
+              }
+                <span class="text-l-xl ml-1">${comma(
+                  Math.floor((price - price * (discount * 0.01)) / 10) * 10
+                )}</span>
+                <span class="text-h-base">원</span>
+              </div>
+              ${
+                discount === 0
+                  ? ``
+                  : `<del class="text-gray-300 text-p-base">${comma(
+                      price
+                    )}원</del>`
+              }
+
             </div>
             <span class="text-l-base text-primary"
               >로그인 후, 적립 혜택이 제공됩니다.</span
@@ -133,7 +154,7 @@ async function renderProductData() {
                   <p>샛별배송</p>
                   <p>
                     23시 전 주문 시 내일 아침 7시 전 도착 (대구 부산 울산
-                    샛별배송 운영시;간 별도 확인)
+                    샛별배송 운영시간 별도 확인)
                   </p>
                 </dd>
               </li>
@@ -214,18 +235,31 @@ async function renderProductData() {
                       </div>
                     </div>
                   </div>
-                  <span class="absolute bottom-3 right-3">${price}원</span>
+                  <div class="absolute bottom-2 right-2">
+                  ${
+                    discount === 0
+                      ? ``
+                      : `<del class="text-gray-300 text-p-base
+                      ">${comma(price)}원</del>`
+                  }
+    
+                  <span class="">${comma(
+                    Math.floor((price - price * (discount * 0.01)) / 10) * 10
+                  )}원</span>
+                  </div>
                 </dd>
               </li>
               <li
                 class="flex w-full flex-col items-end gap-2 border-t border-gray-100 py-7"
               >
-                <div class="flex">
-                  <p>총 상품금액:</p>
+                <div class="flex items-center">
+                  <p class="text-l-base mr-[17px]">총 상품금액:</p>
                   <div>
-                    <span class="total">${price}</span>
-                    <span>원</span>
+                    <span class="total text-l-xl mr-[4px]">${comma(
+                      Math.floor((price - price * (discount * 0.01)) / 10) * 10
+                    )}</span>
                   </div>
+                  <span class="text-h-base">원</span>
                 </div>
                 <p>로그인 후, 적립 혜택 제공</p>
               </li>
@@ -260,39 +294,52 @@ async function renderProductData() {
           </div>
         </section>
       </div>
+      <section class="sticky top-[72px]">
+      <ul class="nav-bar flex box-border">
+      <li class="w-full button--gray__big">
+          <a href="#productExplain" class="inline-block w-full py-[15px] text-center text-l-base">상품설명</a>
+        </li>
+        <li class="w-full button--gray__big">
+          <a href="#productInfo" class="inline-block w-full py-[15px] text-center text-l-base">상세정보</a>
+        </li>
+        <li class="w-full button--gray__big">
+          <a href="#productReview" class="inline-block w-full py-[15px] text-center text-l-base">
+              후기
+            <span class="text-p-sm">(1,000)</p>
+          </a>
+        </li>
+        <li class="w-full button--gray__big">
+          <a href="#productQuestion" class="inline-block w-full py-[15px] text-center text-l-base">문의</a>
+        </li>
+      </ul>
+    </section>
+      
       <section>
-         <ul class="nav-bar flex box-border ">
-          <li class="w-full button--gray__big">
-             <button class=" text-l-base">상품설명</button>
-           </li>
-           <li class="w-full button--gray__big">
-             <button class="text-l-base">상세정보</button>
-           </li>
-           <li class="w-full button--gray__big">
-             <button class="text-l-base">
-                후기
-              <span class="text-p-sm">(1,000)</p>
-            </button>
-          </li>
-          <li class="w-full button--gray__big">
-            <button class="text-l-base">문의</button>
-          </li>
-        </ul>
-      </section>
-      <section>
-        <div class="pt-10 "><img class="w-262.5 h-167.5" src="/src/assets/images/ex/thumb-1.svg" alt="탱탱쫄면"></div>
+        <div id="productExplain" class="pt-10"><img class="w-262.5 h-167.5" src="${getPbImageURL(
+          productData,
+          'detailImg-1'
+        )}" alt="탱탱쫄면"></div>
         <h3 class="flex flex-col items-center">
           <span class="text-l-xl mt-[76px]">${detail}</span>
           <span class="text-h-3xl">${name}</span>
         </h3>
       </section>
-
+      <section>
+        <div class="mt-24 flex flex-col items-center">
+          <h3 class="text-h-3xl">Karly's Check Point</h3>
+          <img class="mt-24" src="/src/assets/images/ex/checkPoint.jpg" alt="칼리 포인트">
+        </div>
+      </section>
+      <img id="productInfo" class="mt-24" src="/src/assets/images/ex/product.jpg" alt="상품 설명">
   `;
   insertFirst('.mainWrapper', productTemplate);
 
   const minusButton = getNode('.button__minus');
   const plusButton = getNode('.button__plus');
   const amountSpan = getNode('.product__amount');
+  const totalSpan = getNode('.total');
+
+  console.log(totalSpan);
 
   // 클릭 이벤트 리스너 추가
   minusButton.addEventListener('click', minusAmount);
@@ -304,6 +351,7 @@ async function renderProductData() {
 
     // 값이 1보다 클 때만 감소시킴
     if (currentValue > 1) {
+      amountSpan.textContent = currentValue - 1;
       amountSpan.textContent = currentValue - 1;
     }
   }
