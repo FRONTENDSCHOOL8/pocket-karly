@@ -26,7 +26,8 @@ async function handleLogin(e) {
     // local storage에 저장된 장바구니 상품을 DB에 저장
     await addCart(model.id);
     await deleteLocalStorageCart();
-    window.location.href = '/index.html';
+    // window.location.href = '/index.html';
+    history.back();
   } catch {
     alert('아이디,비밀번호를 확인해주세요.');
   }
@@ -34,23 +35,40 @@ async function handleLogin(e) {
 
 // 로그인 안 한 상태에서 추가했던 장바구니를 회원의 장바구니에 저장 (local storage -> DB)
 async function addCart(userId) {
-  const cart = await getStorage('cart');
-  if (!cart) {
+  const localStorageCart = await getStorage('cart');
+  if (!localStorageCart) {
     return;
   }
-  try {
-    for (const product of cart) {
-      const { products_record, amount } = product;
-      const data = {
+
+  // 로그인 사용자의 장바구니(DB)
+  const carts = await pb.collection('carts').getFullList({
+    filter: `users_record = "${userId}" `,
+  });
+
+  for (const product of localStorageCart) {
+    const { products_record, amount } = product;
+
+    // local storage에 저장했던 product가 이미 carts collection에 저장되어 있는지 확인
+    const savedCart = searchCart(carts, products_record);
+
+    // 이미 carts collection에 저장되어 있던 product일 경우엔 DB에 create가 아닌 update 해줌
+    if (savedCart.length !== 0) {
+      await pb.collection('carts').update(savedCart[0].id, {
+        amount: savedCart[0].amount + amount,
+      });
+    } else {
+      // carts collection에 저장되어 있지 않은 product일 경우엔 DB에 create해줌
+      await pb.collection('carts').create({
+        users_record: userId,
         products_record,
         amount,
-        users_record: userId,
-      };
-      await pb.collection('carts').create(data);
+      });
     }
-  } catch (error) {
-    alert('데이터 통신에 실패했습니다.');
   }
+}
+
+function searchCart(carts, products_record) {
+  return carts.filter((cart) => cart['products_record'] === products_record);
 }
 
 async function deleteLocalStorageCart() {

@@ -6,7 +6,10 @@ import {
   clearContents,
   getStorage,
   setStorage,
+  getPbImageURL,
+  getNodes,
 } from '/src/lib';
+import { updateCartBadge } from '/src/lib';
 import '/src/styles/tailwind.css';
 
 // 장바구니 팝업 그리기
@@ -53,7 +56,10 @@ function drawTemplateInfo(data) {
   <p class="mb-3 text-l-base text-content" data-id=${id}>
   ${name}
   </p>
-  <span class="mt-4 text-l-base leading-[30px]" data-discountPrice="${discountPrice}" id="discountPrice"
+  <span class="mt-4 text-l-base leading-[30px]" data-discountPrice="${discountPrice}" id="discountPrice" data-img=${getPbImageURL(
+    data,
+    'thumbImg'
+  )}
   >${comma(discountPrice)}원</span
   >
   ${
@@ -133,9 +139,59 @@ export function cancelAddCart(addCartPopup) {
 
 // 장바구니 담기 버튼 클릭
 export async function addCart(addCartPopup) {
-  const productId = getNode('.product__info--template p').dataset.id;
-  let amount = Number(getNode('.product__amount').innerText);
-  const name = getNode('.product__info--template p').innerText;
+  const auth = await getStorage('auth');
+  const data = {
+    productId: getNode('.product__info--template p').dataset.id,
+    imgSrc: getNode('.product__info--template span').dataset.img,
+    amount: Number(getNode('.product__amount').innerText),
+    name: getNode('.product__info--template p').innerText,
+    auth,
+  };
+
+  // local storage에 auth가 있다면 로그인 된 상태기 때문에 DB에 장바구니 상품 추가해줌
+  if (auth) {
+    await addCartDB(data, addCartPopup);
+  } else {
+    // local storage에 auth가 있다면 로그인 안 된 상태기 때문 local storage에 상품 추가해줌
+    await addCartLocalStorage(data, addCartPopup);
+  }
+  updateCartBadge();
+  showBubble(data);
+}
+
+async function addCartDB(data, addCartPopup) {
+  const { productId, amount, auth, name } = data;
+  const userId = auth.user.id;
+
+  const carts = await pb.collection('carts').getFullList({
+    filter: `users_record= "${userId}" && products_record= "${productId}"`,
+    requestKey: null,
+  });
+
+  if (!carts.length) {
+    // 기존에 장바구니에 없던 상품. 따라서 DB에 새로 데이터 넣어줌
+    const data = {
+      users_record: userId,
+      products_record: productId,
+      amount,
+    };
+    await pb.collection('carts').create(data);
+  } else {
+    // 기존에 장바구니에 있던 상품. 따라서 기존 데이터의 amount 값을 바꿔줌
+    const beforeAmount = carts[0].amount;
+    const data = {
+      amount: beforeAmount + amount,
+    };
+
+    await pb.collection('carts').update(carts[0].id, data);
+  }
+  addCartPopup.close();
+  alert(`장바구니에 ${name}을 담았습니다.`);
+}
+
+async function addCartLocalStorage(data, addCartPopup) {
+  const { productId, name } = data;
+  let { amount } = data;
   let isExist = false;
 
   // local storage에 저장되어 있는 cart 값 가져옴
@@ -169,7 +225,28 @@ export async function addCart(addCartPopup) {
   }
 
   // loacl storage에 cart 배열 저장
-  setStorage('cart', cart);
+  await setStorage('cart', cart);
   addCartPopup.close();
   alert(`장바구니에 ${name}을 담았습니다.`);
+}
+
+async function showBubble(data) {
+  const { name, imgSrc } = data;
+  // 헤더 두 가지 버전이기 때문에 bubble도 두 가지 헤더에 모두 달려있음. 따라서 getNodes로 가져옴
+  const bubble = getNodes('.header__bubble');
+  bubble.forEach((element) => {
+    const bubbleImg = element.querySelector('.header__bubble-img');
+    const bubbleFigcaption = element.querySelector(
+      '.header__bubble-figcaption'
+    );
+    // 말풍선에 이미지 넣기
+    bubbleImg.src = imgSrc;
+    // 말풍선에 물품명 넣기
+    bubbleFigcaption.innerText = name;
+    // 말풍선 띄우기
+    element.style.display = 'block';
+    setTimeout(() => {
+      element.style.display = 'none';
+    }, 3000);
+  });
 }

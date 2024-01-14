@@ -61,7 +61,7 @@ const header = async () => {
     if (isAuth) {
       const memberTemplate = /*html*/ `
       <div
-        class="group relative flex h-full cursor-pointer items-center gap-1 px-3 text-p-sm text-content"
+        class="group relative flex h-full cursor-pointer items-center gap-1 px-3 text-p-sm text-content z-10"
       >
         <span
           class="text-p-xsm rounded-3xl border border-primary px-4 text-primary"
@@ -74,9 +74,6 @@ const header = async () => {
           <ul class="flex list-none flex-col gap-1 items-start w-full">
             <li class="w-full">
               <a href="/src/pages/cart/" class="block">장바구니</a>
-            </li>
-            <li class="w-full">
-              <button type="button" class="header__button-delete w-full text-left">탈퇴하기</button>
             </li>
             <li class="w-full">
               <button type="button" class="header__button-logout w-full text-left">로그아웃</button>
@@ -107,6 +104,9 @@ const header = async () => {
             </li>
             <li>
               <a href="#">대량주문 문의</a>
+            </li>
+            <li>
+              <button type="button" class="header__button-delete w-full text-left">탈퇴하기</button>
             </li>
           </ul>
         </div>
@@ -161,7 +161,7 @@ const header = async () => {
     /*html*/
     `
     <div
-      class="absolute -right-1 top-0.5 rounded-full bg-primary px-[5px] text-center text-[9px] text-white"
+      class="header__cart-badge absolute -right-1 top-0.5 rounded-full bg-primary px-[5px] text-center text-[9px] text-white"
     >${amount}
     </div>
   `;
@@ -232,13 +232,15 @@ async function getCartAmountDB(user) {
 // 비회원의 장바구니 수량 확인(Local Storage)
 async function getCartAmountStorage() {
   let total = 0;
-  // 비회원이 장바구니에 상품을 담은 이력이 있는 경우
-  if (!localStorage.getItem('carts')) {
+  const storageCart = await getStorage('cart');
+
+  // 비회원이 장바구니에 상품을 담은 이력이 없는 경우
+  if (!storageCart) {
     return total;
   }
-  const carts = await getStorage('carts');
-  for (const products in carts) {
-    total += carts[products];
+
+  for (const products of storageCart) {
+    total += products.amount;
   }
   return total;
 }

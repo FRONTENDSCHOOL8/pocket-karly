@@ -43,6 +43,7 @@ function drawFilterMenuLi(node, type, data) {
   }
 
   for (const item of resultData) {
+    const count = countFilterDynamicOption(item, type, data);
     const template = /*html*/ `
       <li class="list__li-filter">
       <button class="button__check--no mr-2"></button>
@@ -56,10 +57,17 @@ function drawFilterMenuLi(node, type, data) {
         data-filter=${type}
         data-operator='or'
       />
+      <span class="pl-2 text-p-sm text-gray-300 align-middle">${count}</span>
     </li>
     `;
     insertLast(node, template);
   }
+}
+
+function countFilterDynamicOption(item, standard, data) {
+  const result = data.filter((product) => product[standard] === item);
+  const count = result.length;
+  return count;
 }
 
 // 필터 클릭할 경우 체크박스/라디오 체크/체크해제
@@ -428,9 +436,13 @@ async function drawProductBox(collection, page, perPage, option) {
                 Math.floor((price - price * (discount * 0.01)) / 10) * 10
               )} <span>원</span></p>
             </div>
-            <span class="text-p-sm text-gray-400 line-through">${comma(
-              price
-            )} 원</span>
+            ${
+              discount === 0
+                ? ``
+                : `<span class="text-p-sm text-gray-400 line-through">${comma(
+                    price
+                  )} 원</span>`
+            }
             <p class="text-p-sm text-gray-400">${detail}</p>
             <div class="flex gap-2">
               ${

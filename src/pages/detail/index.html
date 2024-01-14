@@ -7,6 +7,8 @@
     <script type="module" src="/src/pages/detail/detail.js"></script>
   </head>
   <body>
+    <header data-include-path="/src/pages/components/header.html"></header>
+
     <div class="mainWrapper mx-auto mb-[84px] w-innerWrapper pt-[30px]">
       <section>
         <div class="mt-24 flex flex-col items-center">
@@ -30,7 +32,13 @@
             <li class="w-78.75 overflow-hidden text-center">
               <div class="flex flex-col items-center gap-4">
                 <div class="h-10 w-10 overflow-hidden">
-                  <svg role="img" width="320" height="40" viewBox="0 0 320 40">
+                  <svg
+                    role="img"
+                    class=""
+                    width="320"
+                    height="40"
+                    viewBox="0 0 320 40"
+                  >
                     <use href="/src/assets/svg/_sprite.svg#whyKarly" />
                   </svg>
                 </div>
@@ -48,7 +56,13 @@
             <li class="w-78.75 text-center">
               <div class="flex flex-col items-center gap-4">
                 <div class="h-10 w-10 overflow-hidden">
-                  <svg role="img" width="320" height="40" viewBox="70 0 320 40">
+                  <svg
+                    role="img"
+                    class=""
+                    width="320"
+                    height="40"
+                    viewBox="70 0 320 40"
+                  >
                     <use href="/src/assets/svg/_sprite.svg#whyKarly" />
                   </svg>
                 </div>
@@ -68,6 +82,7 @@
                 <div class="h-10 w-10 overflow-hidden">
                   <svg
                     role="img"
+                    class=""
                     width="320"
                     height="40"
                     viewBox="140 0 320 40"
@@ -76,7 +91,7 @@
                   </svg>
                 </div>
                 <span class="mb-6 text-l-lg text-primary"
-                  >깐깐한 상품위원회</span
+                  >고객, 생산자를 위한 최선의 가격</span
                 >
               </div>
               <p>
@@ -91,6 +106,7 @@
                 <div class="h-10 w-10 overflow-hidden">
                   <svg
                     role="img"
+                    class=""
                     width="320"
                     height="40"
                     viewBox="210 0 320 40"
@@ -99,7 +115,7 @@
                   </svg>
                 </div>
                 <span class="mb-6 text-l-lg text-primary"
-                  >깐깐한 상품위원회</span
+                  >환경을 생각하는 지속 가능한 유통</span
                 >
               </div>
               <p>
@@ -115,6 +131,7 @@
                 <div class="h-10 w-10 overflow-hidden">
                   <svg
                     role="img"
+                    class=""
                     width="320"
                     height="40"
                     viewBox="280 0 320 40"
@@ -138,5 +155,33 @@
         </div>
       </section>
     </div>
+    <div
+      class="fixed right-[39px] top-[440px] z-10 flex h-[223px] w-[76px] flex-col items-center gap-2 border border-gray-200 bg-white p-2"
+    >
+      <svg
+        role="img"
+        width="18"
+        height="18"
+        viewBox="8 8 18 18"
+        class="button__prev"
+      >
+        <use href="/icons/_sprite.svg#arrows" />
+      </svg>
+      <p class="text-l-sm text-black">최근 본 상품</p>
+      <div class="swiper swiper__sidebar h-[129px] w-10">
+        <div class="swiper-wrapper"></div>
+      </div>
+      <svg
+        role="img"
+        width="18"
+        height="18"
+        viewBox="8 34 18 18"
+        class="button__next"
+      >
+        <use href="/icons/_sprite.svg#arrows" />
+      </svg>
+    </div>
+
+    <footer data-include-path="/src/pages/components/footer.html"></footer>
   </body>
 </html>
