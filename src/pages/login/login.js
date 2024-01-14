@@ -26,7 +26,8 @@ async function handleLogin(e) {
     // local storage에 저장된 장바구니 상품을 DB에 저장
     await addCart(model.id);
     await deleteLocalStorageCart();
-    window.location.href = '/index.html';
+    // window.location.href = '/index.html';
+    history.back();
   } catch {
     alert('아이디,비밀번호를 확인해주세요.');
   }
