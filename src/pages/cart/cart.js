@@ -3,36 +3,123 @@ import {
   getNode,
   getNodes,
   getPbImageURL,
+  getStorage,
   insertFirst,
   clearContents,
   comma,
-  getStorage,
 } from '/src/lib';
 import '/src/styles/tailwind.css';
 import '/src/pages/components/js/include.js';
 import { execDaumPostcode } from '/src/pages/components/js/addressApi.js';
+// import { createModal, openModal } from '/src/pages/components/js/modal.js';
 
 const pb = new PocketBase(import.meta.env.VITE_PB_URL);
+const packageTypeCold = getNode('.package__type--cold');
+const packageTypeFreeze = getNode('.package__type--freeze');
+const packageTypeRoom = getNode('.package__type--room');
+const nothingProduct = getNode('.cart__product--nothing');
+const addressSection = getNode('.user__address');
 const productTemplate = getNode('.product--template');
+const selectAlls = getNodes('input[name="select-all"]'); // 전체선택
+const orderButton = getNode('.button__order'); // 주문하기
+const productStateArr = []; // 상태관리 - 각각 어떤 역할을 하는지 다시 정리해보자
+const cartState = {}; // 상태관리
+const isAuth = await getStorage('auth');
+let cartDataCold = [];
+let cartDataFreeze = [];
+let cartDataRoom = [];
 
-// 유저 정보 테스트코드 2개
-// 로그인한 유저의 id를 가져오도록 변경 필요
-const userData = await pb.collection('users').getOne('q4l7a4urcjb33hz');
-// const userData = await pb.collection('users').getOne('9vzsdelu39rzk6q');
-const { id, address } = userData;
+// & 모달 js 테스트
+// dialog로 수정해서 만들고싶음
+// 현재 배경 어둡게 처리랑 스크롤방지 기능이 안 들어감. 클릭하면 모달창 닫힘
+// const selectDeleteModal = createModal('선택한 상품을 삭제하시겠습니까?');
 
-const productStateArr = [];
-// 선택된 상품 cart id 상태변수 관리
-const cartState = {};
+// *만약에 로컬스토리지에 auth가 있다면(회원이라면)
+if (isAuth) {
+  const { id, address, detailAddress } = isAuth['user'];
+  cartDataCold = await pb.collection('carts_products_data').getFullList({
+    filter: `packageType = "냉장식품" && users_record = "${id}"`,
+    sort: 'created',
+  });
+  cartDataFreeze = await pb.collection('carts_products_data').getFullList({
+    filter: `packageType = "냉동식품" && users_record = "${id}"`,
+    sort: 'created',
+  });
+  cartDataRoom = await pb.collection('carts_products_data').getFullList({
+    filter: `packageType = "상온식품" && users_record = "${id}"`,
+    sort: 'created',
+  });
 
+  // 배송지 변경 함수
+  const addressElem = getNode('address');
+  addressElem.textContent = `${address} ${detailAddress}`;
+  const changeAddressButton = getNode('.button__change-address');
+
+  // &배송지 변경 버튼 클릭 시 DB 변경 기능 추가 필요
+  changeAddressButton.addEventListener('click', () => {
+    execDaumPostcode();
+  });
+} else {
+  // *cart 유무에 따라서 데이터 불러올지 말지도 처리해주면 좋을 듯
+  try {
+    const cartData = await getStorage('cart');
+    const productRecordFilters = cartData
+      .map((item) => `id="${item['products_record']}"`)
+      .join('||');
+
+    const coldData = await pb.collection('products').getFullList({
+      filter: `(${productRecordFilters}) && packageType = "냉장식품"`,
+    });
+    // console.log('coldData: ', coldData);
+
+    const freezeData = await pb.collection('products').getFullList({
+      filter: `(${productRecordFilters}) && packageType = "냉동식품"`,
+    });
+    // console.log('freezeData: ', freezeData);
+
+    const roomData = await pb.collection('products').getFullList({
+      filter: `(${productRecordFilters}) && packageType = "상온식품"`,
+    });
+    // console.log('roomData: ', roomData);
+
+    cartDataCold = [];
+    cartData.forEach((cartData) => {
+      coldData.forEach((coldData) => {
+        if (cartData['products_record'] === coldData.id) {
+          cartDataCold.push({ ...cartData, ...coldData });
+        }
+      });
+    });
+
+    cartDataFreeze = [];
+    cartData.forEach((cartData) => {
+      freezeData.forEach((freezeData) => {
+        if (cartData['products_record'] === freezeData.id) {
+          cartDataFreeze.push({ ...cartData, ...freezeData });
+        }
+      });
+    });
+
+    cartDataRoom = [];
+    cartData.forEach((cartData) => {
+      roomData.forEach((roomData) => {
+        if (cartData['products_record'] === roomData.id) {
+          cartDataRoom.push({ ...cartData, ...roomData });
+        }
+      });
+    });
+  } catch {
+    console.log('장바구니에 담긴 상품이 없습니다');
+  }
+  console.log('cartDataRoom', cartDataRoom);
+  addressSection.classList.add('hidden');
+  orderButton.textContent = '로그인';
+  orderButton.addEventListener('click', () => {
+    location.href = '/src/pages/login/';
+  });
+}
 /* -------------------------------------------------------------------------- */
 // 냉장식품 템플릿
-const cartDataCold = await pb.collection('carts_products_data').getFullList({
-  filter: `packageType = "냉장식품" && users_record = "${id}"`,
-  sort: 'created',
-});
-
-// * 냉장식품 템플릿 반복문
 cartDataCold.forEach((cart) => {
   const { id, products_record, name, price, discount, amount, thumbImgAlt } =
     cart;
@@ -80,6 +167,7 @@ cartDataCold.forEach((cart) => {
           type="button"
           class="button__minus w-7.5 overflow-hidden"
           data-record=${products_record}
+          data-amount="minus"
         >
           <svg
             role="img"
@@ -95,6 +183,7 @@ cartDataCold.forEach((cart) => {
           type="button"
           class="button__plus w-7.5 overflow-hidden"
           data-record=${products_record}
+          data-amount="plus"
         >
           <svg
             role="img"
@@ -150,17 +239,11 @@ function removeNumbers(value) {
 }
 
 // 냉동식품 템플릿
-const cartDataFreeze = await pb.collection('carts_products_data').getFullList({
-  filter: `packageType = "냉동식품" && users_record = "${id}"`,
-  sort: 'created',
-});
-
 cartDataFreeze.forEach((cart) => {
   const { id, products_record, name, price, discount, amount, thumbImgAlt } =
     cart;
 
-  const discountPrice =
-    Math.floor((price - price * (discount * 0.01)) / 10) * 10 * amount;
+  const discountPrice = Math.floor(price - price * (discount * 0.01)) * amount;
   const totalPrice = price * amount;
 
   const templateProduct = /* html */ `
@@ -202,6 +285,7 @@ cartDataFreeze.forEach((cart) => {
           type="button"
           class="button__minus w-7.5 overflow-hidden"
           data-record=${products_record}
+          data-amount="minus"
         >
           <svg
             role="img"
@@ -217,6 +301,7 @@ cartDataFreeze.forEach((cart) => {
           type="button"
           class="button__plus w-7.5 overflow-hidden"
           data-record=${products_record}
+          data-amount="plus"
         >
           <svg
             role="img"
@@ -267,17 +352,11 @@ cartDataFreeze.forEach((cart) => {
 });
 
 // 상온식품 템플릿
-const cartDataRoom = await pb.collection('carts_products_data').getFullList({
-  filter: `packageType = "상온식품" && users_record = "${id}"`,
-  sort: 'created',
-});
-
 cartDataRoom.forEach((cart) => {
   const { id, products_record, name, price, discount, amount, thumbImgAlt } =
     cart;
 
-  const discountPrice =
-    Math.floor((price - price * (discount * 0.01)) / 10) * 10 * amount;
+  const discountPrice = Math.floor(price - price * (discount * 0.01)) * amount;
   const totalPrice = price * amount;
 
   const templateProduct = /* html */ `
@@ -319,6 +398,7 @@ cartDataRoom.forEach((cart) => {
           type="button"
           class="button__minus w-7.5 overflow-hidden"
           data-record=${products_record}
+          data-amount="minus"
         >
           <svg
             role="img"
@@ -334,6 +414,7 @@ cartDataRoom.forEach((cart) => {
           type="button"
           class="button__plus w-7.5 overflow-hidden"
           data-record=${products_record}
+          data-amount="plus"
         >
           <svg
             role="img"
@@ -382,6 +463,20 @@ cartDataRoom.forEach((cart) => {
   };
   productStateArr.push(dataObj);
 });
+
+/* -------------------------------------------------------------------------- */
+if (cartDataCold.length) {
+  packageTypeCold.classList.remove('hidden');
+}
+if (cartDataFreeze.length) {
+  packageTypeFreeze.classList.remove('hidden');
+}
+if (cartDataRoom.length) {
+  packageTypeRoom.classList.remove('hidden');
+}
+if (cartDataCold.length || cartDataFreeze.length || cartDataRoom.length) {
+  nothingProduct.classList.add('hidden');
+}
 
 /* -------------------------------------------------------------------------- */
 // ^ 상태변수 관리 - 상품 선택 여부를 체크하는 함수
@@ -438,6 +533,7 @@ renderCartNum();
 
 /* -------------------------------------------------------------------------- */
 // 수량 변경 함수
+let amount;
 function changeAmount(button, plusButton) {
   const amountElem = button.nextElementSibling || button.previousElementSibling;
   console.log('amountElem: ', amountElem);
@@ -446,7 +542,6 @@ function changeAmount(button, plusButton) {
     selectedProductArrKey('products_record', productId, 'amount').join('')
   );
 
-  let amount;
   if (plusButton) {
     amount = beforeAmount + 1;
   } else {
@@ -463,6 +558,7 @@ function changeAmount(button, plusButton) {
   });
   amountElem.textContent = amount;
   changePrice(button, amount);
+  return amount;
   // *객체에 저장한 amount를 DB로 바로 보내주어야 하나?
 }
 
@@ -475,10 +571,11 @@ function changePrice(button, amount) {
 
   const resultPrice = productStateArr
     .filter((product) => product.products_record === productId)
-    .map((product) =>
-      Math.floor(
-        product.price - product.price * ((product.discount * 0.01) / 10) * 10
-      )
+    .map(
+      (product) =>
+        Math.floor(
+          (product.price - product.price * (product.discount * 0.01)) / 10
+        ) * 10
     );
   const netPrice = productStateArr
     .filter((product) => product.products_record === productId)
@@ -488,27 +585,28 @@ function changePrice(button, amount) {
   netPriceElem.innerText = `${comma(netPrice * amount)}원`;
 }
 
-// 배열에 담긴 숫자 합산
-function arrayToSum(array) {
-  return array.reduce((acc, cur) => acc + cur, 0);
-}
-
 // 선택한 상품 합산 금액 계산
 function calcTotalPrice() {
   // state가 true인 객체를 필터링하여 새로운 배열을 생성
   const filteredProducts = productStateArr.filter(
     (product) => product.state === true
   );
-  const netPrice = arrayToSum(
-    filteredProducts.map((product) => product.price * product.amount)
-  );
-  const discountPrice = arrayToSum(
-    filteredProducts.map(
+  const netPrice = filteredProducts
+    .map((product) => product.price * product.amount)
+    .reduce((acc, cur) => acc + cur, 0);
+
+  const resultPrice = filteredProducts
+    .map(
       (product) =>
-        product.price * ((product.discount * 0.01) / 10) * 10 * product.amount
+        Math.floor(
+          (product.price - product.price * (product.discount * 0.01)) / 10
+        ) *
+        10 *
+        product.amount
     )
-  );
-  const resultPrice = netPrice - discountPrice;
+    .reduce((acc, cur) => acc + cur, 0);
+
+  const discountPrice = netPrice - resultPrice;
 
   return { netPrice, discountPrice, resultPrice };
 }
@@ -544,17 +642,15 @@ function updateTemplate() {
         resultPrice + deliveryFee
       )}</strong>원</span>
     </div>
-    <p class="relative text-right text-l-sm text-content">
-      <span class="left-18 absolute top-[-4px] rounded-sm bg-accent-yellow px-2 py-1 text-white">적립</span>
-      최대 36원 적립 일반 0.1%
+    <p class="points relative text-right text-l-sm text-content">
+      <span class="rounded-sm bg-accent-yellow px-2 py-1 mr-1 text-white">적립</span>
+      ${isAuth ? '최대 36원 적립 일반 0.1%' : '로그인 후 회원 등급에 따라 적립'}
     </p>
   `;
   insertFirst('.result--template', templateResult);
 }
 updateTemplate();
 /* -------------------------------------------------------------------------- */
-const selectAlls = getNodes('input[name="select-all"]');
-
 export const checkAll = (elem) => {
   return (e) => {
     const { target } = e;
@@ -579,7 +675,7 @@ export const checkAll = (elem) => {
     cartIdFilter = makeCartsIdFilter(cartState);
     // console.log('cartIdFilter: ', cartIdFilter);
     // console.log('productStateArr: ', productStateArr);
-    // console.log(selectedProductArrKey('state', true, 'id'));
+    console.log(selectedProductArrKey('state', true, 'id'));
     renderCartNum();
     updateTemplate();
   };
@@ -599,6 +695,13 @@ function connectSelect(elem) {
 
 // 전체선택 시 모든 checkbox 선택
 selectAlls.forEach((selectAll) => {
+  if (!nothingProduct.classList.contains('hidden')) {
+    selectAll.checked = false;
+    selectAll.disabled = true;
+  } else {
+    selectAll.checked = true;
+    selectAll.disabled = false;
+  }
   connectSelect(selectAlls);
   selectAll.addEventListener(
     'click',
@@ -606,12 +709,20 @@ selectAlls.forEach((selectAll) => {
   );
 });
 /* -------------------------------------------------------------------------- */
+// key가 value인 객체의 resultKey의 value를 담은 배열 생성
+function selectedProductArrKey(key, value, resultKey) {
+  return productStateArr
+    .filter((obj) => obj[key] === value)
+    .map((obj) => obj[resultKey]);
+}
+
 // ^상품 삭제 함수 (x버튼 클릭 - 개별 삭제)
 async function deleteProduct(e) {
-  console.log('!!!!!!!!!!', e.target);
-  const productId = e.target
-    .closest('li')
-    .firstElementChild.getAttribute('for');
+  const { id } = isAuth['user'];
+  console.log('id: ', id);
+
+  const productId =
+    e.target.closest('li').firstElementChild.firstElementChild.dataset.record;
   console.log(productId);
 
   const cartDataCold = await pb.collection('carts').getFullList({
@@ -621,12 +732,20 @@ async function deleteProduct(e) {
   location.reload();
 }
 
-// key가 value인 객체의 resultKey의 value를 담은 배열 생성
-function selectedProductArrKey(key, value, resultKey) {
-  return productStateArr
-    .filter((obj) => obj[key] === value)
-    .map((obj) => obj[resultKey]);
-}
+// const deleteProduct = (id) => {
+//   return async (e) => {
+//     const productId = e.target
+//       .closest('li')
+//       .firstElementChild.getAttribute('for');
+//     console.log(productId);
+
+//     const cartDataCold = await pb.collection('carts').getFullList({
+//       filter: `users_record = "${id}" && products_record = "${productId}"`,
+//     });
+//     await pb.collection('carts').delete(cartDataCold[0].id);
+//     location.reload();
+//   };
+// };
 
 // ^선택삭제 버튼 클릭시 선택된 상품 삭제
 async function deleteSelectedProduct() {
@@ -640,8 +759,9 @@ async function deleteSelectedProduct() {
 /* -------------------------------------------------------------------------- */
 // 버튼 클릭 이벤트 함수
 function handleButton(e) {
-  const button = e.target.closest('button');
-  const input = e.target.closest('input');
+  const { target } = e;
+  const button = target.closest('button');
+  const input = target.closest('input');
 
   if (!button && !input) {
     return;
@@ -650,13 +770,19 @@ function handleButton(e) {
     const minusButton = button.classList.contains('button__minus');
     const plusButton = button.classList.contains('button__plus');
     if (minusButton || plusButton) {
-      console.log('수량 버튼 클릭');
       changeAmount(button, plusButton);
+      console.log('수량 버튼 클릭');
       calcTotalPrice();
       updateTemplate();
+      // & 수량 1일때 minus 버튼 diabled 처리
+      // const minus = button.closest('button[data-amount="minus"]');
+      // const amount = (
+      //   button.nextElementSibling || button.previousElementSibling
+      // ).textContent;
+      // minus.disabled = amount === '1';
       return;
     } else {
-      console.log('삭제 버튼 클릭');
+      alert('삭제하시겠습니까?');
       deleteProduct(e);
       calcTotalPrice();
       updateTemplate();
@@ -673,33 +799,7 @@ function handleButton(e) {
   }
 }
 
-// 선택삭제 버튼 이벤트리스너
-const selectDeleteButton = getNodes('.button--delete__select');
-[...selectDeleteButton].forEach((button) => {
-  button.addEventListener('click', () => {
-    console.log('선택 삭제 버튼 클릭');
-    deleteSelectedProduct();
-  });
-});
-
-productTemplate.addEventListener('click', handleButton);
-
 /* -------------------------------------------------------------------------- */
-// 배송지 변경 함수
-const addressElem = getNode('address');
-addressElem.textContent = address;
-const changeAddressButton = getNode('.button__change-address');
-
-changeAddressButton.addEventListener('click', () => {
-  console.log('배송지 변경 버튼 클릭');
-});
-changeAddressButton.addEventListener('click', () => {
-  execDaumPostcode();
-});
-
-
-/* -------------------------------------------------------------------------- */
-
 async function handleOrderButton(e) {
   e.preventDefault();
   const auth = await getStorage('auth');
@@ -721,6 +821,17 @@ async function handleOrderButton(e) {
   alert('주문이 완료되었습니다.');
   location.reload();
 }
-const orderButton = getNode('.button__order');
-orderButton.addEventListener('click', handleOrderButton);
 
+// 선택삭제 버튼 이벤트리스너
+const selectDeleteButton = getNodes('.button--delete__select');
+[...selectDeleteButton].forEach((button) => {
+  button.addEventListener('click', () => {
+    console.log('선택 삭제 버튼 클릭');
+    alert('선택한 상품을 삭제하시겠습니까?');
+    deleteSelectedProduct();
+  });
+});
+
+// 이벤트리스너
+productTemplate.addEventListener('click', handleButton);
+orderButton.addEventListener('click', handleOrderButton);

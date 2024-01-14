@@ -7,8 +7,10 @@
     <title>addCart</title>
   </head>
   <body class="bg-gray-300">
-    <dialog class="add-cart__popup h-[292px] w-[396px] rounded-2xl px-5 py-6">
-      <form action="" class="grid auto-rows-min grid-cols-2 gap-x-2 gap-y-7">
+    <dialog
+      class="add-cart__popup w-[396px] rounded-2xl px-5 py-6 backdrop:backdrop-brightness-50"
+    >
+      <form action="#" class="grid auto-rows-min grid-cols-2 gap-x-2 gap-y-7">
         <div class="col-span-2 grid">
           <div class="product__info--template row-start-1"></div>
           <div
@@ -24,9 +26,9 @@
               </svg>
             </button>
             <span
-              class="product__amount inline-block w-7.5 text-center align-top leading-[30px]"
+              class="product__amount inline-block w-[30px] text-center align-top leading-[30px]"
             ></span>
-            <button type="button" class="button__plus w-7.5 overflow-hidden">
+            <button type="button" class="button__plus w-[30px] overflow-hidden">
               <svg role="img" width="46" height="84" viewBox="8 8 46 84">
                 <use href="/src/assets/svg/_sprite.svg#plus" />
               </svg>
@@ -40,7 +42,7 @@
         >
           취소
         </button>
-        <button type="submit" class="add-cart__button button--purple__big">
+        <button type="button" class="add-cart__button button--purple__big">
           장바구니 담기
         </button>
       </form>
