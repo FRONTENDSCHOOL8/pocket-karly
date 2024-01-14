@@ -209,7 +209,7 @@
         </section>
         <div class="relative h-screen w-[284px]">
           <div class="sticky top-28">
-            <section class="border border-gray-100 p-5">
+            <section class="user__address border border-gray-100 p-5">
               <h3 class="flex items-center text-l-base">
                 <span class="inline-block h-9 w-9 overflow-hidden">
                   <svg role="img" width="206" height="36" viewBox="0 0 206 36">
@@ -218,14 +218,21 @@
                 </span>
                 배송지
               </h3>
-              <address class="my-3 text-l-base not-italic"></address>
-              <span class="text-l-sm text-primary">샛별배송</span>
-              <button
-                type="button"
-                class="button__change-address button--white__small mt-3 w-full"
-              >
-                배송지 변경
-              </button>
+              <form action="#">
+                <address class="my-3 text-l-base not-italic"></address>
+                <input
+                  type="text"
+                  id="address"
+                  name="address"
+                  readonly="readonly"
+                />
+                <span class="text-l-sm text-primary">샛별배송</span>
+                <button
+                  class="button__change-address button--white__small mt-3 w-full"
+                >
+                  배송지 변경
+                </button>
+              </form>
             </section>
             <section>
               <h3 class="sr-only">주문하기</h3>
@@ -234,7 +241,7 @@
               ></div>
               <button
                 type="submit"
-                class="button--purple__small button__order my-4 w-full"
+                class="button__order button--purple__small my-4 w-full"
               >
                 주문하기
               </button>
