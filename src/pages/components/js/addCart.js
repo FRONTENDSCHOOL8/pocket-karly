@@ -6,6 +6,8 @@ import {
   clearContents,
   getStorage,
   setStorage,
+  getPbImageURL,
+  getNodes,
 } from '/src/lib';
 import { updateCartBadge } from '/src/lib';
 import '/src/styles/tailwind.css';
@@ -54,7 +56,10 @@ function drawTemplateInfo(data) {
   <p class="mb-3 text-l-base text-content" data-id=${id}>
   ${name}
   </p>
-  <span class="mt-4 text-l-base leading-[30px]" data-discountPrice="${discountPrice}" id="discountPrice"
+  <span class="mt-4 text-l-base leading-[30px]" data-discountPrice="${discountPrice}" id="discountPrice" data-img=${getPbImageURL(
+    data,
+    'thumbImg'
+  )}
   >${comma(discountPrice)}원</span
   >
   ${
@@ -137,6 +142,7 @@ export async function addCart(addCartPopup) {
   const auth = await getStorage('auth');
   const data = {
     productId: getNode('.product__info--template p').dataset.id,
+    imgSrc: getNode('.product__info--template span').dataset.img,
     amount: Number(getNode('.product__amount').innerText),
     name: getNode('.product__info--template p').innerText,
     auth,
@@ -150,6 +156,7 @@ export async function addCart(addCartPopup) {
     await addCartLocalStorage(data, addCartPopup);
   }
   updateCartBadge();
+  showBubble(data);
 }
 
 async function addCartDB(data, addCartPopup) {
@@ -221,4 +228,25 @@ async function addCartLocalStorage(data, addCartPopup) {
   await setStorage('cart', cart);
   addCartPopup.close();
   alert(`장바구니에 ${name}을 담았습니다.`);
+}
+
+async function showBubble(data) {
+  const { name, imgSrc } = data;
+  // 헤더 두 가지 버전이기 때문에 bubble도 두 가지 헤더에 모두 달려있음. 따라서 getNodes로 가져옴
+  const bubble = getNodes('.header__bubble');
+  bubble.forEach((element) => {
+    const bubbleImg = element.querySelector('.header__bubble-img');
+    const bubbleFigcaption = element.querySelector(
+      '.header__bubble-figcaption'
+    );
+    // 말풍선에 이미지 넣기
+    bubbleImg.src = imgSrc;
+    // 말풍선에 물품명 넣기
+    bubbleFigcaption.innerText = name;
+    // 말풍선 띄우기
+    element.style.display = 'block';
+    setTimeout(() => {
+      element.style.display = 'none';
+    }, 3000);
+  });
 }

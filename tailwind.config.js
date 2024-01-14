@@ -125,6 +125,18 @@ export default {
         'check--yes': 'right bottom',
       },
     },
+    animation: {
+      fadeIn: 'fadeIn 3s',
+    },
+
+    keyframes: {
+      fadeIn: {
+        '0%': { opacity: 0 },
+        '30%': { opacity: 1 },
+        '80%': { opacity: 1 },
+        '100%': { opacity: 0 },
+      },
+    },
   },
   plugins: [],
 };
