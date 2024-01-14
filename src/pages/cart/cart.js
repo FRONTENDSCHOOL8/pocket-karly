@@ -6,6 +6,7 @@ import {
   insertFirst,
   clearContents,
   comma,
+  getStorage,
 } from '/src/lib';
 import '/src/styles/tailwind.css';
 import '/src/pages/components/js/include.js';
@@ -695,3 +696,31 @@ changeAddressButton.addEventListener('click', () => {
 changeAddressButton.addEventListener('click', () => {
   execDaumPostcode();
 });
+
+
+/* -------------------------------------------------------------------------- */
+
+async function handleOrderButton(e) {
+  e.preventDefault();
+  const auth = await getStorage('auth');
+  if (!auth) {
+    alert('로그인 해주세요.');
+    return;
+  }
+
+  // 장바구니에서 체크박스 선택한 상품
+  const deleteData = productStateArr.filter(
+    (product) => product.state === true
+  );
+
+  // carts collection 에서 데이터 삭제
+  for (const element of deleteData) {
+    await pb.collection('carts').delete(element.id);
+  }
+
+  alert('주문이 완료되었습니다.');
+  location.reload();
+}
+const orderButton = getNode('.button__order');
+orderButton.addEventListener('click', handleOrderButton);
+
