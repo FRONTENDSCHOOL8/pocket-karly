@@ -39,7 +39,7 @@ setDocumentTitle(productData.name);
 onPageLoad();
 
 async function onPageLoad() {
-  console.log('onPageLoad');
+  // console.log('onPageLoad');
   // 해당 상품의 정보 가져옴
 
   const productImgURL = getPbImageURL(productData, 'thumbImg');
@@ -76,7 +76,7 @@ async function onPageLoad() {
 }
 
 async function drawViewedProduct(swiper) {
-  console.log('drawViewedProduct');
+  // console.log('drawViewedProduct');
   // local storage의 'viewedProduct'에 최근본상품 정보 저장되어 있음
   const viewedProduct = await getStorage('viewedProduct');
 
@@ -288,31 +288,33 @@ async function renderProductData() {
                 </div>
               </li>
               <li class="box-border flex h-14 gap-3 overflow-hidden">
-                <button>
-                  <svg
-                    class=""
-                    role="img"
-                    width="56"
-                    height="184"
-                    viewBox="0 64 56 184"
-                  >
-                    <use href="/src/assets/svg/_sprite.svg#squre" />
-                  </svg>
-                </button>
-                <button>
-                  <svg
-                    class=""
-                    role="img"
-                    width="56"
-                    height="184"
-                    viewBox="0 128 56 184"
-                  >
-                    <use href="/src/assets/svg/_sprite.svg#squre" />
-                  </svg>
-                </button>
-                <button class="button--purple__big w-full detail__button-cart">
-                  장바구니 담기
-                </button>
+
+                  <button class="squre">
+                    <svg
+                      class="squre__icon"
+                      role="img"
+                      width="56"
+                      height="184"
+                      viewBox="0 64 56 184"
+                    >
+                      <use href="/src/assets/svg/_sprite.svg#squre" />
+                    </svg>
+                  </button>
+                  <button>
+                    <svg
+                      class=""
+                      role="img"
+                      width="56"
+                      height="184"
+                      viewBox="0 128 56 184"
+                    >
+                      <use href="/src/assets/svg/_sprite.svg#squre" />
+                    </svg>
+                  </button>
+                  <button type="button" class="button--purple__big w-full detail__button-cart">
+                    장바구니 담기
+                  </button>
+
               </li>
             </ul>
           </div>
@@ -348,7 +350,7 @@ async function renderProductData() {
         </h3>
       </section>
       <section>
-        <div class="mt-24 flex flex-col items-center">
+        <div class="mt-24 flex flex-col items-center ">
           <h3 class="text-h-3xl">Karly's Check Point</h3>
           <img class="mt-24" src="${detailImgArr[1]}" alt="${
             detailImgAlt[fileNameArr[1]]
@@ -382,6 +384,24 @@ async function renderProductData() {
     // 값 증가시킴
     amountSpan.textContent = currentValue + 1;
   }
+
+  // 클릭시 좋아요
+  const squreButton = getNode('.squre');
+  const viewBox1 = '0 64 56 184';
+  const viewBox2 = '0 0 56 184';
+
+  squreButton.addEventListener('click', function () {
+    if (isAuth) {
+      const svg = this.querySelector('.squre__icon');
+      const currentViewBox = svg.getAttribute('viewBox');
+      const newViewBox = currentViewBox === viewBox1 ? viewBox2 : viewBox1;
+
+      svg.setAttribute('viewBox', newViewBox);
+    } else {
+      alert('로그인하셔야 본 서비스를 이용하실 수 있습니다.');
+      window.location.href = '/src/pages/login/';
+    }
+  });
 
   // 클릭 이벤트 리스너 추가
   minusButton.addEventListener('click', minusAmount);
