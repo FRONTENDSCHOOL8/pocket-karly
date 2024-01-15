@@ -393,6 +393,41 @@ async function drawProductBox(collection, page, perPage, option) {
     sort,
     requestKey: null,
   });
+
+  // 낮은 가격순 정렬일 경우 정렬 기준을 '원가'가 아닌 원가에 discount 반영된 가격을 기준으로 정렬해줘야함
+  if (sort === 'price') {
+    data.items.sort((a, b) => {
+      if (
+        Math.floor((a.price - a.price * (a.discount * 0.01)) / 10) * 10 >
+        Math.floor((b.price - b.price * (b.discount * 0.01)) / 10) * 10
+      )
+        return 1;
+      if (
+        Math.floor((a.price - a.price * (a.discount * 0.01)) / 10) * 10 <
+        Math.floor((b.price - b.price * (b.discount * 0.01)) / 10) * 10
+      )
+        return -1;
+      return 0;
+    });
+  }
+
+  // 높은 가격순 정렬일 경우 정렬 기준을 '원가'가 아닌 원가에 discount 반영된 가격을 기준으로 정렬해줘야함
+  if (sort === '-price') {
+    data.items.sort((a, b) => {
+      if (
+        Math.floor((a.price - a.price * (a.discount * 0.01)) / 10) * 10 <
+        Math.floor((b.price - b.price * (b.discount * 0.01)) / 10) * 10
+      )
+        return 1;
+      if (
+        Math.floor((a.price - a.price * (a.discount * 0.01)) / 10) * 10 >
+        Math.floor((b.price - b.price * (b.discount * 0.01)) / 10) * 10
+      )
+        return -1;
+      return 0;
+    });
+  }
+
   deleteNode('.list_div-productBox');
   if (data.totalItems === 0) {
     getNode('#no-item').style.display = 'flex';
