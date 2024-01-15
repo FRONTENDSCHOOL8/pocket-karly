@@ -212,14 +212,14 @@ async function renderProductData() {
               </li>
               <li class="flex border-b border-gray-100 py-4">
                 <dt class="w-32 text-l-sm text-gray-500">알레르기정보</dt>
-                <dd class="text-p-wsm text-gray-500">
-                  <p>${alergy}</p>
+                <dd class="w-[432px] text-wrap text-p-wsm text-gray-500">
+                  <p class="">${alergy}</p>
                 </dd>
               </li>
               <li class="mb-4 mt-4 flex">
                 <dt class="w-32 text-l-sm text-gray-500">상품선택</dt>
                 <dd
-                  class="relative flex w-full justify-between border-x border-y border-gray-100"
+                  class="w-[432px] relative flex  justify-between border-x border-y border-gray-100"
                 >
                   <div class="px-4 py-3">
                     <div class="flex flex-col items-start gap-3">
@@ -318,7 +318,7 @@ async function renderProductData() {
           </div>
         </section>
       </div>
-      <section class="sticky top-[72px]">
+      <section class="sticky top-[72px] z-20">
         <ul class="nav-bar flex box-border">
         <li class="w-full button--gray__big">
             <a href="#productExplain" class="inline-block w-full py-[15px] text-center text-l-base">상품설명</a>
