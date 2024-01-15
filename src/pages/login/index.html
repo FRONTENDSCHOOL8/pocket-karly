@@ -27,8 +27,12 @@
             placeholder="비밀번호를 입력해 주세요"
           />
           <div class="pb-4">
-            <a class="text-sm" href="/">아이디 찾기</a>
-            <a class="text-sm" href="/">비밀번호 찾기</a>
+            <a class="text-sm" href="/src/pages/register/index.html"
+              >아이디 찾기</a
+            >
+            <a class="text-sm" href="/src/pages/register/index.html"
+              >비밀번호 찾기</a
+            >
           </div>
           <button class="loginButton button--purple__big w-85" type="submit">
             로그인
@@ -41,6 +45,21 @@
         </div>
       </fieldset>
     </form>
+    <dialog
+      class="modal__alert overflow-hidden rounded-[10px] shadow-Below/Medium"
+    >
+      <div class="relative h-[185px] w-[370px] bg-white">
+        <p
+          class="modal__text--alert px-5 py-14 text-center text-l-base text-gray-800"
+        ></p>
+        <button
+          type="button"
+          class="button__alert absolute bottom-0 right-0 w-full border-t border-t-gray-100 bg-white py-[14px] text-l-base text-primary"
+        >
+          확인
+        </button>
+      </div>
+    </dialog>
     <footer data-include-path="/src/pages/components/footer.html"></footer>
   </body>
 </html>
