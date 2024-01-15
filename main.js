@@ -32,12 +32,24 @@ const swiperProduct = new Swiper('.swiper-product', {
     nextEl: '.swiper-button-next-product',
   },
   on: {
+    init() {
+      const prevButton = document.querySelector('.swiper-button-prev-product');
+      prevButton.style.display = 'none'; // 초기화시 왼쪽 버튼 숨기기
+    },
     slideChange() {
       const nextButton = document.querySelector('.swiper-button-next-product');
+      const prevButton = document.querySelector('.swiper-button-prev-product');
+
       if (this.isEnd) {
         nextButton.style.display = 'none';
       } else {
         nextButton.style.display = 'block';
+      }
+
+      if (this.isBeginning) {
+        prevButton.style.display = 'none';
+      } else {
+        prevButton.style.display = 'block';
       }
     },
   },
@@ -52,16 +64,30 @@ const swiperDiscount = new Swiper('.swiper-discount', {
     nextEl: '.swiper-button-next-discount',
   },
   on: {
+    init() {
+      const prevButton = document.querySelector('.swiper-button-prev-discount');
+      prevButton.style.display = 'none'; // 초기화시 왼쪽 버튼 숨기기
+    },
     slideChange() {
       const nextButton = document.querySelector('.swiper-button-next-discount');
+      const prevButton = document.querySelector('.swiper-button-prev-discount');
+
       if (this.isEnd) {
         nextButton.style.display = 'none';
       } else {
         nextButton.style.display = 'block';
       }
+
+      if (this.isBeginning) {
+        prevButton.style.display = 'none';
+      } else {
+        prevButton.style.display = 'block';
+      }
     },
   },
 });
+
+swiperProduct.init(); // Swiper 초기화
 
 // 메인페이지 배너 swiper 그리기
 drawBannerSwiper(swiperBanner);
