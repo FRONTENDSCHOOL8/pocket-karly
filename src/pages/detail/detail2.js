@@ -127,6 +127,7 @@ async function renderReviews() {
             )}.${created.slice(8, 10)}</p>
           </div>
           <button
+            data-like
             class="absolute bottom-5 right-5 flex h-8 items-center justify-center gap-1  rounded-4xl border border-gray-200 px-4 text-p-sm text-gray-200 hover:fill-primary hover:text-primary"
             id="recommandButton"
             type="button"
@@ -153,6 +154,7 @@ async function renderReviews() {
   }
 }
 
+// 정렬 버튼 기능 구현
 function handleSortButton(e) {
   const { target } = e;
   const reviewArticle = getNodes('.review__article');
@@ -313,7 +315,7 @@ ${feedbacks_content ? feedbackTemplate : ''}
   });
 }
 
-// Post 리뷰 - 추후에 상품hash랑 Userhash 넘겨야함
+// Post 리뷰
 async function postReview(e) {
   e.preventDefault();
   const reviewTitle = getNode('#reviewTitle');
@@ -340,7 +342,7 @@ async function postReview(e) {
   }
 }
 
-// Post 문의하기 - 추후에 상품hash 넘겨야함
+// Post 문의하기
 async function postInpuiries(e) {
   e.preventDefault();
 
@@ -530,3 +532,38 @@ renderReviews();
 renderInquiries();
 reviewForm.addEventListener('input', activeReviewButton);
 inquiriesForm.addEventListener('input', activeInquiriesButton);
+
+//도움돼요 버튼 구현
+// 버튼 요소 가져오기
+// 초기 상태 설정
+
+// 클릭 이벤트 핸들러 등록
+const reviewSection = getNode('#reviewSection');
+
+async function handlerecommandButton(e) {
+  // const response = await pb.collection('reviews').getFullList();
+  // 상태 변경
+  const { target } = e;
+  const button = target.closest('button');
+  console.log(button);
+  // console.log(target);
+  const isLike = !!button.dataset.like;
+  // console.log(isLike);
+
+  // 상태에 따라 버튼 텍스트 변경
+  if (isLike) {
+    button.dataset.like = '';
+    removeClass(button, 'border-primary');
+    removeClass(button, 'text-primary');
+    addClass(button, 'border-gray-200');
+    addClass(button, 'text-gray-200');
+  } else {
+    button.dataset.like = 'like';
+
+    addClass(button, 'border-primary');
+    addClass(button, 'text-primary');
+    removeClass(button, 'border-gray-200');
+    removeClass(button, 'text-gray-200');
+  }
+}
+reviewSection.addEventListener('click', handlerecommandButton);
