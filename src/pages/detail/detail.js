@@ -39,7 +39,6 @@ setDocumentTitle(productData.name);
 onPageLoad();
 
 async function onPageLoad() {
-  // console.log('onPageLoad');
   // 해당 상품의 정보 가져옴
 
   const productImgURL = getPbImageURL(productData, 'thumbImg');
@@ -76,7 +75,6 @@ async function onPageLoad() {
 }
 
 async function drawViewedProduct(swiper) {
-  // console.log('drawViewedProduct');
   // local storage의 'viewedProduct'에 최근본상품 정보 저장되어 있음
   const viewedProduct = await getStorage('viewedProduct');
 
