@@ -544,6 +544,9 @@ async function handlerecommandButton(e) {
   // 상태 변경
   const { target } = e;
   const button = target.closest('button');
+  if (!button) {
+    return;
+  }
   const isLike = !!button.dataset.like;
 
   // 상태에 따라 버튼 텍스트 변경
