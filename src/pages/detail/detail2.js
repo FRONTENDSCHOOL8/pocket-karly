@@ -178,7 +178,6 @@ function handleSortButton(e) {
 }
 
 function removeNodes(node) {
-  console.log(node);
   node.forEach((item) => {
     item.remove();
   });
@@ -545,10 +544,7 @@ async function handlerecommandButton(e) {
   // 상태 변경
   const { target } = e;
   const button = target.closest('button');
-  console.log(button);
-  // console.log(target);
   const isLike = !!button.dataset.like;
-  // console.log(isLike);
 
   // 상태에 따라 버튼 텍스트 변경
   if (isLike) {

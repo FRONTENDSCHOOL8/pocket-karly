@@ -650,7 +650,6 @@ updateTemplate();
 async function deleteProduct(e) {
   const productId =
     e.target.closest('li').firstElementChild.firstElementChild.dataset.record;
-  console.log(productId);
 
   if (isAuth) {
     // 회원 DB 데이터 삭제
@@ -725,7 +724,6 @@ export const checkAll = (elem) => {
         });
       });
     }
-    // console.log(selectedProductArrKey('state', true, 'id'));
     renderCartNum();
     updateTemplate();
   };
