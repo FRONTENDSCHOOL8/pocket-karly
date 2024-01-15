@@ -128,7 +128,6 @@ function regPw() {
     if (count >= 2) {
       addClass(errText, 'hidden');
       addClass(errText2, 'hidden');
-      // console.log('조건을 만족합니다.');
     } else {
       addClass(errText, 'hidden');
       removeClass(errText2, 'hidden');
@@ -265,7 +264,6 @@ reAddressButton.addEventListener('click', execDaumPostcode);
 
 //주소 입력 상태 확인
 function checkInputaddress() {
-  console.log(addressInput.value);
   if (addressInput.value) {
     state.address = true;
   } else {
