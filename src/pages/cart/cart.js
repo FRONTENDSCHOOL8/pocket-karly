@@ -4,6 +4,7 @@ import {
   getNodes,
   getPbImageURL,
   getStorage,
+  setStorage,
   insertFirst,
   clearContents,
   comma,
@@ -62,56 +63,44 @@ if (isAuth) {
 } else {
   // *cart 유무에 따라서 데이터 불러올지 말지도 처리해주면 좋을 듯
   try {
-    const cartData = await getStorage('cart');
+    const getProductData = async (productRecordFilters, packageType) => {
+      return await pb.collection('products').getFullList({
+        filter: `(${productRecordFilters}) && packageType = "${packageType}"`,
+      });
+    };
+
+    const getCartData = async () => {
+      return await getStorage('cart');
+    };
+
+    const getFilteredCartData = (cartData, productData) => {
+      return cartData.reduce((filteredData, cartItem) => {
+        const matchProduct = productData.find(
+          (product) => product.id === cartItem['products_record']
+        );
+        if (matchProduct) {
+          filteredData.push({ ...cartItem, ...matchProduct });
+        }
+        return filteredData;
+      }, []);
+    };
+
+    const cartData = await getCartData();
     const productRecordFilters = cartData
       .map((item) => `id="${item['products_record']}"`)
       .join('||');
 
-    const coldData = await pb.collection('products').getFullList({
-      filter: `(${productRecordFilters}) && packageType = "냉장식품"`,
-    });
-    // console.log('coldData: ', coldData);
+    const coldData = await getProductData(productRecordFilters, '냉장식품');
+    cartDataCold = getFilteredCartData(cartData, coldData);
 
-    const freezeData = await pb.collection('products').getFullList({
-      filter: `(${productRecordFilters}) && packageType = "냉동식품"`,
-    });
-    // console.log('freezeData: ', freezeData);
+    const freezeData = await getProductData(productRecordFilters, '냉동식품');
+    cartDataFreeze = getFilteredCartData(cartData, freezeData);
 
-    const roomData = await pb.collection('products').getFullList({
-      filter: `(${productRecordFilters}) && packageType = "상온식품"`,
-    });
-    // console.log('roomData: ', roomData);
-
-    cartDataCold = [];
-    cartData.forEach((cartData) => {
-      coldData.forEach((coldData) => {
-        if (cartData['products_record'] === coldData.id) {
-          cartDataCold.push({ ...cartData, ...coldData });
-        }
-      });
-    });
-
-    cartDataFreeze = [];
-    cartData.forEach((cartData) => {
-      freezeData.forEach((freezeData) => {
-        if (cartData['products_record'] === freezeData.id) {
-          cartDataFreeze.push({ ...cartData, ...freezeData });
-        }
-      });
-    });
-
-    cartDataRoom = [];
-    cartData.forEach((cartData) => {
-      roomData.forEach((roomData) => {
-        if (cartData['products_record'] === roomData.id) {
-          cartDataRoom.push({ ...cartData, ...roomData });
-        }
-      });
-    });
+    const roomData = await getProductData(productRecordFilters, '상온식품');
+    cartDataRoom = getFilteredCartData(cartData, roomData);
   } catch {
     console.log('장바구니에 담긴 상품이 없습니다');
   }
-  console.log('cartDataRoom', cartDataRoom);
   addressSection.classList.add('hidden');
   orderButton.textContent = '로그인';
   orderButton.addEventListener('click', () => {
@@ -483,7 +472,6 @@ if (cartDataCold.length || cartDataFreeze.length || cartDataRoom.length) {
 // * target은 input(dom), products_record는 상품id
 function checkState(target, productId, id) {
   cartState[id] = target.checked;
-  // console.log('trueKeys(cartState): ', trueKeys(cartState));
 
   productStateArr.forEach((obj) => {
     if (obj['products_record'] === productId) {
@@ -616,6 +604,7 @@ function updateTemplate() {
   clearContents('.result--template');
   const { netPrice, discountPrice, resultPrice } = calcTotalPrice();
   const deliveryFee = resultPrice >= 40000 || resultPrice === 0 ? 0 : 3000;
+  const reward = Math.round(resultPrice * 0.0005);
 
   const templateResult = /* html */ `
     <ul class="text-p-base text-content">
@@ -644,7 +633,11 @@ function updateTemplate() {
     </div>
     <p class="points relative text-right text-l-sm text-content">
       <span class="rounded-sm bg-accent-yellow px-2 py-1 mr-1 text-white">적립</span>
-      ${isAuth ? '최대 36원 적립 일반 0.1%' : '로그인 후 회원 등급에 따라 적립'}
+      ${
+        isAuth
+          ? `최대 ${reward}원 적립 일반 0.1%`
+          : `로그인 후 회원 등급에 따라 적립`
+      }
     </p>
   `;
   insertFirst('.result--template', templateResult);
@@ -716,28 +709,63 @@ function selectedProductArrKey(key, value, resultKey) {
 
 // ^상품 삭제 함수 (x버튼 클릭 - 개별 삭제)
 async function deleteProduct(e) {
-  const { id } = isAuth['user'];
-  console.log('id: ', id);
-
   const productId =
     e.target.closest('li').firstElementChild.firstElementChild.dataset.record;
   console.log(productId);
 
-  const cartDataCold = await pb.collection('carts').getFullList({
-    filter: `users_record = "${id}" && products_record = "${productId}"`,
-  });
-  await pb.collection('carts').delete(cartDataCold[0].id);
+  if (isAuth) {
+    // 회원 DB 데이터 삭제
+    const { id } = isAuth['user'];
+
+    const cartDataCold = await pb.collection('carts').getFullList({
+      filter: `users_record = "${id}" && products_record = "${productId}"`,
+    });
+    await pb.collection('carts').delete(cartDataCold[0].id);
+  } else {
+    // 비회원 로컬스토리지 데이터 삭제
+    const cartData = await getStorage('cart');
+
+    const saveCartData = cartData.filter((data) => {
+      return data['products_record'] !== productId;
+    });
+    setStorage('cart', saveCartData);
+  }
   location.reload();
 }
 
 // ^선택삭제 버튼 클릭시 선택된 상품 삭제
 async function deleteSelectedProduct() {
   const selectedProductIds = selectedProductArrKey('state', true, 'id');
-  for (const id of selectedProductIds) {
-    await pb.collection('carts').delete(id);
+
+  if (isAuth) {
+    // 회원 DB 데이터 삭제
+    for (const id of selectedProductIds) {
+      await pb.collection('carts').delete(id);
+    }
+  } else {
+    // 비회원 로컬스토리지 데이터 삭제
+    const cartData = await getStorage('cart');
+
+    // 조건에 해당하지 않는 요소만 필터링 (saveData 얻기)
+    const filterArrayByCondition = (arr, conditionFunc) => {
+      return arr.filter(conditionFunc);
+    };
+
+    const filtering = (data) => {
+      for (const id of selectedProductIds) {
+        if (data['products_record'] === id) {
+          return false;
+        }
+      }
+      return true;
+    };
+
+    const saveCartData = filterArrayByCondition(cartData, filtering);
+    setStorage('cart', saveCartData);
   }
   location.reload();
 }
+// }
 
 /* -------------------------------------------------------------------------- */
 // 버튼 클릭 이벤트 함수

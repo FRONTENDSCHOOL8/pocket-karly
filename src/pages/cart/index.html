@@ -220,14 +220,32 @@
               </h3>
               <form action="#">
                 <address class="my-3 text-l-base not-italic"></address>
+                <label for="address" class="sr-only">주소</label>
                 <input
                   type="text"
                   id="address"
                   name="address"
-                  readonly="readonly"
+                  class="cart__input-address sr-only"
                 />
+                <div class="detail-address mb-4 flex hidden justify-between">
+                  <label for="detailAddress" class="sr-only">상세주소</label>
+                  <input
+                    class="w-44 px-3 py-1"
+                    type="text"
+                    id="detailAddress"
+                    placeholder="나머지 주소를 입력해주세요"
+                  />
+                  <button
+                    disabled
+                    type="button"
+                    class="button__detail-address button__default w-14 border border-gray-300 text-gray-300"
+                  >
+                    확인
+                  </button>
+                </div>
                 <span class="text-l-sm text-primary">샛별배송</span>
                 <button
+                  type="button"
                   class="button__change-address button--white__small mt-3 w-full"
                 >
                   배송지 변경
