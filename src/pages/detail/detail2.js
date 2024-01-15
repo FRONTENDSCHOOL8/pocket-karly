@@ -1,17 +1,16 @@
 import {
   getNode,
+  getNodes,
   addClass,
   removeClass,
   insertAfter,
   insertBefore,
-  setStorage,
   attr,
   getStorage,
   getPbImageURL,
 } from '/src/lib/';
 import '/src/styles/tailwind.css';
 import pb from '/src/api/pocketbase';
-import defaultAuthData from '/src/api/defaultAuthData';
 
 const reviewPlaceholder = getNode('.reviewPlaceholder');
 const inquiriesPlaceholder = getNode('.inquiriesPlaceholder');
@@ -53,22 +52,24 @@ const hash = window.location.hash.slice(1);
 const thisProductData = await pb
   .collection('products')
   .getOne(hash, { requestKey: null });
-console.log('thisProductData', thisProductData);
-console.log(thisProductData.thumbImg);
-console.log(thisProductData.collectionId);
 
 // 현재페이지에서 로그인 여부 상태 확인 후 localStorage로 auth 전달
-if (!localStorage.getItem('auth')) {
-  setStorage('auth', defaultAuthData);
-}
-// const auth = localStorage.getItem('auth');
-const { user, isAuth } = await getStorage('auth');
 
+const auth = await getStorage('auth');
+let loginUserId = '';
+if (auth) {
+  loginUserId = auth.user.id;
+}
+const sort = getNode('#sort');
+const sortRecommand = getNode('#sort--recommand');
+const sortRecent = getNode('#sort--recent');
+
+let sortType = 'recommand';
 // 리뷰 렌더링
 async function renderReviews() {
   const response = await pb.collection('reviews_users_data').getFullList({
     filter: `products_record = "${hash}"`,
-    sort: '-created',
+    sort: `-${sortType}`,
   });
   const reviewNumber = getNode('.reviewNumber');
   const number = response.length;
@@ -85,7 +86,7 @@ async function renderReviews() {
           viewBox="0 0 48 48"
           role="img"
         >
-          <use href="/public/icons/_sprite.svg#notice" />
+          <use href="/icons/_sprite.svg#notice" />
         </svg>
         <span>따끈한 첫 후기를 기다리고 있어요.</span>
       </div>
@@ -100,8 +101,8 @@ async function renderReviews() {
       isBestReview,
       created,
       content,
+      recommand,
     } = item;
-    console.log('item', item);
 
     // 사용자 이름 보안처리
     const secureName = encryptName(user_name);
@@ -137,10 +138,10 @@ async function renderReviews() {
               viewBox="0 0 14 14"
               role="img"
             >
-              <use href="/public/icons/_sprite.svg#thumb" />
+              <use href="/icons/_sprite.svg#thumb" />
             </svg>
             도움돼요
-            <span>24</span>
+            <span>${recommand === 0 ? '' : recommand}</span>
           </button>
         </article>
     `;
@@ -151,6 +152,37 @@ async function renderReviews() {
     insertBefore(reviewPagenation, emptyReview);
   }
 }
+
+function handleSortButton(e) {
+  const { target } = e;
+  const reviewArticle = getNodes('.review__article');
+  if (target.id === 'sort--recommand') {
+    removeClass(sortRecommand, 'text-gray-300');
+    removeClass(sortRecent, 'text-content');
+    addClass(sortRecommand, 'text-content');
+    addClass(sortRecent, 'text-gray-300');
+    sortType = 'recommand';
+  }
+
+  if (target.id === 'sort--recent') {
+    removeClass(sortRecent, 'text-gray-300');
+    removeClass(sortRecommand, 'text-content');
+    addClass(sortRecent, 'text-content');
+    addClass(sortRecommand, 'text-gray-300');
+    sortType = 'created';
+  }
+  removeNodes(reviewArticle);
+  renderReviews();
+}
+
+function removeNodes(node) {
+  console.log(node);
+  node.forEach((item) => {
+    item.remove();
+  });
+}
+
+sort.addEventListener('click', handleSortButton);
 
 // 문의하기 렌더링
 async function renderInquiries() {
@@ -191,7 +223,7 @@ async function renderInquiries() {
       viewBox="0 0 24 24"
       role="img"
     >
-      <use href="/public/icons/_sprite.svg#answer" />
+      <use href="/icons/_sprite.svg#answer" />
     </svg>
     <div>
     ${feedbacks_content}
@@ -208,8 +240,8 @@ async function renderInquiries() {
 <summary
   class="flex cursor-pointer items-center border-b border-b-gray-100"
 >
-  <h3 class="inquiries__h3">${title} ${
-    users_record === user.id
+  <h3 class="inquiries__h3">${title}${
+    users_record === loginUserId && isSecure
       ? `<svg
       class = "ml-5"
   aria-hidden="true"
@@ -237,7 +269,7 @@ async function renderInquiries() {
       viewBox="0 0 24 24"
       role="img"
     >
-      <use href="/public/icons/_sprite.svg#question" />
+      <use href="/icons/_sprite.svg#question" />
     </svg>
     <div>
     ${content}
@@ -270,7 +302,7 @@ ${feedbacks_content ? feedbackTemplate : ''}
 
     //비밀글 여부
     if (isSecure) {
-      if (users_record === user.id) {
+      if (users_record === loginUserId) {
         insertBefore(inquiriesPagenation, unsecuredTemplate);
       } else {
         insertBefore(inquiriesPagenation, securedTemplate);
@@ -294,7 +326,7 @@ async function postReview(e) {
 
   const data = {
     products_record: hash,
-    users_record: user.id,
+    users_record: loginUserId,
     title: reviewTitle.value,
     content: reviewText.value,
   };
@@ -323,7 +355,7 @@ async function postInpuiries(e) {
 
   const data = {
     products_record: hash,
-    users_record: user.id,
+    users_record: loginUserId,
     title: inquiriesTitle.value,
     content: inquiriesText.value,
     isSecure: secret.checked,
@@ -436,7 +468,7 @@ function openModal(e) {
   inquiriesFigcap.textContent = `${thisProductData.name}`;
   reviewFigcap.textContent = `${thisProductData.name}`;
 
-  if (!isAuth) {
+  if (!auth) {
     alert('로그인이 필요합니다.');
     window.location.href = '/src/pages/login/';
   } else {
@@ -492,7 +524,9 @@ renderReviewNotice();
 renderInquiriesNotice();
 postReviewButton.addEventListener('click', postReview);
 postInquiriesButton.addEventListener('click', postInpuiries);
+
 renderReviews();
+
 renderInquiries();
 reviewForm.addEventListener('input', activeReviewButton);
 inquiriesForm.addEventListener('input', activeInquiriesButton);
