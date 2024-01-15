@@ -189,6 +189,10 @@ const header = async () => {
           pb.authStore.clear();
           deleteStorage('auth');
           await pb.collection('users').delete(user.id);
+          const carts = await pb.collection('carts').getFullList({
+            filter: `users_record = "${user.id}"`,
+          });
+          deleteCarts(carts);
           location.href = '/';
         } catch (error) {
           alert('회원 탈퇴에 실패했습니다.');
@@ -243,6 +247,12 @@ async function getCartAmountStorage() {
     total += products.amount;
   }
   return total;
+}
+
+async function deleteCarts(carts) {
+  for (const cart of carts) {
+    await pb.collection('carts').delete(cart.id);
+  }
 }
 
 /* -------------------------------------------------------------------------- */
