@@ -11,6 +11,7 @@ import {
 } from '/src/lib/';
 import '/src/styles/tailwind.css';
 import pb from '/src/api/pocketbase';
+import { openModal } from '/src/pages/components/js/modals.js';
 
 const reviewPlaceholder = getNode('.reviewPlaceholder');
 const inquiriesPlaceholder = getNode('.inquiriesPlaceholder');
@@ -38,6 +39,9 @@ const reviewPagenation = getNode('.review__pagenation');
 
 const reviewForm = getNode('.reviewForm');
 const inquiriesForm = getNode('.inquiriesForm');
+
+const modalAlert = getNode('.modal__alert');
+const modalAlertButton = getNode('.button__alert');
 
 const encryptName = (text) => {
   if (text.length === 0) return text;
@@ -321,7 +325,7 @@ async function postReview(e) {
   const reviewText = getNode('#reviewText');
 
   if (!reviewTitle.value || !reviewText.value) {
-    alert('입력사항을 다시 한 번 확인해주세요.');
+    openModal(modalAlert, '입력사항을 다시 한 번 확인해주세요.', 'alert');
     return;
   }
 
@@ -334,10 +338,10 @@ async function postReview(e) {
 
   try {
     await pb.collection('reviews').create(data);
-    alert('등록되었습니다.');
+    openModal(modalAlert, '등록되었습니다.', 'alert');
     location.reload(true);
   } catch {
-    alert('입력사항을 다시 한 번 확인해주세요.');
+    openModal(modalAlert, '입력사항을 다시 한 번 확인해주세요.', 'alert');
   }
 }
 
@@ -350,7 +354,7 @@ async function postInpuiries(e) {
   const secret = getNode('#secret');
 
   if (!inquiriesTitle.value || !inquiriesText.value) {
-    alert('입력사항을 다시 한 번 확인해주세요.');
+    openModal(modalAlert, '입력사항을 다시 한 번 확인해주세요.', 'alert');
     return;
   }
 
@@ -364,10 +368,10 @@ async function postInpuiries(e) {
 
   try {
     await pb.collection('inquiries').create(data);
-    alert('등록되었습니다.');
+    openModal(modalAlert, '등록되었습니다.', 'alert');
     location.reload(true);
   } catch {
-    alert('입력사항을 다시 한 번 확인해주세요.');
+    openModal(modalAlert, '입력사항을 다시 한 번 확인해주세요.', 'alert');
   }
 }
 
@@ -455,7 +459,7 @@ reviewText.addEventListener('input', countTextLength);
 inquiriesText.addEventListener('input', countTextLength);
 
 // 리뷰 및 문의 모달 활성화 구현
-function openModal(e) {
+function openModals(e) {
   e.preventDefault();
   const { target } = e;
 
@@ -470,14 +474,14 @@ function openModal(e) {
   reviewFigcap.textContent = `${thisProductData.name}`;
 
   if (!auth) {
-    alert('로그인이 필요합니다.');
+    openModal(modalAlert, '로그인이 필요합니다.', 'alert');
     window.location.href = '/src/pages/login/';
   } else {
     const dialog = target.nextElementSibling;
     dialog.showModal();
   }
 }
-function closeModal(e) {
+function closeModals(e) {
   e.preventDefault();
   const { target } = e;
   const dialog = target.closest('dialog');
@@ -515,10 +519,10 @@ inquiriesText.addEventListener(
   'input',
   removePlaceholder(inquiriesPlaceholder)
 );
-openReviewButton.addEventListener('click', openModal);
-openInquiriesButton.addEventListener('click', openModal);
-cancelReviewModal.addEventListener('click', closeModal);
-cancelInquiriesModal.addEventListener('click', closeModal);
+openReviewButton.addEventListener('click', openModals);
+openInquiriesButton.addEventListener('click', openModals);
+cancelReviewModal.addEventListener('click', closeModals);
+cancelInquiriesModal.addEventListener('click', closeModals);
 reviewText.addEventListener('input', countTextLength);
 inquiriesText.addEventListener('input', countTextLength);
 renderReviewNotice();
@@ -566,3 +570,4 @@ async function handlerecommandButton(e) {
   }
 }
 reviewSection.addEventListener('click', handlerecommandButton);
+modalAlertButton.addEventListener('click', () => modalAlert.close());

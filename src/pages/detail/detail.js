@@ -14,6 +14,10 @@ import pb from '/src/api/pocketbase';
 import '/src/styles/tailwind.css';
 import '/src/pages/components/js/include.js';
 import Swiper from 'swiper/bundle';
+import { openModal } from '/src/pages/components/js/modals.js';
+
+const modalAlert = getNode('.modal__alert');
+const modalAlertButton = getNode('.button__alert');
 
 const swiper = new Swiper('.swiper__sidebar', {
   direction: 'vertical',
@@ -401,7 +405,11 @@ async function renderProductData() {
 
       svg.setAttribute('viewBox', newViewBox);
     } else {
-      alert('로그인하셔야 본 서비스를 이용하실 수 있습니다.');
+      openModal(
+        modalAlert,
+        '로그인하셔야 본 서비스를 이용하실 수 있습니다.',
+        'alert'
+      );
       window.location.href = '/src/pages/login/';
     }
   });
@@ -549,3 +557,4 @@ function updateAcc(target, currentCount) {
 }
 
 cartButton.addEventListener('click', handleCartButton);
+modalAlertButton.addEventListener('click', () => modalAlert.close());
