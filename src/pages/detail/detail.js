@@ -236,7 +236,7 @@ async function renderProductData() {
                             width="46"
                             height="84"
                             viewBox="8 46 46 84">
-                            <use href="/src/assets/svg/_sprite.svg#minus" />
+                            <use href="/icons/_sprite.svg#minus" />
                           </svg>
                         </button>
                         <span
@@ -249,7 +249,7 @@ async function renderProductData() {
                             width="46"
                             height="84"
                             viewBox="8 8 46 84">
-                            <use href="/src/assets/svg/_sprite.svg#plus" />
+                            <use href="/icons/_sprite.svg#plus" />
                           </svg>
                           <!-- svg경로 assets에서 public으로 바꾸기! -->
                         </button>
@@ -295,7 +295,7 @@ async function renderProductData() {
                       height="184"
                       viewBox="0 64 56 184"
                     >
-                      <use href="/src/assets/svg/_sprite.svg#squre" />
+                      <use href="/icons/_sprite.svg#squre" />
                     </svg>
                   </button>
                   <button>
@@ -306,7 +306,7 @@ async function renderProductData() {
                       height="184"
                       viewBox="0 128 56 184"
                     >
-                      <use href="/src/assets/svg/_sprite.svg#squre" />
+                      <use href="/icons/_sprite.svg#squre" />
                     </svg>
                   </button>
                   <button type="button" class="button--purple__big w-full detail__button-cart">
