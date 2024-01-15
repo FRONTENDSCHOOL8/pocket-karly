@@ -235,8 +235,10 @@ function drawTemplate(swiper, data) {
   const shwoAllTemplate = /*html*/ `
   <li class="swiper-slide w-productBox-width">
     <div class="flex h-80 items-center justify-center">
-      <a href="/src/pages/productList/">
-        <img src="/src/assets/svg/goToTop.svg" alt="" />
+      <a href="/src/pages/productList/" class="flex flex-col items-center">
+        <svg role="img" width="60" height="60" viewBox="0 0 60 60 ">
+          <use href="/icons/_sprite.svg#goToTop" />
+        </svg>
         <span> 전체보기 </span>
       </a>
     </div>
