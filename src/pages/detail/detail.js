@@ -1,5 +1,6 @@
 import {
   getPbImageURL,
+  getPbImagesURL,
   setStorage,
   getStorage,
   insertFirst,
@@ -50,7 +51,6 @@ async function onPageLoad() {
 
   // 만약 아무것도 저장되어 있지 않다면 배열 만들어 viewedProduct 저장
   if (!viewedProduct) {
-    console.log('123');
     viewedProduct = [];
     viewedProduct.push(product);
     setStorage('viewedProduct', viewedProduct);
@@ -102,6 +102,7 @@ async function renderProductData() {
     discount,
     unit,
     packageType,
+    detailImgAlt,
   } = productData;
   const isAuth = await getStorage('auth');
   const discountPrice =
@@ -110,7 +111,14 @@ async function renderProductData() {
   const rewardMessage = isAuth
     ? `구매 시 ${reward}원 적립`
     : '로그인 후, 적립 혜택 제공';
-
+  // 상세정보 이미지 배열
+  const detailImgArr = getPbImagesURL(productData, 'detailImg');
+  // 상세정보 이미지 파일명 배열
+  const fileNameArr = productData.detailImg.map((file) => {
+    const extenisonIndex = file.indexOf('.');
+    const fileNameEndIndex = extenisonIndex - 11;
+    return file.slice(0, fileNameEndIndex);
+  });
   //////////
 
   const productTemplate = /* html */ `
@@ -326,10 +334,9 @@ async function renderProductData() {
     </section>
       
       <section>
-        <div id="productExplain" class="pt-10"><img class="w-262.5 h-167.5" src="${getPbImageURL(
-          productData,
-          'detailImg-1'
-        )}" alt="탱탱쫄면"></div>
+        <div id="productExplain" class="pt-10"><img class="w-262.5 h-167.5" src="${
+          detailImgArr[0]
+        }" alt="${detailImgAlt[fileNameArr[0]]}"></div>
         <h3 class="flex flex-col items-center">
           <span class="text-l-xl mt-[76px]">${detail}</span>
           <span class="text-h-3xl">${name}</span>
@@ -338,10 +345,14 @@ async function renderProductData() {
       <section>
         <div class="mt-24 flex flex-col items-center">
           <h3 class="text-h-3xl">Karly's Check Point</h3>
-          <img class="mt-24" src="/src/assets/images/ex/checkPoint.jpg" alt="칼리 포인트">
+          <img class="mt-24" src="${detailImgArr[1]}" alt="${
+            detailImgAlt[fileNameArr[1]]
+          }">
         </div>
       </section>
-      <img id="productInfo" class="mt-24" src="/src/assets/images/ex/product.jpg" alt="상품 설명">
+      <img id="productInfo" class="mt-24" src="${detailImgArr[2]}" alt="${
+        detailImgAlt[fileNameArr[2]]
+      }">
   `;
   insertFirst('.mainWrapper', productTemplate);
 
