@@ -375,6 +375,7 @@ async function renderProductData() {
     if (currentValue > 1) {
       amountSpan.textContent = currentValue - 1;
     }
+    updateTotalPrice(discountPrice);
   }
 
   function plusAmount() {
@@ -383,6 +384,7 @@ async function renderProductData() {
 
     // 값 증가시킴
     amountSpan.textContent = currentValue + 1;
+    updateTotalPrice(discountPrice);
   }
 
   // 클릭시 좋아요
@@ -516,6 +518,33 @@ async function showBubble(data) {
       element.style.display = 'none';
     }, 3000);
   });
+}
+
+// 상품 합계 업데이트
+async function updateTotalPrice(discountPrice) {
+  const productAmount = getNode('.product__amount');
+  const totalPrice = updateAcc(
+    Number(discountPrice),
+    Number(productAmount.textContent)
+  );
+
+  const reward = updateAcc(
+    Number(Math.round(discountPrice * 0.0005)),
+    Number(productAmount.textContent)
+  );
+  const totalPriceNode = getNode('.total');
+  totalPriceNode.innerText = comma(totalPrice);
+  const auth = await getStorage('auth');
+
+  if (auth) {
+    const rewardNode = getNode('.reward');
+    rewardNode.innerText = `구매 시 ${reward}원 적립`;
+  }
+}
+
+// 상품 수에 따라 합계를 누적
+function updateAcc(target, currentCount) {
+  return target * currentCount;
 }
 
 cartButton.addEventListener('click', handleCartButton);
