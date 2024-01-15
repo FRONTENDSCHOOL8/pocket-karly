@@ -12,30 +12,33 @@ import {
 import '/src/styles/tailwind.css';
 import '/src/pages/components/js/include.js';
 import { execDaumPostcode } from '/src/pages/components/js/addressApi.js';
-// import { createModal, openModal } from '/src/pages/components/js/modal.js';
+import { openModal } from '/src/pages/components/js/modals.js';
 
 const pb = new PocketBase(import.meta.env.VITE_PB_URL);
+const isAuth = await getStorage('auth');
 const packageTypeCold = getNode('.package__type--cold');
 const packageTypeFreeze = getNode('.package__type--freeze');
 const packageTypeRoom = getNode('.package__type--room');
 const nothingProduct = getNode('.cart__product--nothing');
 const addressSection = getNode('.user__address');
 const productTemplate = getNode('.product--template');
-const selectAlls = getNodes('input[name="select-all"]'); // 전체선택
-const orderButton = getNode('.button__order'); // 주문하기
 const productStateArr = []; // 상태관리
 const cartState = {}; // 상태관리
-const isAuth = await getStorage('auth');
+const cartCountElem = getNodes('.product__count'); // 상품 수량
+const selectAlls = getNodes('input[name="select-all"]'); // 전체선택 버튼
+const orderButton = getNode('.button__order'); // 주문하기 버튼
+const modalConfirm = getNode('.modal__confirm');
+const modalAlert = getNode('.modal__alert');
+const modalCancelButton = getNode('.button__cancel');
+const modalConfirmButton = getNode('.button__confirm');
+const modalAlertButton = getNode('.button__alert');
+
 let cartDataCold = [];
 let cartDataFreeze = [];
 let cartDataRoom = [];
+let amount;
 
-// & 모달 js 테스트
-// dialog로 수정해서 만들고싶음
-// 현재 배경 어둡게 처리랑 스크롤방지 기능이 안 들어감. 클릭하면 모달창 닫힘
-// const selectDeleteModal = createModal('선택한 상품을 삭제하시겠습니까?');
-
-// *만약에 로컬스토리지에 auth가 있다면(회원이라면)
+// 로컬스토리지에 auth가 있다면(회원이라면)
 if (isAuth) {
   const { id, address, detailAddress } = isAuth['user'];
   cartDataCold = await pb.collection('carts_products_data').getFullList({
@@ -119,42 +122,42 @@ cartDataCold.forEach((cart) => {
 
   const templateProduct = /* html */ `
     <li class="item flex items-center px-1 py-5">
-      <label
-        for=${removeNumbers(products_record)}
-        class="relative flex items-center text-l-base text-content"
+    <label
+    for=${removeNumbers(products_record)}
+    class="relative flex items-center text-l-base text-content"
       >
-        <input
-          checked
-          type="checkbox"
-          name="select__product"
-          id=${removeNumbers(products_record)}
-          class="peer absolute h-6 w-6 appearance-none"
-          data-record=${products_record}
-          data-id=${id}
-        />
-        <span
-          aria-hidden="true"
-          class="bg-input__button bg-check--no peer-checked:bg-check--yes inline-block h-6 w-6 cursor-pointer"
-        ></span>
+      <input
+      checked
+      type="checkbox"
+      name="select__product"
+      id=${removeNumbers(products_record)}
+      class="peer absolute h-6 w-6 appearance-none"
+      data-record=${products_record}
+      data-id=${id}
+      />
+      <span
+      aria-hidden="true"
+      class="bg-input__button bg-check--no peer-checked:bg-check--yes inline-block h-6 w-6 cursor-pointer"
+      ></span>
       </label>
       <div class="mx-2 w-[60px] overflow-hidden">
-        <a href="#">
-          <img
-            src=${getPbImageURL(cart, 'thumbImg')}
-            alt=${thumbImgAlt}
-            class="w-full scale-150"
-          />
-        </a>
+      <a href="#">
+      <img
+      src=${getPbImageURL(cart, 'thumbImg')}
+      alt=${thumbImgAlt}
+      class="w-full scale-150"
+      />
+      </a>
       </div>
       <p class="text-l-base text-black w-80">
-        <a href="#">${name}</a>
+      <a href="#">${name}</a>
       </p>
       <div
-        class="button__amount h-7.5 ml-6 mr-2 flex w-[90px] border border-gray-200"
+      class="button__amount h-7.5 ml-6 mr-2 flex w-[90px] border border-gray-200"
       >
         <button
-          type="button"
-          class="button__minus w-7.5 overflow-hidden"
+        type="button"
+        class="button__minus w-7.5 overflow-hidden"
           data-record=${products_record}
           data-amount="minus"
         >
@@ -163,49 +166,51 @@ cartDataCold.forEach((cart) => {
             width="46"
             height="84"
             viewBox="8 46 46 84"
-          >
+            >
             <use href="/icons/_sprite.svg#minus" />
-          </svg>
-        </button>
-        <span class="product__amount w-7.5 inline-block text-center align-top leading-[30px]">${amount}</span>
-        <button
-          type="button"
-          class="button__plus w-7.5 overflow-hidden"
-          data-record=${products_record}
-          data-amount="plus"
-        >
-          <svg
+            </svg>
+            </button>
+            <span class="product__amount w-7.5 inline-block text-center align-top leading-[30px]">${amount}</span>
+            <button
+            type="button"
+            class="button__plus w-7.5 overflow-hidden"
+            data-record=${products_record}
+            data-amount="plus"
+            >
+            <svg
             role="img"
             width="46"
             height="84"
             viewBox="8 8 46 84"
-          >
+            >
             <use href="/icons/_sprite.svg#plus" />
-          </svg>
-        </button>
-      </div>
-      <div class="product__price w-32 text-right">
-        <span class="text-l-base text-black">${comma(discountPrice)}원</span>
-        ${
-          discount === 0
-            ? ``
-            : `<del class="mt-1 block text-[14px] font-medium text-gray-400">${comma(
-                totalPrice
-              )}원</del>`
-        }
+            </svg>
+            </button>
+            </div>
+            <div class="product__price w-32 text-right">
+            <span class="text-l-base text-black">${comma(
+              discountPrice
+            )}원</span>
+            ${
+              discount === 0
+                ? ``
+                : `<del class="mt-1 block text-[14px] font-medium text-gray-400">${comma(
+                    totalPrice
+                  )}원</del>`
+            }
       </div>
       <button class="ml-2">
-        <svg
-          role="img"
-          width="30"
-          height="30"
+      <svg
+      role="img"
+      width="30"
+      height="30"
           viewBox="0 0 30 30"
         >
           <use href="/icons/_sprite.svg#cancel" />
-        </svg>
-      </button>
-    </li>
-  `;
+          </svg>
+          </button>
+          </li>
+          `;
 
   insertFirst('.product__cold--template', templateProduct);
 
@@ -236,57 +241,57 @@ cartDataFreeze.forEach((cart) => {
   const totalPrice = price * amount;
 
   const templateProduct = /* html */ `
-    <li class="flex items-center px-1 py-5">
-      <label
+  <li class="flex items-center px-1 py-5">
+  <label
         for=${removeNumbers(products_record)}
         class="relative flex items-center text-l-base text-content"
-      >
+        >
         <input
-          checked
-          type="checkbox"
-          name="select__product"
-          id=${removeNumbers(products_record)}
-          class="peer absolute h-6 w-6 appearance-none"
-          data-record=${products_record}
-          data-id=${id}
+        checked
+        type="checkbox"
+        name="select__product"
+        id=${removeNumbers(products_record)}
+        class="peer absolute h-6 w-6 appearance-none"
+        data-record=${products_record}
+        data-id=${id}
         />
         <span
-          aria-hidden="true"
-          class="bg-input__button bg-check--no peer-checked:bg-check--yes inline-block h-6 w-6 cursor-pointer"
+        aria-hidden="true"
+        class="bg-input__button bg-check--no peer-checked:bg-check--yes inline-block h-6 w-6 cursor-pointer"
         ></span>
-      </label>
-      <div class="mx-2 w-[60px] overflow-hidden">
+        </label>
+        <div class="mx-2 w-[60px] overflow-hidden">
         <a href="#">
           <img
             src=${getPbImageURL(cart, 'thumbImg')}
             alt=${thumbImgAlt}
             class="w-full scale-150"
           />
-        </a>
+          </a>
       </div>
       <p class="text-l-base text-black w-80">
-        <a href="#">${name}</a>
+      <a href="#">${name}</a>
       </p>
       <div
-        class="button__amount h-7.5 ml-6 mr-2 flex w-[90px] border border-gray-200"
+      class="button__amount h-7.5 ml-6 mr-2 flex w-[90px] border border-gray-200"
       >
         <button
-          type="button"
+        type="button"
           class="button__minus w-7.5 overflow-hidden"
           data-record=${products_record}
           data-amount="minus"
-        >
-          <svg
-            role="img"
-            width="46"
-            height="84"
-            viewBox="8 46 46 84"
           >
-            <use href="/icons/_sprite.svg#minus" />
+          <svg
+          role="img"
+          width="46"
+          height="84"
+          viewBox="8 46 46 84"
+          >
+          <use href="/icons/_sprite.svg#minus" />
           </svg>
-        </button>
-        <span class="product__amount w-7.5 inline-block text-center align-top leading-[30px]">${amount}</span>
-        <button
+          </button>
+          <span class="product__amount w-7.5 inline-block text-center align-top leading-[30px]">${amount}</span>
+          <button
           type="button"
           class="button__plus w-7.5 overflow-hidden"
           data-record=${products_record}
@@ -298,10 +303,10 @@ cartDataFreeze.forEach((cart) => {
             height="84"
             viewBox="8 8 46 84"
           >
-            <use href="/icons/_sprite.svg#plus" />
+          <use href="/icons/_sprite.svg#plus" />
           </svg>
-        </button>
-      </div>
+          </button>
+          </div>
       <div class="product__price w-32 text-right">
         <span class="text-l-base text-black">${comma(discountPrice)}원</span>
         ${
@@ -311,19 +316,19 @@ cartDataFreeze.forEach((cart) => {
                 totalPrice
               )}원</del>`
         }
-      </div>
-      <button class="ml-2">
-        <svg
-          role="img"
-          width="30"
+            </div>
+            <button class="ml-2">
+            <svg
+            role="img"
+            width="30"
           height="30"
           viewBox="0 0 30 30"
         >
-          <use href="/icons/_sprite.svg#cancel" />
+        <use href="/icons/_sprite.svg#cancel" />
         </svg>
-      </button>
-    </li>
-  `;
+        </button>
+        </li>
+        `;
 
   insertFirst('.product__freeze--template', templateProduct);
 
@@ -349,42 +354,42 @@ cartDataRoom.forEach((cart) => {
   const totalPrice = price * amount;
 
   const templateProduct = /* html */ `
-    <li class="flex items-center px-1 py-5">
-      <label
-        for=${removeNumbers(products_record)}
-        class="relative flex items-center text-l-base text-content"
-      >
-        <input
-          checked
+  <li class="flex items-center px-1 py-5">
+  <label
+  for=${removeNumbers(products_record)}
+  class="relative flex items-center text-l-base text-content"
+  >
+  <input
+  checked
           type="checkbox"
           name="select__product"
           id=${removeNumbers(products_record)}
           class="peer absolute h-6 w-6 appearance-none"
           data-record=${products_record}
           data-id=${id}
-        />
-        <span
+          />
+          <span
           aria-hidden="true"
           class="bg-input__button bg-check--no peer-checked:bg-check--yes inline-block h-6 w-6 cursor-pointer"
-        ></span>
+          ></span>
       </label>
       <div class="mx-2 w-[60px] overflow-hidden">
-        <a href="#">
+      <a href="#">
           <img
-            src=${getPbImageURL(cart, 'thumbImg')}
+          src=${getPbImageURL(cart, 'thumbImg')}
             alt=${thumbImgAlt}
             class="w-full scale-150"
-          />
-        </a>
-      </div>
-      <p class="text-l-base text-black w-80">
-        <a href="#">${name}</a>
-      </p>
-      <div
-        class="button__amount h-7.5 ml-6 mr-2 flex w-[90px] border border-gray-200"
-      >
-        <button
-          type="button"
+            />
+            </a>
+            </div>
+            <p class="text-l-base text-black w-80">
+            <a href="#">${name}</a>
+            </p>
+            <div
+            class="button__amount h-7.5 ml-6 mr-2 flex w-[90px] border border-gray-200"
+            >
+            <button
+            type="button"
           class="button__minus w-7.5 overflow-hidden"
           data-record=${products_record}
           data-amount="minus"
@@ -394,36 +399,36 @@ cartDataRoom.forEach((cart) => {
             width="46"
             height="84"
             viewBox="8 46 46 84"
-          >
+            >
             <use href="/icons/_sprite.svg#minus" />
-          </svg>
-        </button>
+            </svg>
+            </button>
         <span class="product__amount w-7.5 inline-block text-center align-top leading-[30px]">${amount}</span>
         <button
-          type="button"
-          class="button__plus w-7.5 overflow-hidden"
-          data-record=${products_record}
+        type="button"
+        class="button__plus w-7.5 overflow-hidden"
+        data-record=${products_record}
           data-amount="plus"
         >
-          <svg
-            role="img"
+        <svg
+        role="img"
             width="46"
             height="84"
             viewBox="8 8 46 84"
           >
-            <use href="/icons/_sprite.svg#plus" />
+          <use href="/icons/_sprite.svg#plus" />
           </svg>
-        </button>
-      </div>
-      <div class="product__price w-32 text-right">
-        <span class="text-l-base text-black">${comma(discountPrice)}원</span>
-        ${
-          discount === 0
-            ? ``
-            : `<del class="mt-1 block text-[14px] font-medium text-gray-400">${comma(
-                totalPrice
-              )}원</del>`
-        }
+          </button>
+          </div>
+          <div class="product__price w-32 text-right">
+          <span class="text-l-base text-black">${comma(discountPrice)}원</span>
+          ${
+            discount === 0
+              ? ``
+              : `<del class="mt-1 block text-[14px] font-medium text-gray-400">${comma(
+                  totalPrice
+                )}원</del>`
+          }
       </div>
       <button class="ml-2">
         <svg
@@ -431,12 +436,12 @@ cartDataRoom.forEach((cart) => {
           width="30"
           height="30"
           viewBox="0 0 30 30"
-        >
+          >
           <use href="/icons/_sprite.svg#cancel" />
-        </svg>
-      </button>
-    </li>
-  `;
+          </svg>
+          </button>
+          </li>
+          `;
 
   insertFirst('.product__room--template', templateProduct);
 
@@ -466,10 +471,9 @@ if (cartDataRoom.length) {
 if (cartDataCold.length || cartDataFreeze.length || cartDataRoom.length) {
   nothingProduct.classList.add('hidden');
 }
-
 /* -------------------------------------------------------------------------- */
-// ^ 상태변수 관리 - 상품 선택 여부를 체크하는 함수
-// * target은 input(dom), products_record는 상품id
+// ^상태변수 관리 - 상품 선택 여부를 체크하는 함수
+// target은 input(dom), products_record는 상품id
 function checkState(target, productId, id) {
   cartState[id] = target.checked;
 
@@ -480,17 +484,7 @@ function checkState(target, productId, id) {
   });
 }
 
-// ^ 선택된 제품의 carts id를 필터링하는 함수
-function makeCartsIdFilter(state) {
-  return trueKeys(state)
-    .map((cartId) => `id="${cartId}"`)
-    .join('||');
-}
-
-let cartIdFilter = makeCartsIdFilter(cartState);
-console.log('cartIdFilter: ', cartIdFilter);
-
-// ^ value가 true인 key만 배열로 만드는 함수
+// value가 true인 key만 배열로 만드는 함수
 function trueKeys(obj) {
   return Object.keys(obj).reduce((acc, key) => {
     if (obj[key] === true) {
@@ -501,16 +495,16 @@ function trueKeys(obj) {
 }
 
 /* -------------------------------------------------------------------------- */
-// 화면에 상품 개수 추가할 부분
-const cartCountElem = getNodes('.product__count');
+// key가 value인 객체의 resultKey의 value를 담은 배열 생성
+function selectedProductArrKey(key, value, resultKey) {
+  return productStateArr
+    .filter((obj) => obj[key] === value)
+    .map((obj) => obj[resultKey]);
+}
 
-// 전체 상품 개수
-const cartTotalNum = productStateArr.length;
-
-// 선택 상품 개수
-let cartSelectedNum = trueKeys(cartState).length;
-
-// ^선택된 상품 수 출력
+const cartTotalNum = productStateArr.length; // 전체 상품 수
+let cartSelectedNum = trueKeys(cartState).length; // 선택 상품 수
+// 선택된 상품 수 출력
 function renderCartNum() {
   cartSelectedNum = trueKeys(cartState).length;
   [...cartCountElem].forEach((elem) => {
@@ -519,9 +513,7 @@ function renderCartNum() {
 }
 renderCartNum();
 
-/* -------------------------------------------------------------------------- */
 // 수량 변경 함수
-let amount;
 function changeAmount(button, plusButton) {
   const amountElem = button.nextElementSibling || button.previousElementSibling;
   console.log('amountElem: ', amountElem);
@@ -547,7 +539,6 @@ function changeAmount(button, plusButton) {
   amountElem.textContent = amount;
   changePrice(button, amount);
   return amount;
-  // *객체에 저장한 amount를 DB로 바로 보내주어야 하나?
 }
 
 // 가격 변경 함수
@@ -644,6 +635,65 @@ function updateTemplate() {
 }
 updateTemplate();
 /* -------------------------------------------------------------------------- */
+// 상품 삭제 함수 (x버튼 클릭 - 개별 삭제)
+async function deleteProduct(e) {
+  const productId =
+    e.target.closest('li').firstElementChild.firstElementChild.dataset.record;
+  console.log(productId);
+
+  if (isAuth) {
+    // 회원 DB 데이터 삭제
+    const { id } = isAuth['user'];
+
+    const cartDataCold = await pb.collection('carts').getFullList({
+      filter: `users_record = "${id}" && products_record = "${productId}"`,
+    });
+    await pb.collection('carts').delete(cartDataCold[0].id);
+  } else {
+    // 비회원 로컬스토리지 데이터 삭제
+    const cartData = await getStorage('cart');
+
+    const saveCartData = cartData.filter((data) => {
+      return data['products_record'] !== productId;
+    });
+    setStorage('cart', saveCartData);
+  }
+  location.reload();
+}
+
+// 선택삭제 버튼 클릭시 선택된 상품 삭제
+async function deleteSelectedProduct() {
+  const selectedProductIds = selectedProductArrKey('state', true, 'id');
+
+  if (isAuth) {
+    // 회원 DB 데이터 삭제
+    for (const id of selectedProductIds) {
+      await pb.collection('carts').delete(id);
+    }
+  } else {
+    // 비회원 로컬스토리지 데이터 삭제
+    const cartData = await getStorage('cart');
+
+    // 조건에 해당하지 않는 요소만 필터링 (saveData 얻기)
+    const filterArrayByCondition = (arr, conditionFunc) => {
+      return arr.filter(conditionFunc);
+    };
+
+    const filtering = (data) => {
+      for (const id of selectedProductIds) {
+        if (data['products_record'] === id) {
+          return false;
+        }
+      }
+      return true;
+    };
+
+    const saveCartData = filterArrayByCondition(cartData, filtering);
+    setStorage('cart', saveCartData);
+  }
+  location.reload();
+}
+/* -------------------------------------------------------------------------- */
 export const checkAll = (elem) => {
   return (e) => {
     const { target } = e;
@@ -665,7 +715,6 @@ export const checkAll = (elem) => {
         });
       });
     }
-    cartIdFilter = makeCartsIdFilter(cartState);
     console.log(selectedProductArrKey('state', true, 'id'));
     renderCartNum();
     updateTemplate();
@@ -700,74 +749,6 @@ selectAlls.forEach((selectAll) => {
   );
 });
 /* -------------------------------------------------------------------------- */
-// key가 value인 객체의 resultKey의 value를 담은 배열 생성
-function selectedProductArrKey(key, value, resultKey) {
-  return productStateArr
-    .filter((obj) => obj[key] === value)
-    .map((obj) => obj[resultKey]);
-}
-
-// ^상품 삭제 함수 (x버튼 클릭 - 개별 삭제)
-async function deleteProduct(e) {
-  const productId =
-    e.target.closest('li').firstElementChild.firstElementChild.dataset.record;
-  console.log(productId);
-
-  if (isAuth) {
-    // 회원 DB 데이터 삭제
-    const { id } = isAuth['user'];
-
-    const cartDataCold = await pb.collection('carts').getFullList({
-      filter: `users_record = "${id}" && products_record = "${productId}"`,
-    });
-    await pb.collection('carts').delete(cartDataCold[0].id);
-  } else {
-    // 비회원 로컬스토리지 데이터 삭제
-    const cartData = await getStorage('cart');
-
-    const saveCartData = cartData.filter((data) => {
-      return data['products_record'] !== productId;
-    });
-    setStorage('cart', saveCartData);
-  }
-  location.reload();
-}
-
-// ^선택삭제 버튼 클릭시 선택된 상품 삭제
-async function deleteSelectedProduct() {
-  const selectedProductIds = selectedProductArrKey('state', true, 'id');
-
-  if (isAuth) {
-    // 회원 DB 데이터 삭제
-    for (const id of selectedProductIds) {
-      await pb.collection('carts').delete(id);
-    }
-  } else {
-    // 비회원 로컬스토리지 데이터 삭제
-    const cartData = await getStorage('cart');
-
-    // 조건에 해당하지 않는 요소만 필터링 (saveData 얻기)
-    const filterArrayByCondition = (arr, conditionFunc) => {
-      return arr.filter(conditionFunc);
-    };
-
-    const filtering = (data) => {
-      for (const id of selectedProductIds) {
-        if (data['products_record'] === id) {
-          return false;
-        }
-      }
-      return true;
-    };
-
-    const saveCartData = filterArrayByCondition(cartData, filtering);
-    setStorage('cart', saveCartData);
-  }
-  location.reload();
-}
-// }
-
-/* -------------------------------------------------------------------------- */
 // 버튼 클릭 이벤트 함수
 function handleButton(e) {
   const { target } = e;
@@ -793,8 +774,7 @@ function handleButton(e) {
       // minus.disabled = amount === '1';
       return;
     } else {
-      alert('삭제하시겠습니까?');
-      deleteProduct(e);
+      deleteProductModal(e);
       calcTotalPrice();
       updateTemplate();
     }
@@ -803,22 +783,40 @@ function handleButton(e) {
     const productId = input.dataset.record;
     const cartId = input.dataset.id;
     checkState(input, productId, cartId);
-    cartIdFilter = makeCartsIdFilter(cartState);
     renderCartNum();
     updateTemplate();
     console.log(selectedProductArrKey('state', true, 'id'));
   }
 }
-
 /* -------------------------------------------------------------------------- */
-async function handleOrderButton(e) {
-  e.preventDefault();
-  const auth = await getStorage('auth');
-  if (!auth) {
-    alert('로그인 해주세요.');
-    return;
+// 모달창
+function deleteSelectedProductModal() {
+  openModal(modalConfirm, '선택한 상품을 삭제하시겠습니까?', 'confirm');
+  modalCancelButton.addEventListener('click', () => modalConfirm.close());
+  modalConfirmButton.addEventListener('click', () => deleteSelectedProduct());
+}
+function deleteProductModal(e) {
+  openModal(modalConfirm, '삭제하시겠습니까?', 'confirm');
+  modalCancelButton.addEventListener('click', () => modalConfirm.close());
+  modalConfirmButton.addEventListener('click', () => deleteProduct(e));
+}
+function handleOrderButton(e) {
+  if (!isAuth) {
+    e.preventDefault();
+  } else {
+    if (!selectedProductArrKey('state', true, 'id').length) {
+      openModal(modalAlert, '장바구니에 상품을 담아주세요.', 'alert');
+      modalAlertButton.addEventListener('click', () => modalAlert.close());
+    } else {
+      openModal(modalConfirm, '주문하시겠습니까?', 'confirm');
+      modalCancelButton.addEventListener('click', () => modalConfirm.close());
+      modalConfirmButton.addEventListener('click', () => orderCart(e));
+    }
   }
-
+}
+/* -------------------------------------------------------------------------- */
+async function orderCart(e) {
+  e.preventDefault();
   // 장바구니에서 체크박스 선택한 상품
   const deleteData = productStateArr.filter(
     (product) => product.state === true
@@ -828,19 +826,14 @@ async function handleOrderButton(e) {
   for (const element of deleteData) {
     await pb.collection('carts').delete(element.id);
   }
-
-  alert('주문이 완료되었습니다.');
+  openModal(modalAlert, '주문을 완료했습니다.', 'alert');
   location.reload();
 }
 
 // 선택삭제 버튼 이벤트리스너
 const selectDeleteButton = getNodes('.button--delete__select');
 [...selectDeleteButton].forEach((button) => {
-  button.addEventListener('click', () => {
-    console.log('선택 삭제 버튼 클릭');
-    alert('선택한 상품을 삭제하시겠습니까?');
-    deleteSelectedProduct();
-  });
+  button.addEventListener('click', deleteSelectedProductModal);
 });
 
 // 이벤트리스너

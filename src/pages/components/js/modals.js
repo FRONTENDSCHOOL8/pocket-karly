@@ -15,9 +15,10 @@ import { getNode } from '/src/lib';
 
 /* -------------------------------------------------------------------------- */
 // modalType: modalAlert / modalConfirm 중 택1
-// text: 넣고싶은 텍스트를 string 형태로 작성
-export function openModal(modalType, text) {
-  const modalText = getNode('.modal__text');
+// text: 넣고싶은 텍스트 (string으로 작성)
+// type: alert / confirm 중 택1 (string으로 작성)
+export function openModal(modalType, text, type) {
+  const modalText = getNode(`.modal__text--${type}`);
   modalText.textContent = text;
   modalType.showModal();
 }
