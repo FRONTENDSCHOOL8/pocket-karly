@@ -715,7 +715,7 @@ export const checkAll = (elem) => {
         });
       });
     }
-    console.log(selectedProductArrKey('state', true, 'id'));
+    // console.log(selectedProductArrKey('state', true, 'id'));
     renderCartNum();
     updateTemplate();
   };
@@ -780,6 +780,11 @@ function handleButton(e) {
     }
   }
   if (input) {
+    if (!input.checked) {
+      selectAlls.forEach((selectAll) => {
+        selectAll.checked = false;
+      });
+    }
     const productId = input.dataset.record;
     const cartId = input.dataset.id;
     checkState(input, productId, cartId);
