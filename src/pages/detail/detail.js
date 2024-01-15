@@ -103,6 +103,7 @@ async function renderProductData() {
     unit,
     packageType,
     detailImgAlt,
+    thumbImgAlt,
   } = productData;
   const isAuth = await getStorage('auth');
   const discountPrice =
@@ -127,7 +128,7 @@ async function renderProductData() {
           <img
             class="h-[552px] w-[430px] object-cover"
             src="${getPbImageURL(productData, 'thumbImg')}"
-            alt="/"
+            alt="${thumbImgAlt}"
           />
         </div>
         <section class="w-140">
