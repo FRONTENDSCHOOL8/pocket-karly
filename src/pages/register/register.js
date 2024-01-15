@@ -3,6 +3,7 @@ import '/src/styles/tailwind.css';
 import pb from '/src/api/pocketbase';
 import '/src/pages/components/js/include.js';
 import { execDaumPostcode } from '/src/pages/components/js/addressApi.js';
+import { openModal } from '/src/pages/components/js/modals.js';
 
 // 필수입력항목 상태관리
 const state = {
@@ -14,6 +15,12 @@ const state = {
   address: false,
   agree: false,
 };
+
+/* ------------------------------------ */
+/*                 팝업                 */
+/* ------------------------------------ */
+const modalAlert = getNode('.modal__alert');
+const modalAlertButton = getNode('.button__alert');
 
 /*--------------------------------------*/
 /*             "전체동의 기능"             */
@@ -296,10 +303,14 @@ idButton.addEventListener('click', (e) => {
   e.preventDefault();
   if (allUserName.includes(id)) {
     state.id = false;
-    alert('이미 사용중인 아이디입니다. 다른 아이디를 입력해주세요.');
+    openModal(
+      modalAlert,
+      '이미 사용중인 아이디입니다. 다른 아이디를 입력해주세요.',
+      'alert'
+    );
   } else {
     state.id = true;
-    alert('사용가능한 아이디입니다.');
+    openModal(modalAlert, '사용가능한 아이디입니다.', 'alert');
   }
 });
 
@@ -309,10 +320,14 @@ emailButton.addEventListener('click', (e) => {
   e.preventDefault();
   if (allUserEmail.includes(email)) {
     state.email = false;
-    alert('이미 사용중인 이메일입니다. 다른 이메일을 입력해주세요.');
+    openModal(
+      modalAlert,
+      '이미 사용 중인 이메일입니다. 다른 이메일을 입력해주세요.',
+      'alert'
+    );
   } else {
     state.email = true;
-    alert('사용가능한 이메일입니다.');
+    openModal(modalAlert, '사용가능한 이메일입니다.', 'alert');
   }
 });
 
@@ -321,7 +336,7 @@ async function clickRegister(e) {
   if (Object.values(state).every((value) => value === true)) {
     console.log('필수입력값 확인 완료');
   } else {
-    alert('필수입력 값을 확인해주세요.');
+    openModal(modalAlert, '필수입력 값을 확인해주세요.', 'alert');
     return;
   }
 
@@ -366,13 +381,18 @@ async function clickRegister(e) {
       class: '일반',
     });
 
-    alert('회원가입이 완료되었습니다. 메인페이지로 이동합니다!');
+    openModal(
+      modalAlert,
+      '회원가입이 완료되었습니다. 메인페이지로 이동합니다!',
+      'alert'
+    );
     location.href = '/';
   } catch (error) {
-    alert('입력사항을 다시 한 번 확인해주세요.');
+    openModal(modalAlert, '입력사항을 다시 한 번 확인해주세요.', 'alert');
   }
 }
 
 function checkRequire() {}
 submit.addEventListener('click', checkRequire);
 submit.addEventListener('click', clickRegister);
+modalAlertButton.addEventListener('click', () => modalAlert.close());
