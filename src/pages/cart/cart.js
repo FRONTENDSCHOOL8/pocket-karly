@@ -25,8 +25,9 @@ const productTemplate = getNode('.product--template');
 const productStateArr = []; // 상태관리
 const cartState = {}; // 상태관리
 const cartCountElem = getNodes('.product__count'); // 상품 수량
-const selectAlls = getNodes('input[name="select-all"]'); // 전체선택 버튼
-const orderButton = getNode('.button__order'); // 주문하기 버튼
+const selectAlls = getNodes('input[name="select-all"]'); // 전체선택
+const selectDeleteButton = getNodes('.button--delete__select'); // 선택삭제
+const orderButton = getNode('.button__order'); // 주문하기
 const modalConfirm = getNode('.modal__confirm');
 const modalAlert = getNode('.modal__alert');
 const modalCancelButton = getNode('.button__cancel');
@@ -156,8 +157,9 @@ cartDataCold.forEach((cart) => {
       class="button__amount h-7.5 ml-6 mr-2 flex w-[90px] border border-gray-200"
       >
         <button
-        type="button"
-        class="button__minus w-7.5 overflow-hidden"
+          disabled
+          type="button"
+          class="button__minus w-7.5 overflow-hidden"
           data-record=${products_record}
           data-amount="minus"
         >
@@ -276,7 +278,8 @@ cartDataFreeze.forEach((cart) => {
       class="button__amount h-7.5 ml-6 mr-2 flex w-[90px] border border-gray-200"
       >
         <button
-        type="button"
+          disabled
+          type="button"
           class="button__minus w-7.5 overflow-hidden"
           data-record=${products_record}
           data-amount="minus"
@@ -360,49 +363,50 @@ cartDataRoom.forEach((cart) => {
   class="relative flex items-center text-l-base text-content"
   >
   <input
-  checked
-          type="checkbox"
-          name="select__product"
-          id=${removeNumbers(products_record)}
-          class="peer absolute h-6 w-6 appearance-none"
-          data-record=${products_record}
-          data-id=${id}
-          />
-          <span
-          aria-hidden="true"
-          class="bg-input__button bg-check--no peer-checked:bg-check--yes inline-block h-6 w-6 cursor-pointer"
-          ></span>
+        checked
+        type="checkbox"
+        name="select__product"
+        id=${removeNumbers(products_record)}
+        class="peer absolute h-6 w-6 appearance-none"
+        data-record=${products_record}
+        data-id=${id}
+        />
+        <span
+        aria-hidden="true"
+        class="bg-input__button bg-check--no peer-checked:bg-check--yes inline-block h-6 w-6 cursor-pointer"
+        ></span>
       </label>
       <div class="mx-2 w-[60px] overflow-hidden">
-      <a href="#">
+        <a href="#">
           <img
           src=${getPbImageURL(cart, 'thumbImg')}
             alt=${thumbImgAlt}
             class="w-full scale-150"
-            />
-            </a>
-            </div>
-            <p class="text-l-base text-black w-80">
-            <a href="#">${name}</a>
-            </p>
-            <div
-            class="button__amount h-7.5 ml-6 mr-2 flex w-[90px] border border-gray-200"
-            >
-            <button
-            type="button"
-          class="button__minus w-7.5 overflow-hidden"
-          data-record=${products_record}
-          data-amount="minus"
+          />
+        </a>
+      </div>
+      <p class="text-l-base text-black w-80">
+      <a href="#">${name}</a>
+      </p>
+      <div
+      class="button__amount h-7.5 ml-6 mr-2 flex w-[90px] border border-gray-200"
+      >
+      <button
+      disabled
+      type="button"
+      class="button__minus w-7.5 overflow-hidden"
+      data-record=${products_record}
+      data-amount="minus"
+      >
+      <svg
+        role="img"
+        width="46"
+        height="84"
+        viewBox="8 46 46 84"
         >
-          <svg
-            role="img"
-            width="46"
-            height="84"
-            viewBox="8 46 46 84"
-            >
-            <use href="/icons/_sprite.svg#minus" />
-            </svg>
-            </button>
+        <use href="/icons/_sprite.svg#minus" />
+        </svg>
+        </button>
         <span class="product__amount w-7.5 inline-block text-center align-top leading-[30px]">${amount}</span>
         <button
         type="button"
@@ -514,9 +518,8 @@ function renderCartNum() {
 renderCartNum();
 
 // 수량 변경 함수
-function changeAmount(button, plusButton) {
+async function changeAmount(button, plusButton) {
   const amountElem = button.nextElementSibling || button.previousElementSibling;
-  console.log('amountElem: ', amountElem);
   const productId = button.dataset.record;
   const beforeAmount = Number(
     selectedProductArrKey('products_record', productId, 'amount').join('')
@@ -538,6 +541,14 @@ function changeAmount(button, plusButton) {
   });
   amountElem.textContent = amount;
   changePrice(button, amount);
+  const cartId = button.closest('li').querySelector('input[type="checkbox"]')
+    .dataset.id;
+  const updateData = { amount };
+  try {
+    await pb.collection('carts').update(`${cartId}`, updateData);
+  } catch {
+    console.log('천천히 눌러주세요.');
+  }
   return amount;
 }
 
@@ -664,7 +675,6 @@ async function deleteProduct(e) {
 // 선택삭제 버튼 클릭시 선택된 상품 삭제
 async function deleteSelectedProduct() {
   const selectedProductIds = selectedProductArrKey('state', true, 'id');
-
   if (isAuth) {
     // 회원 DB 데이터 삭제
     for (const id of selectedProductIds) {
@@ -763,15 +773,17 @@ function handleButton(e) {
     const plusButton = button.classList.contains('button__plus');
     if (minusButton || plusButton) {
       changeAmount(button, plusButton);
-      console.log('수량 버튼 클릭');
       calcTotalPrice();
       updateTemplate();
       // & 수량 1일때 minus 버튼 diabled 처리
-      // const minus = button.closest('button[data-amount="minus"]');
-      // const amount = (
-      //   button.nextElementSibling || button.previousElementSibling
-      // ).textContent;
-      // minus.disabled = amount === '1';
+      const minus =
+        button.closest('button[data-amount="minus"]') ||
+        button.previousElementSibling.previousElementSibling;
+
+      const amount = (
+        button.nextElementSibling || button.previousElementSibling
+      ).textContent;
+      minus.disabled = amount === '1';
       return;
     } else {
       deleteProductModal(e);
@@ -796,6 +808,9 @@ function handleButton(e) {
 /* -------------------------------------------------------------------------- */
 // 모달창
 function deleteSelectedProductModal() {
+  if (!selectedProductArrKey('state', true, 'id').length) {
+    return;
+  }
   openModal(modalConfirm, '선택한 상품을 삭제하시겠습니까?', 'confirm');
   modalCancelButton.addEventListener('click', () => modalConfirm.close());
   modalConfirmButton.addEventListener('click', () => deleteSelectedProduct());
@@ -836,8 +851,10 @@ async function orderCart(e) {
 }
 
 // 선택삭제 버튼 이벤트리스너
-const selectDeleteButton = getNodes('.button--delete__select');
 [...selectDeleteButton].forEach((button) => {
+  if (!selectedProductArrKey('state', true, 'id').length) {
+    button.disabled = true;
+  }
   button.addEventListener('click', deleteSelectedProductModal);
 });
 
