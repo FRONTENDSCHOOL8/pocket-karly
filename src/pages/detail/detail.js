@@ -5,8 +5,10 @@ import {
   getStorage,
   insertFirst,
   getNode,
+  getNodes,
   comma,
   setDocumentTitle,
+  updateCartBadge,
 } from '/src/lib';
 import pb from '/src/api/pocketbase';
 import '/src/styles/tailwind.css';
@@ -308,7 +310,7 @@ async function renderProductData() {
                     <use href="/src/assets/svg/_sprite.svg#squre" />
                   </svg>
                 </button>
-                <button class="button--purple__big w-full">
+                <button class="button--purple__big w-full detail__button-cart">
                   장바구니 담기
                 </button>
               </li>
@@ -363,10 +365,6 @@ async function renderProductData() {
   const plusButton = getNode('.button__plus');
   const amountSpan = getNode('.product__amount');
 
-  // 클릭 이벤트 리스너 추가
-  minusButton.addEventListener('click', minusAmount);
-  plusButton.addEventListener('click', pulsAmount);
-
   function minusAmount() {
     // .product__amount의 현재 값 가져오기
     const currentValue = parseInt(amountSpan.textContent);
@@ -377,13 +375,127 @@ async function renderProductData() {
     }
   }
 
-  function pulsAmount() {
+  function plusAmount() {
     // .product__amount의 현재 값 가져오기
     const currentValue = parseInt(amountSpan.textContent);
 
     // 값 증가시킴
     amountSpan.textContent = currentValue + 1;
   }
+
+  // 클릭 이벤트 리스너 추가
+  minusButton.addEventListener('click', minusAmount);
+  plusButton.addEventListener('click', plusAmount);
 }
 
-renderProductData();
+await renderProductData();
+
+const cartButton = getNode('.detail__button-cart');
+
+async function handleCartButton() {
+  const auth = await getStorage('auth');
+  const data = {
+    productId,
+    imgSrc: getPbImageURL(productData, 'thumbImg'),
+    amount: Number(getNode('.product__amount').innerText),
+    name: productData.name,
+    auth,
+  };
+
+  // local storage에 auth가 있다면 로그인 된 상태기 때문에 DB에 장바구니 상품 추가해줌
+  if (auth) {
+    await addCartDB(data);
+  } else {
+    // local storage에 auth가 있다면 로그인 안 된 상태기 때문 local storage에 상품 추가해줌
+    await addCartLocalStorage(data);
+  }
+  updateCartBadge();
+  showBubble(data);
+}
+
+async function addCartDB(data) {
+  const { productId, amount, auth } = data;
+  const userId = auth.user.id;
+
+  const carts = await pb.collection('carts').getFullList({
+    filter: `users_record= "${userId}" && products_record= "${productId}"`,
+    requestKey: null,
+  });
+
+  if (!carts.length) {
+    // 기존에 장바구니에 없던 상품. 따라서 DB에 새로 데이터 넣어줌
+    const data = {
+      users_record: userId,
+      products_record: productId,
+      amount,
+    };
+    await pb.collection('carts').create(data);
+  } else {
+    // 기존에 장바구니에 있던 상품. 따라서 기존 데이터의 amount 값을 바꿔줌
+    const beforeAmount = carts[0].amount;
+    const data = {
+      amount: beforeAmount + amount,
+    };
+
+    await pb.collection('carts').update(carts[0].id, data);
+  }
+}
+async function addCartLocalStorage(data) {
+  const { productId } = data;
+  let { amount } = data;
+  let isExist = false;
+
+  // local storage에 저장되어 있는 cart 값 가져옴
+  // cart id, amout를 갖는 객체로 이루어진 배열임
+  let cart = await getStorage('cart');
+  const product = { products_record: productId, amount };
+
+  // 만약 아무것도 저장되어 있지 않다면 배열 만들어 cart에 저장
+  if (!cart) {
+    cart = [];
+    cart.push(product);
+    setStorage('cart', cart);
+    return;
+  }
+
+  // 이미 저장되어 있는 product라면 amount를 더해줌
+  cart.forEach((item, i) => {
+    if (item.products_record === productId) {
+      amount += item.amount;
+      cart[i] = { products_record: productId, amount };
+      isExist = true;
+      return;
+    }
+  });
+
+  // 이미 local storage에 저장되어 있던 product가 아니라면 cart에 push 해줌
+  if (!isExist) {
+    cart.push(product);
+  }
+
+  // loacl storage에 cart 배열 저장
+  await setStorage('cart', cart);
+}
+
+async function showBubble(data) {
+  const { name, imgSrc } = data;
+  // 헤더 두 가지 버전이기 때문에 bubble도 두 가지 헤더에 모두 달려있음. 따라서 getNodes로 가져옴
+  const bubble = getNodes('.header__bubble');
+  bubble.forEach((element) => {
+    const bubbleImg = element.querySelector('.header__bubble-img');
+    const bubbleFigcaption = element.querySelector(
+      '.header__bubble-figcaption'
+    );
+    // 말풍선에 이미지 넣기
+    bubbleImg.src = imgSrc;
+    // 말풍선에 물품명 넣기
+    bubbleFigcaption.innerText = name;
+    // 말풍선 띄우기
+    element.style.display = 'block';
+    setTimeout(() => {
+      element.style.display = 'none';
+    }, 3000);
+  });
+}
+
+cartButton.addEventListener('click', handleCartButton);
