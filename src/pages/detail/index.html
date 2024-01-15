@@ -223,7 +223,7 @@
                   viewBox="0 0 30 30"
                   role="img"
                 >
-                  <use href="/public/icons/_sprite.svg#cancel" />
+                  <use href="/icons/_sprite.svg#cancel" />
                 </svg>
               </button>
             </div>
@@ -370,30 +370,34 @@
         class="reviewNotice flex h-6 items-center justify-between border-b-2 border-black pb-4"
       >
         <span class="reviewNumber text-l-sm text-content">총 0개</span>
-        <div class="flex">
-          <input
-            class="appearance-none"
+        <div id="sort" class="flex gap-2">
+          <button
             id="sort--recommand"
+            class="text-l-base text-gray-300 after:content-['|']"
             name="sort"
-            type="radio"
-          />
-          <label
-            for="sort--recommand"
-            class="cursor-pointer appearance-none text-l-base text-gray-300 after:mx-2 after:content-['|']"
-            >추천순</label
           >
+            추천순
+          </button>
 
-          <input
-            class="appearance-none"
+          <!-- <label
+              for="sort--recommand"
+              class="cursor-pointer text-l-base text-gray-300 after:mx-2 after:content-['|'] peer-checked:text-content"
+              >추천순</label
+            > -->
+
+          <button
             id="sort--recent"
-            type="radio"
+            class="text-l-base text-gray-300"
             name="sort"
-          />
-          <label
-            for="sort--recent"
-            class="cursor-pointer appearance-none text-l-base text-gray-300"
-            >최근등록순</label
           >
+            최근등록순
+          </button>
+
+          <!-- <label
+              for="sort--recent"
+              class="cursor-pointer text-l-base text-gray-300 peer-checked:text-content"
+              >최근등록순</label
+            > -->
         </div>
       </div>
       <!-- insertAfter(reviewNotice, template) -->
@@ -408,7 +412,7 @@
               viewBox="0 0 56 56"
               role="img"
             >
-              <use href="/public/icons/_sprite.svg#pageArrow-left" />
+              <use href="/icons/_sprite.svg#pageArrow-left" />
             </svg>
           </button>
           <button>
@@ -419,7 +423,7 @@
               viewBox="0 0 56 56"
               role="img"
             >
-              <use href="/public/icons/_sprite.svg#pageArrow-right" />
+              <use href="/icons/_sprite.svg#pageArrow-right" />
             </svg>
           </button>
         </div>
@@ -458,7 +462,7 @@
                   viewBox="0 0 30 30"
                   role="img"
                 >
-                  <use href="/public/icons/_sprite.svg#cancel" />
+                  <use href="/icons/_sprite.svg#cancel" />
                 </svg>
               </button>
             </div>
@@ -646,7 +650,7 @@
             viewBox="0 0 56 56"
             role="img"
           >
-            <use href="/public/icons/_sprite.svg#pageArrow-left" />
+            <use href="/icons/_sprite.svg#pageArrow-left" />
           </svg>
         </button>
         <button>
@@ -657,7 +661,7 @@
             viewBox="0 0 56 56"
             role="img"
           >
-            <use href="/public/icons/_sprite.svg#pageArrow-right" />
+            <use href="/icons/_sprite.svg#pageArrow-right" />
           </svg>
         </button>
       </div>
