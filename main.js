@@ -21,6 +21,9 @@ const swiperBanner = new Swiper('.swiper-container', {
     prevEl: '.swiper-prev',
     nextEl: '.swiper-next',
   },
+  keyboard: {
+    enabled: true,
+  },
 });
 
 const swiperProduct = new Swiper('.swiper-product', {
@@ -53,6 +56,9 @@ const swiperProduct = new Swiper('.swiper-product', {
       }
     },
   },
+  keyboard: {
+    enabled: true,
+  },
 });
 
 const swiperDiscount = new Swiper('.swiper-discount', {
@@ -84,6 +90,9 @@ const swiperDiscount = new Swiper('.swiper-discount', {
         prevButton.style.display = 'block';
       }
     },
+  },
+  keyboard: {
+    enabled: true,
   },
 });
 
