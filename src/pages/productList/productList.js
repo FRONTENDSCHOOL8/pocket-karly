@@ -257,9 +257,9 @@ async function drawProductList(page, isDrawButton) {
   const option = { filter: filterOptionString, sort: sortOptionString };
 
   if (isDrawButton) {
-    drawPaginationButton('products', 6, option);
+    drawPaginationButton('products', 9, option);
   }
-  const data = await drawProductBox('products', page, 6, option);
+  const data = await drawProductBox('products', page, 9, option);
   const { totalItems } = data;
   drawTotalItems(totalItems);
 }

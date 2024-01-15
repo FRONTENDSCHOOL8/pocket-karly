@@ -6,6 +6,7 @@ import {
   insertFirst,
   getNode,
   comma,
+  setDocumentTitle,
 } from '/src/lib';
 import pb from '/src/api/pocketbase';
 import '/src/styles/tailwind.css';
@@ -32,6 +33,7 @@ const swiper = new Swiper('.swiper__sidebar', {
 
 const productId = window.location.hash.slice(1);
 const productData = await pb.collection('products').getOne(productId);
+setDocumentTitle(productData.name);
 onPageLoad();
 
 async function onPageLoad() {
