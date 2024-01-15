@@ -159,17 +159,17 @@ function handleSortButton(e) {
   const { target } = e;
   const reviewArticle = getNodes('.review__article');
   if (target.id === 'sort--recommand') {
-    removeClass(sortRecommand, 'text-gray-300');
     removeClass(sortRecent, 'text-content');
-    addClass(sortRecommand, 'text-content');
     addClass(sortRecent, 'text-gray-300');
+    removeClass(sortRecommand, 'text-gray-300');
+    addClass(sortRecommand, 'text-content');
     sortType = 'recommand';
   }
 
   if (target.id === 'sort--recent') {
     removeClass(sortRecent, 'text-gray-300');
-    removeClass(sortRecommand, 'text-content');
     addClass(sortRecent, 'text-content');
+    removeClass(sortRecommand, 'text-content');
     addClass(sortRecommand, 'text-gray-300');
     sortType = 'created';
   }
@@ -532,7 +532,7 @@ renderInquiries();
 reviewForm.addEventListener('input', activeReviewButton);
 inquiriesForm.addEventListener('input', activeInquiriesButton);
 
-//도움돼요 버튼 구현
+// 도움돼요 버튼 구현
 // 버튼 요소 가져오기
 // 초기 상태 설정
 
@@ -543,7 +543,7 @@ async function handlerecommandButton(e) {
   // const response = await pb.collection('reviews').getFullList();
   // 상태 변경
   const { target } = e;
-  const button = target.closest('button');
+  const button = target.closest('#recommandButton');
   if (!button) {
     return;
   }
