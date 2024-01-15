@@ -157,7 +157,7 @@ cartDataCold.forEach((cart) => {
       class="button__amount h-7.5 ml-6 mr-2 flex w-[90px] border border-gray-200"
       >
         <button
-          disabled
+        ${amount === 1 ? 'disabled' : ''}
           type="button"
           class="button__minus w-7.5 overflow-hidden"
           data-record=${products_record}
@@ -278,7 +278,7 @@ cartDataFreeze.forEach((cart) => {
       class="button__amount h-7.5 ml-6 mr-2 flex w-[90px] border border-gray-200"
       >
         <button
-          disabled
+        ${amount === 1 ? 'disabled' : ''}
           type="button"
           class="button__minus w-7.5 overflow-hidden"
           data-record=${products_record}
@@ -392,7 +392,7 @@ cartDataRoom.forEach((cart) => {
       class="button__amount h-7.5 ml-6 mr-2 flex w-[90px] border border-gray-200"
       >
       <button
-      disabled
+      ${amount === 1 ? 'disabled' : ''}
       type="button"
       class="button__minus w-7.5 overflow-hidden"
       data-record=${products_record}
@@ -476,7 +476,7 @@ if (cartDataCold.length || cartDataFreeze.length || cartDataRoom.length) {
   nothingProduct.classList.add('hidden');
 }
 /* -------------------------------------------------------------------------- */
-// ^상태변수 관리 - 상품 선택 여부를 체크하는 함수
+// 상태변수 관리 - 상품 선택 여부를 체크하는 함수
 // target은 input(dom), products_record는 상품id
 function checkState(target, productId, id) {
   cartState[id] = target.checked;
