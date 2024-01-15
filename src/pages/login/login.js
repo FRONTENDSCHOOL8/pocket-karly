@@ -3,8 +3,11 @@ import pb from '/src/api/pocketbase';
 import { getNode, getStorage, setStorage } from '/src/lib/';
 import '/src/pages/components/js/include.js';
 import { deleteStorage } from '../../lib/utils/storage';
+import { openModal } from '/src/pages/components/js/modals.js';
 
 const loginButton = getNode('.loginButton');
+const modalAlert = getNode('.modal__alert');
+const modalAlertButton = getNode('.button__alert');
 
 async function handleLogin(e) {
   e.preventDefault();
@@ -29,7 +32,7 @@ async function handleLogin(e) {
     // window.location.href = '/index.html';
     history.back();
   } catch {
-    alert('아이디,비밀번호를 확인해주세요.');
+    openModal(modalAlert, '아이디, 비밀번호를 확인해주세요.', 'alert');
   }
 }
 
@@ -76,3 +79,4 @@ async function deleteLocalStorageCart() {
 }
 
 loginButton.addEventListener('click', handleLogin);
+modalAlertButton.addEventListener('click', () => modalAlert.close());
