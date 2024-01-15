@@ -321,24 +321,24 @@ async function renderProductData() {
         </section>
       </div>
       <section class="sticky top-[72px]">
-      <ul class="nav-bar flex box-border">
-      <li class="w-full button--gray__big">
-          <a href="#productExplain" class="inline-block w-full py-[15px] text-center text-l-base">상품설명</a>
-        </li>
+        <ul class="nav-bar flex box-border">
         <li class="w-full button--gray__big">
-          <a href="#productInfo" class="inline-block w-full py-[15px] text-center text-l-base">상세정보</a>
-        </li>
-        <li class="w-full button--gray__big">
-          <a href="#productReview" class="inline-block w-full py-[15px] text-center text-l-base">
-              후기
-            <span class="text-p-sm">(1,000)</p>
-          </a>
-        </li>
-        <li class="w-full button--gray__big">
-          <a href="#productQuestion" class="inline-block w-full py-[15px] text-center text-l-base">문의</a>
-        </li>
-      </ul>
-    </section>
+            <a href="#productExplain" class="inline-block w-full py-[15px] text-center text-l-base">상품설명</a>
+          </li>
+          <li class="w-full button--gray__big">
+            <a href="#productInfo" class="inline-block w-full py-[15px] text-center text-l-base">상세정보</a>
+          </li>
+          <li class="w-full button--gray__big">
+            <a href="#productReview" class="inline-block w-full py-[15px] text-center text-l-base">
+                후기
+              <span class="text-p-sm">(1,000)</p>
+            </a>
+          </li>
+          <li class="w-full button--gray__big">
+            <a href="#productQuestion" class="inline-block w-full py-[15px] text-center text-l-base">문의</a>
+          </li>
+        </ul>
+      </section>
       
       <section>
         <div id="productExplain" class="pt-10"><img class="w-262.5 h-167.5" src="${
