@@ -350,16 +350,19 @@ async function renderProductData() {
         </h3>
       </section>
       <section>
-        <div class="mt-24 flex flex-col items-center ">
-          <h3 class="text-h-3xl">Karly's Check Point</h3>
-          <img class="mt-24" src="${detailImgArr[1]}" alt="${
+        <div class="mt-[96px] relative h-10 flex items-center text-center">
+          <div class="absolute inset-x-0 h-px bg-gray-100 "></div>
+          <span class="relative z-10 bg-white px-2 text-h-3xl left-1/2 -translate-x-1/2 ">Karly's Check Point</span>
+        </div>
+        <div class=" flex flex-col items-center">
+          <img class="mt-[68px]" src="${detailImgArr[1]}" alt="${
             detailImgAlt[fileNameArr[1]]
           }">
         </div>
       </section>
-      <img id="productInfo" class="mt-24" src="${detailImgArr[2]}" alt="${
-        detailImgAlt[fileNameArr[2]]
-      }">
+      <img id="productInfo" class="mt-24 border-b border-gray-100" src="${
+        detailImgArr[2]
+      }" alt="${detailImgAlt[fileNameArr[2]]}">
   `;
   insertFirst('.mainWrapper', productTemplate);
 
