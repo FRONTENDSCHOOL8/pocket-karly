@@ -153,6 +153,7 @@ async function renderReviews() {
   }
 }
 
+// 정렬 버튼 기능 구현
 function handleSortButton(e) {
   const { target } = e;
   const reviewArticle = getNodes('.review__article');
