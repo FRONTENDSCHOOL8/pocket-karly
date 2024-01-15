@@ -260,7 +260,7 @@ phoneInput.addEventListener('input', activeButton);
 
 //휴대폰 인증을 구현해야하지만, 그냥 버튼 누르면 인증되게 구현 but, 인증 후 다시 번호를 바꾸면? 또 상태를 바꿔야하는데?
 phoneButton.addEventListener('click', () => {
-  alert('휴대폰 인증이 완료되었습니다.');
+  openModal(modalAlert, '휴대폰 인증이 완료되었습니다.', 'alert');
   return (state.phone = true);
 });
 
