@@ -61,26 +61,16 @@ if (auth) {
   loginUserId = auth.user.id;
 }
 const sort = getNode('#sort');
-// const sortRecommand = getNode('#sort--recommand');
-// const sortRecent = getNode('#sort--recent');
-
-function removeNodes(node) {
-  console.log(node);
-  node.forEach((item) => {
-    item.remove();
-  });
-}
+const sortRecommand = getNode('#sort--recommand');
+const sortRecent = getNode('#sort--recent');
 
 let sortType = 'recommand';
 // 리뷰 렌더링
 async function renderReviews() {
-  const response = await pb.collection('reviews_users_data').getFullList(
-    {
-      filter: `products_record = "${hash}"`,
-      sort: `-${sortType}`,
-    },
-    { requestKey: null }
-  );
+  const response = await pb.collection('reviews_users_data').getFullList({
+    filter: `products_record = "${hash}"`,
+    sort: `-${sortType}`,
+  });
   const reviewNumber = getNode('.reviewNumber');
   const number = response.length;
   reviewNumber.textContent = `총 ${number}개`;
@@ -161,21 +151,38 @@ async function renderReviews() {
   if (!number) {
     insertBefore(reviewPagenation, emptyReview);
   }
-  const reviewArticle = getNodes('.review__article');
-  console.log(reviewArticle);
-  function handleSortButton(e) {
-    const { target } = e;
-    if (target.id === 'sort--recommand') {
-      sortType = 'recommand';
-    }
-    if (target.id === 'sort--recent') {
-      sortType = 'created';
-    }
-    removeNodes(reviewArticle);
-    renderReviews();
-  }
-  sort.addEventListener('click', handleSortButton);
 }
+
+function handleSortButton(e) {
+  const { target } = e;
+  const reviewArticle = getNodes('.review__article');
+  if (target.id === 'sort--recommand') {
+    removeClass(sortRecommand, 'text-gray-300');
+    removeClass(sortRecent, 'text-content');
+    addClass(sortRecommand, 'text-content');
+    addClass(sortRecent, 'text-gray-300');
+    sortType = 'recommand';
+  }
+
+  if (target.id === 'sort--recent') {
+    removeClass(sortRecent, 'text-gray-300');
+    removeClass(sortRecommand, 'text-content');
+    addClass(sortRecent, 'text-content');
+    addClass(sortRecommand, 'text-gray-300');
+    sortType = 'created';
+  }
+  removeNodes(reviewArticle);
+  renderReviews();
+}
+
+function removeNodes(node) {
+  console.log(node);
+  node.forEach((item) => {
+    item.remove();
+  });
+}
+
+sort.addEventListener('click', handleSortButton);
 
 // 문의하기 렌더링
 async function renderInquiries() {
