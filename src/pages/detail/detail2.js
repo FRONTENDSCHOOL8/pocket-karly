@@ -541,7 +541,7 @@ inquiriesForm.addEventListener('input', activeInquiriesButton);
 // 초기 상태 설정
 
 // 클릭 이벤트 핸들러 등록
-const reviewSection = getNode('#reviewSection');
+const reviewSection = getNode('.reviewSection');
 
 async function handlerecommandButton(e) {
   // const response = await pb.collection('reviews').getFullList();
