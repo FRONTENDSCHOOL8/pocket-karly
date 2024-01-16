@@ -34,7 +34,7 @@
 - [박지우](https://github.com/ParkjiDev)(조장) : 헤더, 상품리스트, 장바구니 담기, 최근 본 상품 기능
 - [반현지](https://github.com/lanuioe) : 장바구니, 팝업, 푸터
 - [박수양](https://github.com/clapsheep)(스크럼마스터) : 회원가입, 상세페이지 리뷰, 문의하기
-- [허건](https://github.com/HHeoGeon) : 메인페이지, 로그인
+- [허건](https://github.com/HHeoGeon) : 메인페이지, 로그인, 상세페이지 상단
 
 <br><br>
 
