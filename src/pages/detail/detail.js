@@ -325,19 +325,18 @@ async function renderProductData() {
       <section class="sticky top-[72px] z-20">
         <ul class="nav-bar flex box-border">
         <li class="w-full button--gray__big">
-            <a href="#productExplain" class="inline-block w-full py-[15px] text-center text-l-base">상품설명</a>
+            <a href="#productExplain" data-target="productExplain" class="scroll-link inline-block w-full py-[15px] text-center text-l-base">상품설명</a>
           </li>
           <li class="w-full button--gray__big">
-            <a href="#productInfo" class="inline-block w-full py-[15px] text-center text-l-base">상세정보</a>
+            <a href="#productInfo" data-target="productInfo" class="scroll-link inline-block w-full py-[15px] text-center text-l-base">상세정보</a>
           </li>
           <li class="w-full button--gray__big">
-            <a href="#productReview" class="inline-block w-full py-[15px] text-center text-l-base">
+            <a href="#productReview" data-target="productReview" class="scroll-link inline-block w-full py-[15px] text-center text-l-base">
                 후기
-              <span class="text-p-sm">(1,000)</p>
             </a>
           </li>
           <li class="w-full button--gray__big">
-            <a href="#productQuestion" class="inline-block w-full py-[15px] text-center text-l-base">문의</a>
+            <a href="#productQuestion" data-target="productQuestion" class="scroll-link inline-block w-full py-[15px] text-center text-l-base">문의</a>
           </li>
         </ul>
       </section>
@@ -554,6 +553,22 @@ async function updateTotalPrice(discountPrice) {
 // 상품 수에 따라 합계를 누적
 function updateAcc(target, currentCount) {
   return target * currentCount;
+}
+
+const links = document.getElementsByClassName('scroll-link');
+for (let i = 0; i < links.length; i++) {
+  links[i].addEventListener('click', scrollToSection);
+}
+
+// 섹션 스크롤 이동
+function scrollToSection(e) {
+  e.preventDefault(); // 링크 클릭 시 기본 동작 방지
+
+  const target = this.getAttribute('data-target');
+  const section = document.getElementById(target);
+
+  // 섹션의 위치로 스크롤 이동
+  section.scrollIntoView({ behavior: 'smooth' });
 }
 
 cartButton.addEventListener('click', handleCartButton);
