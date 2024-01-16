@@ -160,7 +160,7 @@ export async function addCart(addCartPopup) {
 }
 
 async function addCartDB(data, addCartPopup) {
-  const { productId, amount, auth, name } = data;
+  const { productId, amount, auth } = data;
   const userId = auth.user.id;
 
   const carts = await pb.collection('carts').getFullList({
@@ -186,11 +186,10 @@ async function addCartDB(data, addCartPopup) {
     await pb.collection('carts').update(carts[0].id, data);
   }
   addCartPopup.close();
-  alert(`장바구니에 ${name}을 담았습니다.`);
 }
 
 async function addCartLocalStorage(data, addCartPopup) {
-  const { productId, name } = data;
+  const { productId } = data;
   let { amount } = data;
   let isExist = false;
 
@@ -205,7 +204,6 @@ async function addCartLocalStorage(data, addCartPopup) {
     cart.push(product);
     setStorage('cart', cart);
     addCartPopup.close();
-    alert(`장바구니에 ${name}을 담았습니다.`);
     return;
   }
 
@@ -227,7 +225,6 @@ async function addCartLocalStorage(data, addCartPopup) {
   // loacl storage에 cart 배열 저장
   await setStorage('cart', cart);
   addCartPopup.close();
-  alert(`장바구니에 ${name}을 담았습니다.`);
 }
 
 async function showBubble(data) {
