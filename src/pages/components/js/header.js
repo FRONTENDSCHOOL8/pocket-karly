@@ -13,6 +13,9 @@ import '/src/styles/tailwind.css';
 
 // localStorage에 auth 정보가 있을 경우(로그인 되어 있는 경우) 회원등급/이름/고객센터 출력
 if (localStorage.getItem('auth')) {
+  /**
+   * TODO: 탑레벨 await 을 사용하셨네요? 새로운 기능을 이렇게 빨리 도입하다니 대단하세요.
+   */
   const { isAuth, user } = await getStorage('auth');
 
   if (isAuth) {

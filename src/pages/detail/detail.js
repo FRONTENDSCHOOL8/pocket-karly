@@ -94,30 +94,78 @@ async function drawViewedProduct(swiper) {
   }
 }
 
-//
+
+const getDiscountPrice= (productData) => {
+  const {
+    price,
+    discount,
+  } = productData;
+  return Math.floor((price - price * (discount * 0.01)) / 10) * 10;
+}
+
+const getRewardMessage = (isAuth, productData) => {
+  if (isAuth) {
+    const reward = Math.round(getDiscountPrice(productData) * 0.0005);
+    return `구매 시 ${reward}원 적립`
+  }
+
+  return '로그인 후, 적립 혜택 제공';
+}
+
+const get디스카운트_템플릿 = (productData) => {
+  const { discount } = productData;
+
+  if (discount === 0) {
+      return ''
+  }
+
+  return `<span class="text-orange-500 text-l-xl">${comma(discount)}%</span>`
+}
+
+const get프라이스_템플릿 = (productData) => {
+  const { discount, price } = productData;
+
+  if (discount === 0) {
+    return ''
+  }
+
+  return `<del class="text-gray-300 text-p-base">${comma(price)}원</del>`
+}
+
+const get적립률_템플릿 = (isAuth) => {
+  if (isAuth) {
+    return '최대 36원 적립 일반 0.1%'
+  }
+
+  return  '로그인 후 회원 등급에 따라 적립'
+}
+
+const get가격_템플릿 = (productData) => {
+  const { discount, price } = productData;
+
+  if (discount === 0) {
+    return ''
+  }
+
+  return `<del class="text-gray-300 text-p-base">${comma(price)}원</del>`
+}
 
 async function renderProductData() {
   const {
     name,
     detail,
-    price,
     seller,
     origin,
     alergy,
     weight,
-    discount,
     unit,
     packageType,
     detailImgAlt,
     thumbImgAlt,
   } = productData;
   const isAuth = await getStorage('auth');
-  const discountPrice =
-    Math.floor((price - price * (discount * 0.01)) / 10) * 10;
-  const reward = Math.round(discountPrice * 0.0005);
-  const rewardMessage = isAuth
-    ? `구매 시 ${reward}원 적립`
-    : '로그인 후, 적립 혜택 제공';
+  const discountPrice = getDiscountPrice();
+  const rewardMessage = getRewardMessage(isAuth, productData);
   // 상세정보 이미지 배열
   const detailImgArr = getPbImagesURL(productData, 'detailImg');
   // 상세정보 이미지 파일명 배열
@@ -146,31 +194,14 @@ async function renderProductData() {
             </div>
             <div>
               <div>
-              ${
-                discount === 0
-                  ? ``
-                  : `<span class="text-orange-500 text-l-xl">${comma(
-                      discount
-                    )}%</span>`
-              }
+              ${get디스카운트_템플릿(productData)}
                 <span class="text-l-xl ml-1">${comma(discountPrice)}</span>
                 <span class="text-h-base">원</span>
               </div>
-              ${
-                discount === 0
-                  ? ``
-                  : `<del class="text-gray-300 text-p-base">${comma(
-                      price
-                    )}원</del>`
-              }
-
+              ${get프라이스_템플릿(productData)}
             </div>
             <span class="text-l-base text-primary"
-              >${
-                isAuth
-                  ? '최대 36원 적립 일반 0.1%'
-                  : '로그인 후 회원 등급에 따라 적립'
-              }</span
+              >${get적립률_템플릿(productData)}</span
             >
             <ul class="box-border pb-12 ">
               <li class="flex border-y border-gray-100 py-4">
@@ -261,13 +292,7 @@ async function renderProductData() {
                     </div>
                   </div>
                   <div class="absolute bottom-2 right-2">
-                  ${
-                    discount === 0
-                      ? ``
-                      : `<del class="text-gray-300 text-p-base
-                      ">${comma(price)}원</del>`
-                  }
-    
+                  ${get가격_템플릿(productData)}
                   <span class="">${comma(discountPrice)}원</span>
                   </div>
                 </dd>
@@ -393,14 +418,23 @@ async function renderProductData() {
 
   // 클릭시 좋아요
   const squreButton = getNode('.squre');
-  const viewBox1 = '0 64 56 184';
-  const viewBox2 = '0 0 56 184';
+
+
+
+  const getViewBox = (svg) => {
+    const currentViewBox = svg.getAttribute('viewBox');
+    const viewBox1 = '0 64 56 184';
+    const viewBox2 = '0 0 56 184';
+    if (currentViewBox === viewBox1) {
+      return viewBox2;
+    }
+    return viewBox1;
+  }
 
   squreButton.addEventListener('click', function () {
     if (isAuth) {
       const svg = this.querySelector('.squre__icon');
-      const currentViewBox = svg.getAttribute('viewBox');
-      const newViewBox = currentViewBox === viewBox1 ? viewBox2 : viewBox1;
+      const newViewBox = getViewBox(svg);
 
       svg.setAttribute('viewBox', newViewBox);
     } else {

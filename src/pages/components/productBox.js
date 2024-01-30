@@ -9,6 +9,27 @@ const { id, name, price, discount, detail, isKarlyOnly, isLimited } =
   productData;
 
 const body = getNode('body');
+const get디스카운트_템플릿 = (discount) => {
+    if (discount === 0) {
+        return ''
+    }
+
+    return `<p class="text-l-lg text-accent-yellow">${discount}<span>%</span></p>`;
+}
+const get컬리온리_템플릿 = (isKarlyOnly) => {
+    if (isKarlyOnly) {
+        return `<span class="rounded bg-gray-100 p-1 text-l-sm text-primary">Karly Only</span>`
+    }
+
+    return ''
+}
+const get리미티드_템플릿 = (isLimited) => {
+    if (isLimited) {
+        return `<span class="rounded bg-gray-100 p-1 text-l-sm text-content">한정수량</span>`
+    }
+
+    return ''
+}
 const template = /*html*/ `
   <div class="w-productBox-width h-productBox-height">
     <a href="/src/pages/detail/index.html#${id}" class="a__product">
@@ -24,11 +45,7 @@ const template = /*html*/ `
           <span class="text-l-sm text-gray-400">샛별배송</span>
           <p class="text-p-base text-content">${name}</p>
           <div class="flex gap-2">
-            ${
-              discount === 0
-                ? ``
-                : `<p class="text-l-lg text-accent-yellow">${discount}<span>%</span></p>`
-            }
+            ${get디스카운트_템플릿(discount)}
             <p class="text-l-lg text-content">${comma(
               Math.floor((price - price * (discount * 0.01)) / 10) * 10
             )} <span>원</span></p>
@@ -38,20 +55,8 @@ const template = /*html*/ `
           )} 원</span>
           <p class="text-p-sm text-gray-400">${detail}</p>
           <div class="flex gap-2">
-            ${
-              isKarlyOnly
-                ? `<span class="rounded bg-gray-100 p-1 text-l-sm text-primary"
-              >Karly Only</span
-              >`
-                : ``
-            }
-            ${
-              isLimited
-                ? `<span class="rounded bg-gray-100 p-1 text-l-sm text-content"
-                >한정수량</span
-              >`
-                : ``
-            }
+            ${get컬리온리_템플릿(isKarlyOnly)}
+            ${get리미티드_템플릿(isLimited)}
           </div>
         </div>
         <button
