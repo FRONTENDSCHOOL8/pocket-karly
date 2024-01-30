@@ -22,7 +22,12 @@ module.exports = {
   },
   plugins: ['import'],
   rules: {
-    'prefer-const': 'warn',
+    // else 사용 금지
+    'no-else-return': 'error',
+    // 삼항연산자 사용 금지
+    'no-ternary': 'error',
+    // const 사용 강제
+    'prefer-const': 'error',
     'no-var': 'error',
     'no-new-object': 'error',
     'object-shorthand': 'error',
